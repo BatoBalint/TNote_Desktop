@@ -1,0 +1,44 @@
+.root {
+    -fx-padding: 10px;
+    -fx-background-color: grey;
+}
+
+.label {
+    -fx-font-size: 120%;
+}
+
+.inputVbox {
+    -fx-end-margin: 20px;
+}
+
+.inputLabel {
+    -fx-text-fill: white;
+}
+
+.reglogInputContainer {
+    -fx-padding: 10px;
+    -fx-spacing: 20px;
+    -fx-background-radius: 3px;
+}
+
+.reglogInputContainer, .reglogInputContainer .label {
+    -fx-background-color: #272f40;
+}
+
+.button {
+    -fx-background-color: white;
+}
+
+.regLogBtnContainer {
+    -fx-background-color: #272f40;
+}
+
+#regBtn {
+    -fx-background-radius: 5 5 0 0;
+    -fx-text-fill: white;
+}
+
+#loginBtn {
+    -fx-background-radius: 5 5 0 0;
+    -fx-text-fill: white;
+}
