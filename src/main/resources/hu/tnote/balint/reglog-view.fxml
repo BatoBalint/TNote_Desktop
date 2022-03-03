@@ -3,13 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="rootContainer" alignment="CENTER" maxHeight="400" maxWidth="600" prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.RegLogController">
-    <VBox>
-        <HBox fx:id="regLogBtnContainer" maxWidth="200">
+<VBox fx:id="rootContainer" alignment="CENTER"
+      xmlns="http://javafx.com/javafx/11.0.2"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="hu.tnote.balint.Controllers.RegLogController" styleClass="test">
+    <VBox alignment="CENTER" maxWidth="200" prefWidth="200" styleClass="fullInputContainer">
+        <HBox fx:id="regLogBtnContainer" prefWidth="200" maxWidth="200">
             <Button fx:id="regBtn" styleClass="regOrLogBtn" text="Regisztráció" textAlignment="CENTER" />
             <Button fx:id="loginBtn" styleClass="regOrLogBtn" text="Bejelentkezés" textAlignment="CENTER" />
         </HBox>
-        <VBox maxWidth="200" prefWidth="200" styleClass="reglogInputContainer">
+        <VBox styleClass="inputContainer">
             <VBox styleClass="inputVbox">
                 <Label styleClass="inputLabel" text="Név" />
                 <TextField prefWidth="200" />

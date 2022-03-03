@@ -1,12 +1,14 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.App;
-import hu.tnote.balint.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.util.prefs.Preferences;
@@ -15,8 +17,6 @@ public class MainController {
 
     @FXML
     private VBox rootContainer;
-    @FXML
-    private Label dataLabel;
     Preferences pref;
     private String PAT;
 

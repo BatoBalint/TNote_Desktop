@@ -15,13 +15,18 @@
     -fx-text-fill: white;
 }
 
-.reglogInputContainer {
+.inputContainer {
     -fx-padding: 10px;
     -fx-spacing: 20px;
-    -fx-background-radius: 3px;
+    -fx-background-radius: 0 5 5 5;
 }
 
-.reglogInputContainer, .reglogInputContainer .label {
+.fullInputContainer {
+    -fx-background-radius: 5;
+    -fx-background-color: #1d2631;
+}
+
+.inputContainer, .inputContainer .label {
     -fx-background-color: #272f40;
 }
 
@@ -29,16 +34,20 @@
     -fx-background-color: white;
 }
 
-.regLogBtnContainer {
-    -fx-background-color: #272f40;
+.regOrLogBtn {
+    -fx-text-fill: white;
 }
 
 #regBtn {
     -fx-background-radius: 5 5 0 0;
-    -fx-text-fill: white;
+    -fx-background-color: #272f40;
 }
 
 #loginBtn {
-    -fx-background-radius: 5 5 0 0;
-    -fx-text-fill: white;
+    -fx-background-radius: 5 5 0 5;
+    -fx-background-color: #1d2631;
+}
+
+.test {
+    -fx-background-color: black;
 }
