@@ -38,11 +38,6 @@ public class MainController {
         }
     }
 
-    @FXML
-    public void regLogBtnClick() {
-
-    }
-
     private void alert(String text) {
         new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
     }
@@ -54,9 +49,7 @@ public class MainController {
     private void changeToRegLog() {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
-            VBox child = loader.load();
-            RegLogController controller = loader.getController();
-            controller.setParentController(this);
+            BorderPane child = loader.load();
             rootContainer.getChildren().setAll(child);
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,8 +59,6 @@ public class MainController {
     private void changeToDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard.fxml")).load();
-            RegLogController controller = loader.getController();
-            controller.setParentController(this);
             VBox child = loader.load();
             rootContainer.getChildren().setAll(child);
         } catch (Exception e) {

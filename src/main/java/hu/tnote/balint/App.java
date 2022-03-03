@@ -12,12 +12,14 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         String css = App.class.getResource("/app.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setTitle("TNote");
         stage.setScene(scene);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
         stage.show();
     }
 

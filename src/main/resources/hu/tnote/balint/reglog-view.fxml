@@ -3,31 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="rootContainer" alignment="CENTER"
-      xmlns="http://javafx.com/javafx/11.0.2"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="hu.tnote.balint.Controllers.RegLogController" styleClass="test">
-    <VBox alignment="CENTER" maxWidth="200" prefWidth="200" styleClass="fullInputContainer">
-        <HBox fx:id="regLogBtnContainer" prefWidth="200" maxWidth="200">
-            <Button fx:id="regBtn" styleClass="regOrLogBtn" text="Regisztráció" textAlignment="CENTER" />
-            <Button fx:id="loginBtn" styleClass="regOrLogBtn" text="Bejelentkezés" textAlignment="CENTER" />
-        </HBox>
-        <VBox styleClass="inputContainer">
-            <VBox styleClass="inputVbox">
-                <Label styleClass="inputLabel" text="Név" />
-                <TextField prefWidth="200" />
-            </VBox>
-            <VBox styleClass="inputVbox">
-                <Label styleClass="inputLabel" text="Email" />
-                <TextField prefWidth="200" />
-            </VBox>
-            <VBox styleClass="inputVbox">
-                <Label styleClass="inputLabel" text="Jelszó" />
-                <TextField prefWidth="200" />
-            </VBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Button onAction="#backBtnClick" text="Back" />
-            </HBox>
-        </VBox>
-    </VBox>
-</VBox>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.ReglogController">
+   <center>
+      <VBox fillWidth="false" maxHeight="300.0" maxWidth="200.0" prefHeight="300.0" prefWidth="200.0" styleClass="centerContainer" BorderPane.alignment="CENTER">
+         <HBox fx:id="regLogBtnHbox" prefWidth="200.0" styleClass="regLogBtnContainer">
+            <Button fx:id="regBtn" alignment="CENTER" mnemonicParsing="false" text="Regisztráció" />
+            <Button fx:id="loginBtn" alignment="CENTER" mnemonicParsing="false" text="Bejelentkezés" />
+         </HBox>
+         <VBox styleClass="formContainer">
+            <children>
+               <VBox prefHeight="250.0" styleClass="inputsContainer">
+                  <children>
+                     <VBox prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  </children>
+               </VBox>
+               <HBox alignment="CENTER_RIGHT" prefWidth="200.0" styleClass="submitBtnContainer">
+                  <Button fx:id="submitBtn" mnemonicParsing="false" text="Button" />
+               </HBox>
+            </children>
+         </VBox>
+      </VBox>
+   </center>
+</BorderPane>

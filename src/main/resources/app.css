@@ -1,40 +1,18 @@
+* {
+ -fx-BGColor: #03041A;
+ -fx-secondaryBGColor: #190333;
+}
+
 .root {
     -fx-padding: 10px;
-    -fx-background-color: grey;
+    -fx-background-color: -fx-BGColor;
 }
 
 .label {
     -fx-font-size: 120%;
 }
 
-.inputVbox {
-    -fx-end-margin: 20px;
-}
-
-.inputLabel {
-    -fx-text-fill: white;
-}
-
-.inputContainer {
-    -fx-padding: 10px;
-    -fx-spacing: 20px;
-    -fx-background-radius: 0 5 5 5;
-}
-
-.fullInputContainer {
-    -fx-background-radius: 5;
-    -fx-background-color: #1d2631;
-}
-
-.inputContainer, .inputContainer .label {
-    -fx-background-color: #272f40;
-}
-
 .button {
-    -fx-background-color: white;
-}
-
-.regOrLogBtn {
     -fx-text-fill: white;
 }
 
@@ -46,6 +24,18 @@
 #loginBtn {
     -fx-background-radius: 5 5 0 5;
     -fx-background-color: #1d2631;
+}
+
+#submitBtn {
+    -fx-background-color: #00b600;
+}
+
+.regLogBtnContainer {
+
+}
+
+.formContainer {
+    -fx-background-color: linear-gradient(from 50% 49% to 50% 50%, -fx-BGColor, -fx-secondaryBGColor)
 }
 
 .test {
