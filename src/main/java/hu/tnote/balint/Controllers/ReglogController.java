@@ -65,7 +65,7 @@ public class ReglogController {
 
     @FXML
     public void submitBtnClick() {
-        test();
+        alert((regSelected) ? "reg selected" : "login selected");
     }
 
     public void regBtnSelected() {
@@ -117,6 +117,6 @@ public class ReglogController {
     }
 
     private void test() {
-        alert((regSelected) ? "reg selected" : "login selected");
+        alert("test");
     }
 }
