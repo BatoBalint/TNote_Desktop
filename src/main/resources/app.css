@@ -36,6 +36,7 @@
 
 .submitBtn {
     -fx-background-color: #00b600;
+    -fx-font-weight: bold;
 }
 
 .regLogBtnContainer {

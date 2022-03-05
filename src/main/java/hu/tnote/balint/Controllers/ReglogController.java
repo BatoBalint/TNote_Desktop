@@ -69,6 +69,8 @@ public class ReglogController {
     }
 
     public void regBtnSelected() {
+        submitBtn.setText("Regisztráció");
+
         nameContainer.setVisible(true);
         nameContainer.setManaged(true);
         passwordAgainContainer.setVisible(true);
@@ -89,6 +91,8 @@ public class ReglogController {
     }
 
     public void loginBtnSelected() {
+        submitBtn.setText("Bejelentkezés");
+
         nameContainer.setVisible(false);
         nameContainer.setManaged(false);
         passwordAgainContainer.setVisible(false);
