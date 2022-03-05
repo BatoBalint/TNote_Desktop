@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class ReglogController {
 
@@ -19,6 +22,22 @@ public class ReglogController {
     private HBox regLogBtnHbox;
 
     private boolean regSelected;
+    @FXML
+    private VBox nameContainer;
+    @FXML
+    private VBox emailContainer;
+    @FXML
+    private VBox passwordContainer;
+    @FXML
+    private VBox passwordAgainContainer;
+    @FXML
+    private TextField nameInput;
+    @FXML
+    private TextField emailInput;
+    @FXML
+    private TextField passwordInput;
+    @FXML
+    private TextField passwordAgainInput;
 
     public void initialize() {
         uiInit();
@@ -50,6 +69,11 @@ public class ReglogController {
     }
 
     public void regBtnSelected() {
+        nameContainer.setVisible(true);
+        nameContainer.setManaged(true);
+        passwordAgainContainer.setVisible(true);
+        passwordAgainContainer.setManaged(true);
+
         regBtn.getStyleClass().removeAll("regBtn");
         regBtn.getStyleClass().removeAll("roundTRB");
         loginBtn.getStyleClass().removeAll("loginBtnSelected");
@@ -65,6 +89,11 @@ public class ReglogController {
     }
 
     public void loginBtnSelected() {
+        nameContainer.setVisible(false);
+        nameContainer.setManaged(false);
+        passwordAgainContainer.setVisible(false);
+        passwordAgainContainer.setManaged(false);
+
         loginBtn.getStyleClass().removeAll("loginBtn");
         loginBtn.getStyleClass().removeAll("roundTRL");
         regBtn.getStyleClass().removeAll("regBtnSelected");

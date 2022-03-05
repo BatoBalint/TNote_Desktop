@@ -4,7 +4,6 @@
     -fx-thirdBGColor: hsb(270, 100%, 20%);
 }
 
-
 .root {
     -fx-padding: 10px;
     -fx-background-color: -fx-BGColor;
@@ -12,6 +11,7 @@
 
 .label {
     -fx-font-size: 120%;
+    -fx-text-fill: white;
 }
 
 .button {
@@ -45,6 +45,14 @@
 .formContainer {
     -fx-background-color: -fx-secondaryBGColor;
     -fx-padding: 10 10 10 10;
+}
+
+.innerInputContainer {
+    -fx-spacing: 10;
+}
+
+.invisible {
+    visibility: false;
 }
 
 /*region Roundings */

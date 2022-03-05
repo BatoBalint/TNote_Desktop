@@ -21,22 +21,28 @@
                   <children>
                      <VBox styleClass="innerInputContainer" VBox.vgrow="ALWAYS">
                         <children>
-                           <VBox styleClass="singleInputContainer">
+                           <VBox fx:id="nameContainer" styleClass="singleInputContainer">
                               <children>
                                  <Label text="Name" />
                                  <TextField fx:id="nameInput" />
                               </children>
                            </VBox>
-                           <VBox layoutX="10.0" layoutY="10.0">
+                           <VBox fx:id="emailContainer" layoutX="10.0" layoutY="10.0">
                               <children>
                                  <Label text="Email" />
-                                 <TextField fx:id="nameInput1" />
+                                 <TextField fx:id="emailInput" />
                               </children>
                            </VBox>
-                           <VBox layoutX="10.0" layoutY="52.0">
+                           <VBox fx:id="passwordContainer" layoutX="10.0" layoutY="52.0">
                               <children>
                                  <Label text="Password" />
-                                 <TextField fx:id="nameInput11" />
+                                 <TextField fx:id="passwordInput" />
+                              </children>
+                           </VBox>
+                           <VBox fx:id="passwordAgainContainer" layoutX="10.0" layoutY="94.0">
+                              <children>
+                                 <Label text="Password again" />
+                                 <TextField fx:id="passwordAgainInput" />
                               </children>
                            </VBox>
                         </children></VBox>
