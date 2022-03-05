@@ -1,7 +1,9 @@
 * {
- -fx-BGColor: #03041A;
- -fx-secondaryBGColor: #190333;
+    -fx-BGColor: hsb(270, 100%, 10%);
+    -fx-secondaryBGColor: hsb(270, 100%, 30%);
+    -fx-thirdBGColor: hsb(270, 100%, 20%);
 }
+
 
 .root {
     -fx-padding: 10px;
@@ -16,28 +18,67 @@
     -fx-text-fill: white;
 }
 
-#regBtn {
-    -fx-background-radius: 5 5 0 0;
-    -fx-background-color: #272f40;
+.regBtn {
+    -fx-background-color: -fx-thirdBGColor;
 }
 
-#loginBtn {
-    -fx-background-radius: 5 5 0 5;
-    -fx-background-color: #1d2631;
+.loginBtn {
+    -fx-background-color: -fx-thirdBGColor;
 }
 
-#submitBtn {
+.regBtnSelected {
+    -fx-background-color: -fx-secondaryBGColor;
+}
+
+.loginBtnSelected {
+    -fx-background-color: -fx-secondaryBGColor;
+}
+
+.submitBtn {
     -fx-background-color: #00b600;
 }
 
 .regLogBtnContainer {
-
+    -fx-background-color: linear-gradient(from 50% 50% to 50% 49%, -fx-secondaryBGColor, -fx-thirdBGColor);
 }
 
 .formContainer {
-    -fx-background-color: linear-gradient(from 50% 49% to 50% 50%, -fx-BGColor, -fx-secondaryBGColor)
+    -fx-background-color: -fx-secondaryBGColor;
+    -fx-padding: 10 10 10 10;
 }
 
-.test {
-    -fx-background-color: black;
+/*region Roundings */
+
+.roundT {
+    -fx-background-radius: 10 0 0 0;
 }
+
+.roundR {
+    -fx-background-radius: 0 10 0 0;
+}
+
+.roundB {
+    -fx-background-radius: 0 0 10 0;
+}
+
+.roundL {
+    -fx-background-radius: 0 0 0 10;
+}
+
+.roundTR {
+    -fx-background-radius: 10 10 0 0;
+}
+
+.roundBL {
+    -fx-background-radius: 0 0 10 10;
+}
+
+.roundTRL {
+    -fx-background-radius: 10 10 0 10;
+}
+
+.roundTRB {
+    -fx-background-radius: 10 10 10 0;
+}
+
+/*endregion*/

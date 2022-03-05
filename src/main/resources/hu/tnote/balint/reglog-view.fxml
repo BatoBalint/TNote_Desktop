@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.ReglogController">
    <center>
       <VBox fillWidth="false" maxHeight="300.0" maxWidth="200.0" prefHeight="300.0" prefWidth="200.0" styleClass="centerContainer" BorderPane.alignment="CENTER">
-         <HBox fx:id="regLogBtnHbox" prefWidth="200.0" styleClass="regLogBtnContainer">
-            <Button fx:id="regBtn" alignment="CENTER" mnemonicParsing="false" text="Regisztráció" />
-            <Button fx:id="loginBtn" alignment="CENTER" mnemonicParsing="false" text="Bejelentkezés" />
+         <HBox fx:id="regLogBtnHbox" prefWidth="200.0">
+            <Button fx:id="regBtn" alignment="CENTER" mnemonicParsing="false" onAction="#regBtnClick" text="Regisztráció" />
+            <Button fx:id="loginBtn" alignment="CENTER" mnemonicParsing="false" onAction="#loginBtnClick" text="Bejelentkezés" />
+            <styleClass>
+               <String fx:value="regLogBtnContainer" />
+               <String fx:value="roundTR" />
+            </styleClass>
          </HBox>
-         <VBox styleClass="formContainer">
+         <VBox>
             <children>
-               <VBox prefHeight="250.0" styleClass="inputsContainer">
+               <VBox prefHeight="250.0" styleClass="outerInputContainer">
                   <children>
-                     <VBox prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     <VBox styleClass="innerInputContainer" VBox.vgrow="ALWAYS">
+                        <children>
+                           <VBox styleClass="singleInputContainer">
+                              <children>
+                                 <Label text="Name" />
+                                 <TextField fx:id="nameInput" />
+                              </children>
+                           </VBox>
+                           <VBox layoutX="10.0" layoutY="10.0">
+                              <children>
+                                 <Label text="Email" />
+                                 <TextField fx:id="nameInput1" />
+                              </children>
+                           </VBox>
+                           <VBox layoutX="10.0" layoutY="52.0">
+                              <children>
+                                 <Label text="Password" />
+                                 <TextField fx:id="nameInput11" />
+                              </children>
+                           </VBox>
+                        </children></VBox>
                   </children>
                </VBox>
                <HBox alignment="CENTER_RIGHT" prefWidth="200.0" styleClass="submitBtnContainer">
-                  <Button fx:id="submitBtn" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitBtnClick" styleClass="submitBtn" text="Regisztráció" />
                </HBox>
             </children>
+            <styleClass>
+               <String fx:value="formContainer" />
+               <String fx:value="roundBL" />
+            </styleClass>
          </VBox>
       </VBox>
    </center>
