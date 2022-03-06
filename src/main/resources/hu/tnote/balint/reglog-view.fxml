@@ -16,50 +16,46 @@
             </styleClass>
          </HBox>
          <VBox>
-            <children>
-               <VBox prefHeight="250.0" styleClass="outerInputContainer">
-                  <children>
-                     <VBox styleClass="innerInputContainer" VBox.vgrow="ALWAYS">
-                        <children>
-                           <VBox fx:id="nameContainer" styleClass="singleInputContainer">
-                              <children>
-                                 <Label text="Name" />
-                                 <TextField fx:id="nameInput" />
-                              </children>
-                           </VBox>
-                           <VBox fx:id="emailContainer" layoutX="10.0" layoutY="10.0">
-                              <children>
-                                 <Label text="Email" />
-                                 <TextField fx:id="emailInput" />
-                              </children>
-                           </VBox>
-                           <VBox fx:id="passwordContainer" layoutX="10.0" layoutY="52.0">
-                              <children>
-                                 <Label text="Password" />
-                                 <TextField fx:id="passwordInput" />
-                              </children>
-                           </VBox>
-                           <VBox fx:id="passwordAgainContainer" layoutX="10.0" layoutY="94.0">
-                              <children>
-                                 <Label text="Password again" />
-                                 <TextField fx:id="passwordAgainInput" />
-                              </children>
-                           </VBox>
-                        </children></VBox>
-                  </children>
-               </VBox>
-               <HBox alignment="CENTER_RIGHT" prefWidth="200.0" styleClass="submitBtnContainer">
-                  <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitBtnClick" text="Regisztráció">
-                     <styleClass>
-                        <String fx:value="submitBtn" />
-                        <String fx:value="primaryTextColor" />
-                     </styleClass></Button>
-               </HBox>
-            </children>
             <styleClass>
                <String fx:value="formContainer" />
                <String fx:value="roundBL" />
             </styleClass>
+            <VBox prefHeight="250.0" styleClass="outerInputContainer">
+               <VBox styleClass="innerInputContainer" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="nameContainer" styleClass="singleInputContainer">
+                     <Label text="Name" />
+                     <TextField fx:id="nameInput" />
+                  </VBox>
+                  <VBox fx:id="emailContainer" layoutX="10.0" layoutY="10.0">
+                     <Label text="Email" />
+                     <TextField fx:id="emailInput" />
+                  </VBox>
+                  <VBox fx:id="passwordContainer" layoutX="10.0" layoutY="52.0">
+                     <Label text="Password" />
+                     <HBox prefWidth="200.0">
+                        <children>
+                           <TextField fx:id="passwordInputText" />
+                           <PasswordField fx:id="passwordInputDots" />
+                        </children>
+                     </HBox>
+                  </VBox>
+                  <VBox fx:id="passwordAgainContainer" layoutX="10.0" layoutY="94.0">
+                     <Label text="Password again" />
+                     <HBox prefWidth="200.0">
+                        <TextField fx:id="passwordAgainInputText" />
+                        <PasswordField fx:id="passwordAgainInputDots" />
+                     </HBox>
+                  </VBox>
+               </VBox>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" prefWidth="200.0" styleClass="submitBtnContainer">
+               <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitBtnClick" text="Regisztráció">
+                  <styleClass>
+                     <String fx:value="submitBtn" />
+                     <String fx:value="primaryTextColor" />
+                  </styleClass>
+               </Button>
+            </HBox>
          </VBox>
       </VBox>
    </center>
