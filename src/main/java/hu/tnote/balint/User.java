@@ -1,5 +1,7 @@
 package hu.tnote.balint;
 
+import java.util.prefs.Preferences;
+
 public class User {
     private static int ID = -1;
     private static String NAME;
@@ -36,6 +38,8 @@ public class User {
     }
 
     public static void setToken(String token) {
+        Preferences.userRoot().remove("TNotePAT");
+        Preferences.userRoot().put("TNotePAT", token);
         User.PAT = token;
     }
 
@@ -45,5 +49,9 @@ public class User {
         ID = id;
         NAME = name;
         EMAIL = email;
+    }
+
+    public static String asString() {
+        return String.format("%3d: %-16s %s", getId(), getName(), getEmail());
     }
 }

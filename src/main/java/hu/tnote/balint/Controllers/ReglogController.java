@@ -1,19 +1,11 @@
 package hu.tnote.balint.Controllers;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 
 public class ReglogController {
 
@@ -55,12 +47,6 @@ public class ReglogController {
         showPassword = new SimpleBooleanProperty();
         showPassword.set(false);
 
-        try {
-            Api.getNotes();
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-
         uiInit();
 
         regBtnSelected();
@@ -98,10 +84,69 @@ public class ReglogController {
 
     @FXML
     public void submitBtnClick() {
-        //String text = String.format("Name: %s\nEmail: %s\nPass: %s", nameInput.getText(), emailInput.getText(), passwordInputText.getText());
-        //alert((regSelected) ? "reg selected" : "login selected");
-        //alert(text);
-        showPassword.set(!showPassword.get());
+        if (regSelected) {
+            String name = nameInput.getText().trim();
+            String email = emailInput.getText().trim();
+            String pass = passwordInputText.getText().trim();
+            String passAgain = passwordAgainInputText.getText().trim();
+            String nameError = "";
+            String emailError = "";
+            String passError= "";
+
+            if (name.isEmpty()) {
+                nameError = "A név nem lehet üres.";
+            } else if (name.length() < 5) {
+                nameError = "A névnek legalább 5 karakternek kell lennie.";
+            } else if (name.length() > 255) {
+                nameError = "A név nem lehet hosszabb 255 karakternél.";
+            }
+
+            if (email.isEmpty()) {
+                emailError = "Az email nem lehet üres.";
+            } else if (!emailFormatCheck(email)) {
+                emailError = "Az email nem jó formátúmú.";
+            }
+
+            if (pass.isEmpty()) {
+                passError = "A jelszó nem lehet üres.";
+            } else if (pass.length() < 8) {
+                passError = "A jelszónak elegalább 8 karakternek kell lennie.";
+            } else if (!pass.equals(passAgain)) {
+                passError = "A két jelszó nem egyezik meg.";
+            }
+
+            if (nameError.isEmpty() && emailError.isEmpty() && passError.isEmpty()) {
+                try {
+                    Api.register(name, email, pass);
+                    clearInputs();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                nameError = (nameError.isEmpty()) ? "" : nameError + "\n";
+                emailError = (emailError.isEmpty()) ? "" : emailError + "\n";
+                passError = (passError.isEmpty()) ? "" : passError + "\n";
+                alert(nameError + emailError + passError);
+            }
+        }
+
+    }
+
+    private boolean emailFormatCheck(String email) {
+        String[] split = email.split("@");
+        if (split.length != 2 || split[0].length() == 0) return false;
+
+        String[] split2 = split[1].split("\\.");
+        if (split2.length != 2) return false;
+
+        return split2[0].length() >= 1 && split2[1].length() >= 1;
+    }
+
+    private void clearInputs() {
+        nameInput.setText("");
+        emailInput.setText("");
+        passwordInputText.setText("");
+        passwordAgainInputText.setText("");
     }
 
     //mainly styles
@@ -165,6 +210,7 @@ public class ReglogController {
         }
     }
 
+    //region Fot tests
     private void alert(String text) {
         new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
     }
@@ -172,4 +218,5 @@ public class ReglogController {
     private void test() {
         alert("test");
     }
+    //endregion
 }
