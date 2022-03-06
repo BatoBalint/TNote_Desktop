@@ -49,7 +49,11 @@
                   </children>
                </VBox>
                <HBox alignment="CENTER_RIGHT" prefWidth="200.0" styleClass="submitBtnContainer">
-                  <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitBtnClick" styleClass="submitBtn" text="Regisztráció" />
+                  <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitBtnClick" text="Regisztráció">
+                     <styleClass>
+                        <String fx:value="submitBtn" />
+                        <String fx:value="primaryTextColor" />
+                     </styleClass></Button>
                </HBox>
             </children>
             <styleClass>

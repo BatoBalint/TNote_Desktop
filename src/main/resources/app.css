@@ -2,6 +2,8 @@
     -fx-BGColor: hsb(270, 100%, 10%);
     -fx-secondaryBGColor: hsb(270, 100%, 30%);
     -fx-thirdBGColor: hsb(270, 100%, 20%);
+    -fx-textColor: white;
+    -fx-secondaryTextColor: grey;
 }
 
 .root {
@@ -11,11 +13,7 @@
 
 .label {
     -fx-font-size: 120%;
-    -fx-text-fill: white;
-}
-
-.button {
-    -fx-text-fill: white;
+    -fx-text-fill: -fx-textColor;
 }
 
 .regBtn {
@@ -37,6 +35,14 @@
 .submitBtn {
     -fx-background-color: #00b600;
     -fx-font-weight: bold;
+}
+
+.primaryTextColor {
+    -fx-text-fill: -fx-textColor;
+}
+
+.secondaryTextColor {
+    -fx-text-fill: -fx-secondaryTextColor;
 }
 
 .regLogBtnContainer {

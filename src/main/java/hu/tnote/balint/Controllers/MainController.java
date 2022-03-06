@@ -1,6 +1,7 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.App;
+import hu.tnote.balint.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -18,7 +19,7 @@ public class MainController {
     @FXML
     private VBox rootContainer;
     Preferences pref;
-    private String PAT;
+    private String PAT; //Personal access token
 
     public void initialize() {
         pref = Preferences.userRoot();
@@ -30,6 +31,7 @@ public class MainController {
                 e.printStackTrace();
             }
         } else {
+            User.setToken(PAT);
             try {
                 changeToDashboard();
             } catch (Exception e) {

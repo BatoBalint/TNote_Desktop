@@ -1,17 +1,14 @@
 package hu.tnote.balint.Controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class ReglogController {
 
+    //region FXML variables
     @FXML
     private Button loginBtn;
     @FXML
@@ -20,8 +17,6 @@ public class ReglogController {
     private Button regBtn;
     @FXML
     private HBox regLogBtnHbox;
-
-    private boolean regSelected;
     @FXML
     private VBox nameContainer;
     @FXML
@@ -38,11 +33,13 @@ public class ReglogController {
     private TextField passwordInput;
     @FXML
     private TextField passwordAgainInput;
+    //endregion
+
+    private boolean regSelected;
 
     public void initialize() {
         uiInit();
 
-        regSelected = false;
         regBtnSelected();
     }
 
@@ -65,7 +62,9 @@ public class ReglogController {
 
     @FXML
     public void submitBtnClick() {
-        alert((regSelected) ? "reg selected" : "login selected");
+        String text = String.format("Name: %s\nEmail: %s\nPass: %s", nameInput.getText(), emailInput.getText(), passwordInput.getText());
+        //alert((regSelected) ? "reg selected" : "login selected");
+        alert(text);
     }
 
     public void regBtnSelected() {
@@ -78,14 +77,20 @@ public class ReglogController {
 
         regBtn.getStyleClass().removeAll("regBtn");
         regBtn.getStyleClass().removeAll("roundTRB");
-        loginBtn.getStyleClass().removeAll("loginBtnSelected");
-        loginBtn.getStyleClass().removeAll("roundTR");
+        regBtn.getStyleClass().removeAll("secondaryTextColor");
 
         regBtn.getStyleClass().add("regBtnSelected");
         regBtn.getStyleClass().add("roundTR");
+        regBtn.getStyleClass().add("primaryTextColor");
+
+        loginBtn.getStyleClass().removeAll("loginBtnSelected");
+        loginBtn.getStyleClass().removeAll("roundTR");
+        loginBtn.getStyleClass().removeAll("primaryTextColor");
 
         loginBtn.getStyleClass().add("loginBtn");
         loginBtn.getStyleClass().add("roundTRL");
+        loginBtn.getStyleClass().add("secondaryTextColor");
+
 
         regSelected = true;
     }
@@ -100,14 +105,19 @@ public class ReglogController {
 
         loginBtn.getStyleClass().removeAll("loginBtn");
         loginBtn.getStyleClass().removeAll("roundTRL");
-        regBtn.getStyleClass().removeAll("regBtnSelected");
-        regBtn.getStyleClass().removeAll("roundTR");
+        loginBtn.getStyleClass().removeAll("secondaryTextColor");
 
         loginBtn.getStyleClass().add("loginBtnSelected");
         loginBtn.getStyleClass().add("roundTR");
+        loginBtn.getStyleClass().add("primaryTextColor");
+
+        regBtn.getStyleClass().removeAll("regBtnSelected");
+        regBtn.getStyleClass().removeAll("roundTR");
+        regBtn.getStyleClass().removeAll("primaryTextColor");
 
         regBtn.getStyleClass().add("regBtn");
         regBtn.getStyleClass().add("roundTRB");
+        regBtn.getStyleClass().add("secondaryTextColor");
 
         regSelected = false;
     }
