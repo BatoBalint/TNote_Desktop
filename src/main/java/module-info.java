@@ -2,6 +2,7 @@ module hu.tnote.balint.tnote {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.prefs;
+    requires json.simple;
 
     opens hu.tnote.balint to javafx.fxml;
     exports hu.tnote.balint;

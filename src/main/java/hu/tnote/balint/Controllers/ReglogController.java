@@ -11,6 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 
 public class ReglogController {
 
@@ -51,6 +54,12 @@ public class ReglogController {
     public void initialize() {
         showPassword = new SimpleBooleanProperty();
         showPassword.set(false);
+
+        try {
+            Api.getNotes();
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
 
         uiInit();
 
