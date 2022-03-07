@@ -40,6 +40,7 @@ public class ReglogController {
     private TextField passwordInputText;
     //endregion
 
+    private MainController parentController;
     private boolean regSelected;
     private SimpleBooleanProperty showPassword;
 
@@ -50,6 +51,11 @@ public class ReglogController {
         uiInit();
 
         regBtnSelected();
+    }
+
+    public void setParentController(MainController mainController) {
+        parentController = mainController;
+        System.out.println((parentController != null) ? "not null" : "null");
     }
 
     private void uiInit() {
@@ -128,8 +134,9 @@ public class ReglogController {
                 passError = (passError.isEmpty()) ? "" : passError + "\n";
                 alert(nameError + emailError + passError);
             }
-        }
+        } else {
 
+        }
     }
 
     private boolean emailFormatCheck(String email) {
@@ -211,7 +218,7 @@ public class ReglogController {
     }
 
     //region Fot tests
-    private void alert(String text) {
+    public void alert(String text) {
         new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
     }
 

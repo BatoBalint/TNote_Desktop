@@ -1,5 +1,6 @@
 package hu.tnote.balint;
 
+import hu.tnote.balint.Controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         String css = App.class.getResource("/app.css").toExternalForm();
         scene.getStylesheets().add(css);
