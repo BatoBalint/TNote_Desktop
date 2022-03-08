@@ -15,14 +15,13 @@ import java.util.prefs.Preferences;
 public class MainController {
 
     @FXML
-    private Preferences prefs;
     private VBox rootContainer;
-    private String PAT; //Personal access token
+
     private boolean rememberLogin;
 
     public void initialize() {
-        prefs = Preferences.userRoot();
-        PAT = prefs.get("TNotePAT", "");
+        Preferences prefs = Preferences.userRoot();
+        String PAT = prefs.get("TNotePAT", "");     //Personal access token
         rememberLogin = prefs.getBoolean("TNoteRememberLogin", false);
 
         rootContainer.getScene().getWindow().setOnCloseRequest(v -> {
