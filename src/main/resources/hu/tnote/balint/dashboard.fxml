@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="hu.tnote.balint.Controllers.DashboardController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label text="Label1" fx:id="nameLabel" />
-    <Label text="Label2" fx:id="idLabel" />
-    <Label text="Label3" fx:id="emailLabel" />
-</VBox>
+<BorderPane fx:id="container" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.DashboardController">
+   <left>
+      <VBox style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+          <Label fx:id="nameLabel" text="Label1" />
+          <Label fx:id="idLabel" text="Label2" />
+          <Label fx:id="emailLabel" text="Label3" />
+          <Button onAction="#logoutBtnClick" text="Logout" />
+      </VBox>
+   </left>
+   <top>
+      <HBox prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER_LEFT">
+         <children>
+            <Label text="Label" />
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

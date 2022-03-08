@@ -41,6 +41,11 @@ public class User {
         Preferences.userRoot().remove("TNotePAT");
         Preferences.userRoot().put("TNotePAT", token);
         User.PAT = token;
+        if (token.isEmpty()) {
+            Preferences.userRoot().remove("TNoteUserId");
+            Preferences.userRoot().remove("TNoteUserName");
+            Preferences.userRoot().remove("TNoteUserEmail");
+        }
     }
 
     //endregion
@@ -49,6 +54,9 @@ public class User {
         ID = id;
         NAME = name;
         EMAIL = email;
+        Preferences.userRoot().putInt("TNoteUserId", id);
+        Preferences.userRoot().put("TNoteUserName", name);
+        Preferences.userRoot().put("TNoteUserEmail", email);
     }
 
     public static String asString() {

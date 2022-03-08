@@ -4,12 +4,10 @@ import hu.tnote.balint.App;
 import hu.tnote.balint.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.prefs.Preferences;
 
@@ -20,7 +18,8 @@ public class MainController {
     private String PAT; //Personal access token
 
     public void initialize() {
-        PAT = Preferences.userRoot().get("TNotePATasd", "");
+        //Preferences.userRoot().remove("TNotePAT");
+        PAT = Preferences.userRoot().get("TNotePAT", "");
         if (PAT.isEmpty()) {
             try {
                 changeToRegLog();
@@ -29,6 +28,10 @@ public class MainController {
             }
         } else {
             User.setToken(PAT);
+            User.setUser(
+                    Preferences.userRoot().getInt("TNoteUserId", -1),
+                    Preferences.userRoot().get("TNoteUserName", ""),
+                    Preferences.userRoot().get("TNoteUserEmail", ""));
             try {
                 changeToDashboard();
             } catch (Exception e) {
@@ -53,14 +56,18 @@ public class MainController {
     public void changeToDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard.fxml"));
-            VBox child = loader.load();
+            BorderPane child = loader.load();
+            child.prefHeightProperty().bind(rootContainer.prefHeightProperty());
+            child.prefWidthProperty().bind(rootContainer.prefWidthProperty());
+            DashboardController dashboardController = loader.getController();
+            dashboardController.setParentController(this);
             rootContainer.getChildren().setAll(child);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void alert(String text) {
+    private void alert(String text) {
         new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
     }
 

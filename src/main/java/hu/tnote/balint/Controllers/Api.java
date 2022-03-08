@@ -12,26 +12,43 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class Api {
     private static final String BASE_URL = "http://localhost:8000/";
     private static final String API_URL = BASE_URL + "api/";
-    private static final String TEST_TOKEN = "1|Aytns2Ed1IOQL32weTcUEvCqyJBWcxv3XemQExkF";
+    private static final String TEST_TOKEN = "";
+
+    public static void logout() throws IOException {
+        HttpURLConnection conn = postConn("logout");
+        setBearer(conn, User.getToken());
+        conn.connect();
+
+        checkStatusCode(conn);
+        User.setToken("");
+    }
+
+    public static void login(String email, String password) throws IOException, ParseException {
+        HttpURLConnection conn = sendData("login", "", email, password);
+        checkStatusCode(conn);
+        processReceivedData(conn);
+    }
 
     public static void register(String name, String email, String password) throws IOException, ParseException {
-        HttpURLConnection conn = sendRegData(name, email, password);
+        HttpURLConnection conn = sendData("register", name, email, password);
+        checkStatusCode(conn);
+        processReceivedData(conn);
+    }
 
-        InputStreamReader is;
-        BufferedReader br;
-
+    private static void checkStatusCode(HttpURLConnection conn) throws IOException {
         int statusCode = conn.getResponseCode();
-        if (statusCode != 201) {
+        if (statusCode / 100 != 2) {
             StringBuilder s = new StringBuilder();
             s.append("Error in request:\n");
             s.append("Response code: ").append(statusCode).append("\n");
 
-            is = new InputStreamReader(conn.getErrorStream());
-            br = new BufferedReader(is);
+            InputStreamReader is = new InputStreamReader(conn.getErrorStream());
+            BufferedReader br = new BufferedReader(is);
 
             String line = br.readLine();
             while (line != null) {
@@ -42,25 +59,11 @@ public class Api {
             br.close();
             is.close();
             throw new RuntimeException(String.valueOf(s));
-        } else {
-            JSONObject regResponse = getJSONObject(conn);
-
-            String token = regResponse.get("token").toString();
-            System.out.println(token);
-
-            JSONObject user = getJSONObjectFromString(regResponse.get("user").toString());
-            String n = user.get("name").toString();
-            String e = user.get("email").toString();
-            int i = Integer.parseInt(user.get("id").toString());
-
-            User.setToken(token);
-            User.setUser(i, n, e);
-            System.out.println(User.asString());
         }
     }
 
-    private static HttpURLConnection sendRegData(String name, String email, String password) throws IOException {
-        HttpURLConnection conn = postConn("register");
+    private static HttpURLConnection sendData(String apiEndAddress, String name, String email, String password) throws IOException {
+        HttpURLConnection conn = postConn(apiEndAddress);
         conn.connect();
 
         JSONObject jsonObject = new JSONObject();
@@ -79,10 +82,25 @@ public class Api {
         return conn;
     }
 
+    private static void processReceivedData(HttpURLConnection conn) throws IOException, ParseException {
+        JSONObject regResponse = getJSONObject(conn);
+        String token = regResponse.get("token").toString();
+        System.out.println(token);
+        JSONObject user = getJSONObjectFromString(regResponse.get("user").toString());
+        String n = user.get("name").toString();
+        String e = user.get("email").toString();
+        int i = Integer.parseInt(user.get("id").toString());
+        User.setToken(token);
+        User.setUser(i, n, e);
+        System.out.println(User.asString());
+    }
+
     public static List<Note> getNotes() throws IOException, ParseException {
-        HttpURLConnection conn = getConn("notes");
-        setBearer(conn, "");
+        HttpURLConnection conn = getConn("users/" + User.getId() + "/notes");
+        setBearer(conn, User.getToken());
         conn.connect();
+
+        checkStatusCode(conn);
 
         int status = conn.getResponseCode();
 
