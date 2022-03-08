@@ -9,17 +9,32 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.prefs.Preferences;
 
 public class MainController {
 
     @FXML
+    private Preferences prefs;
     private VBox rootContainer;
     private String PAT; //Personal access token
+    private boolean rememberLogin;
 
     public void initialize() {
-        //Preferences.userRoot().remove("TNotePAT");
-        PAT = Preferences.userRoot().get("TNotePAT", "");
+        prefs = Preferences.userRoot();
+        PAT = prefs.get("TNotePAT", "");
+        rememberLogin = prefs.getBoolean("TNoteRememberLogin", false);
+
+        rootContainer.getScene().getWindow().setOnCloseRequest(v -> {
+            if (!rememberLogin) {
+                try {
+                    Api.logout();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         if (PAT.isEmpty()) {
             try {
                 changeToRegLog();

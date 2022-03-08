@@ -17,7 +17,7 @@ public class DashboardController {
 
     private MainController parentController;
     @FXML
-    private BorderPane container;
+    private BorderPane rootContainer;
 
     public void initialize() {
         int id = User.getId();
