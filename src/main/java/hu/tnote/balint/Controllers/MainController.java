@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -65,8 +66,8 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
             BorderPane child = loader.load();
             ReglogController reglogController = loader.getController();
-            //System.out.println((reglogController != null) ? "not null" : "null");
             reglogController.setParentController(this);
+            VBox.setVgrow(child, Priority.ALWAYS);
             rootContainer.getChildren().setAll(child);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,10 +78,9 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard.fxml"));
             GridPane child = loader.load();
-            child.prefHeightProperty().bind(rootContainer.prefHeightProperty());
-            child.prefWidthProperty().bind(rootContainer.prefWidthProperty());
             DashboardController dashboardController = loader.getController();
             dashboardController.setParentController(this);
+            VBox.setVgrow(child, Priority.ALWAYS);
             rootContainer.getChildren().setAll(child);
         } catch (Exception e) {
             e.printStackTrace();

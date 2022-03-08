@@ -6,35 +6,39 @@
 <GridPane fx:id="rootContainer"
           xmlns="http://javafx.com/javafx/11.0.2"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="hu.tnote.balint.Controllers.DashboardController">
+          fx:controller="hu.tnote.balint.Controllers.DashboardController"
+          maxWidth="Infinity" maxHeight="Infinity">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" maxWidth="150" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" maxWidth="200" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" maxHeight="50" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" maxHeight="50" vgrow="NEVER" />
         <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
     </rowConstraints>
-    <HBox prefHeight="50.0" prefWidth="200.0"
+    <HBox prefHeight="50.0"
           GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="0"
           alignment="CENTER_LEFT">
         <Label text="Label" fx:id="welcomeText" styleClass="h1" />
     </HBox>
-    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" minWidth="150" maxWidth="150" style="-fx-background-color: grey" >
+    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" maxWidth="Infinity" >
         <VBox fx:id="controlsContainer">
-            <HBox styleClass="btnContainer">
-                <Button fx:id="profileBtn" text="Profile" onAction="#profileBtnClick" maxWidth="150" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+            <HBox styleClass="btnContainer" prefHeight="50">
+                <Label text="Logo" styleClass="h1, text-primary" />
             </HBox>
             <HBox styleClass="btnContainer">
-                <Button fx:id="settingsBtn" text="Settings" onAction="#settingsBtnClick" maxWidth="150" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+                <Button fx:id="profileBtn" text="Profile" onAction="#profileBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
             </HBox>
             <HBox styleClass="btnContainer">
-                <Button fx:id="noteBtn" text="Notes" onAction="#noteBtnClick" maxWidth="150" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+                <Button fx:id="settingsBtn" text="Settings" onAction="#settingsBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+            </HBox>
+            <HBox styleClass="btnContainer">
+                <Button fx:id="noteBtn" text="Notes" onAction="#noteBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
             </HBox>
         </VBox>
         <VBox fx:id="logoutVbox">
             <HBox styleClass="btnContainer">
-                <Button fx:id="logoutBtn" text="Kijelentkezés" onAction="#logoutBtnClick" maxWidth="150" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-red" />
+                <Button fx:id="logoutBtn" text="Kijelentkezés" onAction="#logoutBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-red" />
             </HBox>
         </VBox>
     </VBox>

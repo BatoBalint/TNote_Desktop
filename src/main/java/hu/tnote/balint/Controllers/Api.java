@@ -12,7 +12,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 public class Api {
     private static final String BASE_URL = "http://localhost:8000/";
@@ -102,29 +101,18 @@ public class Api {
 
         checkStatusCode(conn);
 
-        int status = conn.getResponseCode();
-
-        if (status != 200) {
-            throw new RuntimeException("API response code: " + status);
-        } else {
-            List<Note> noteList = new ArrayList<>();
-
-            JSONArray jsonArray = getJSONArray(conn);
-
-            for (Object o : jsonArray) {
-                JSONObject jsonObject = (JSONObject) o;
-                int id = Integer.parseInt(jsonObject.get("id").toString());
-                int ownerId = Integer.parseInt(jsonObject.get("ownerId").toString());
-                String title = jsonObject.get("title").toString();
-                String content = jsonObject.get("content").toString();
-
-                Note n = new Note(id, ownerId, title, content);
-                noteList.add(n);
-                //System.out.println(n);
-            }
-
-            return noteList;
+        List<Note> noteList = new ArrayList<>();
+        JSONArray jsonArray = getJSONArray(conn);
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            int id = Integer.parseInt(jsonObject.get("id").toString());
+            int ownerId = Integer.parseInt(jsonObject.get("ownerId").toString());
+            String title = jsonObject.get("title").toString();
+            String content = jsonObject.get("content").toString();
+            Note n = new Note(id, ownerId, title, content);
+            noteList.add(n);
         }
+        return noteList;
     }
 
     //region Tools
