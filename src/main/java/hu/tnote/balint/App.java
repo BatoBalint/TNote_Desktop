@@ -21,6 +21,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setMinWidth(600);
         stage.setMinHeight(400);
+        MainController mainController = fxmlLoader.getController();
+        mainController.setStage(stage);
         stage.show();
     }
 

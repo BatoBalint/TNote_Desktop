@@ -37,14 +37,6 @@
     -fx-font-weight: bold;
 }
 
-.primaryTextColor {
-    -fx-text-fill: -fx-textColor;
-}
-
-.secondaryTextColor {
-    -fx-text-fill: -fx-secondaryTextColor;
-}
-
 .regLogBtnContainer {
     -fx-background-color: linear-gradient(from 50% 50% to 50% 49%, -fx-secondaryBGColor, -fx-thirdBGColor);
 }
@@ -80,6 +72,19 @@
     visibility: false;
 }
 
+.btnContainer .button {
+    -fx-background-color: -fx-thirdBGColor;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.btnContainer .button:focused {
+    -fx-background-color: -fx-secondaryBGColor;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+
 /*region Roundings */
 
 .roundT {
@@ -114,4 +119,41 @@
     -fx-background-radius: 10 10 10 0;
 }
 
+/*endregion*/
+
+/*region Font Sizes*/
+.h1 {
+    -fx-font-size: 250%;
+}
+
+.h2 {
+    -fx-font-size: 200%;
+}
+
+.h3 {
+    -fx-font-size: 175%;
+}
+
+.h4 {
+    -fx-font-size: 150%;
+}
+
+.h5 {
+    -fx-font-size: 125%;
+}
+
+/*endregion*/
+
+/*region Text colors*/
+.text-primary {
+    -fx-text-fill: -fx-textColor;
+}
+
+.text-secondary {
+    -fx-text-fill: -fx-secondaryTextColor;
+}
+
+.text-red {
+    -fx-text-fill: #d31c1c;
+}
 /*endregion*/

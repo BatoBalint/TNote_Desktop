@@ -33,11 +33,10 @@
                   <VBox fx:id="passwordContainer" layoutX="10.0" layoutY="52.0">
                      <Label text="Password" />
                      <HBox prefWidth="200.0">
-                        <children>
-                           <TextField fx:id="passwordInputText" />
-                           <PasswordField fx:id="passwordInputDots" />
-                           <Button fx:id="showPassBtn" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#showPassBtnClick" styleClass="showPassBtn" />
-                        </children>
+                        <TextField fx:id="passwordInputText"/>
+                        <PasswordField fx:id="passwordInputDots"/>
+                        <Button fx:id="showPassBtn" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0"
+                                mnemonicParsing="false" onAction="#showPassBtnClick" styleClass="showPassBtn"/>
                      </HBox>
                   </VBox>
                   <VBox fx:id="passwordAgainContainer" layoutX="10.0" layoutY="94.0">
@@ -54,7 +53,7 @@
                <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitBtnClick" text="Regisztráció">
                   <styleClass>
                      <String fx:value="submitBtn" />
-                     <String fx:value="primaryTextColor" />
+                     <String fx:value="text-primary" />
                   </styleClass>
                </Button>
             </HBox>

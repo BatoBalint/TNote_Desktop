@@ -3,20 +3,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="rootContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.DashboardController">
-   <left>
-      <VBox style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-          <Label fx:id="nameLabel" text="Label1" />
-          <Label fx:id="idLabel" text="Label2" />
-          <Label fx:id="emailLabel" text="Label3" />
-          <Button onAction="#logoutBtnClick" text="Logout" />
-      </VBox>
-   </left>
-   <top>
-      <HBox prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER_LEFT">
-         <children>
-            <Label text="Label" />
-         </children>
-      </HBox>
-   </top>
-</BorderPane>
+<GridPane fx:id="rootContainer"
+          xmlns="http://javafx.com/javafx/11.0.2"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="hu.tnote.balint.Controllers.DashboardController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" maxWidth="150" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" maxHeight="50" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+    </rowConstraints>
+    <HBox prefHeight="50.0" prefWidth="200.0"
+          GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="0"
+          alignment="CENTER_LEFT">
+        <Label text="Label" fx:id="welcomeText" styleClass="h1" />
+    </HBox>
+    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" minWidth="150" maxWidth="150" style="-fx-background-color: grey" >
+        <VBox fx:id="controlsContainer">
+            <HBox styleClass="btnContainer">
+                <Button fx:id="profileBtn" text="Profile" onAction="#profileBtnClick" maxWidth="150" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+            </HBox>
+            <HBox styleClass="btnContainer">
+                <Button fx:id="settingsBtn" text="Settings" onAction="#settingsBtnClick" maxWidth="150" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+            </HBox>
+            <HBox styleClass="btnContainer">
+                <Button fx:id="noteBtn" text="Notes" onAction="#noteBtnClick" maxWidth="150" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+            </HBox>
+        </VBox>
+        <VBox fx:id="logoutVbox">
+            <HBox styleClass="btnContainer">
+                <Button fx:id="logoutBtn" text="Kijelentkezés" onAction="#logoutBtnClick" maxWidth="150" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-red" />
+            </HBox>
+        </VBox>
+    </VBox>
+</GridPane>

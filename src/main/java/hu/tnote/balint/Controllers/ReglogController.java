@@ -197,19 +197,19 @@ public class ReglogController {
 
             regBtn.getStyleClass().removeAll("regBtn");
             regBtn.getStyleClass().removeAll("roundTRB");
-            regBtn.getStyleClass().removeAll("secondaryTextColor");
+            regBtn.getStyleClass().removeAll("text-secondary");
 
             regBtn.getStyleClass().add("regBtnSelected");
             regBtn.getStyleClass().add("roundTR");
-            regBtn.getStyleClass().add("primaryTextColor");
+            regBtn.getStyleClass().add("text-primary");
 
             loginBtn.getStyleClass().removeAll("loginBtnSelected");
             loginBtn.getStyleClass().removeAll("roundTR");
-            loginBtn.getStyleClass().removeAll("primaryTextColor");
+            loginBtn.getStyleClass().removeAll("text-primary");
 
             loginBtn.getStyleClass().add("loginBtn");
             loginBtn.getStyleClass().add("roundTRL");
-            loginBtn.getStyleClass().add("secondaryTextColor");
+            loginBtn.getStyleClass().add("text-secondary");
 
             regSelected = true;
         }
@@ -227,19 +227,19 @@ public class ReglogController {
 
             loginBtn.getStyleClass().removeAll("loginBtn");
             loginBtn.getStyleClass().removeAll("roundTRL");
-            loginBtn.getStyleClass().removeAll("secondaryTextColor");
+            loginBtn.getStyleClass().removeAll("text-secondary");
 
             loginBtn.getStyleClass().add("loginBtnSelected");
             loginBtn.getStyleClass().add("roundTR");
-            loginBtn.getStyleClass().add("primaryTextColor");
+            loginBtn.getStyleClass().add("text-primary");
 
             regBtn.getStyleClass().removeAll("regBtnSelected");
             regBtn.getStyleClass().removeAll("roundTR");
-            regBtn.getStyleClass().removeAll("primaryTextColor");
+            regBtn.getStyleClass().removeAll("text-primary");
 
             regBtn.getStyleClass().add("regBtn");
             regBtn.getStyleClass().add("roundTRB");
-            regBtn.getStyleClass().add("secondaryTextColor");
+            regBtn.getStyleClass().add("text-secondary");
 
             regSelected = false;
         }

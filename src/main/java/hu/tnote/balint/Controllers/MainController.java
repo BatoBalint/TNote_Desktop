@@ -7,7 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -18,21 +20,12 @@ public class MainController {
     private VBox rootContainer;
 
     private boolean rememberLogin;
+    private Stage stage;
 
     public void initialize() {
         Preferences prefs = Preferences.userRoot();
         String PAT = prefs.get("TNotePAT", "");     //Personal access token
-        rememberLogin = prefs.getBoolean("TNoteRememberLogin", false);
-
-        rootContainer.getScene().getWindow().setOnCloseRequest(v -> {
-            if (!rememberLogin) {
-                try {
-                    Api.logout();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        rememberLogin = prefs.getBoolean("TNoteRememberLogin", true);
 
         if (PAT.isEmpty()) {
             try {
@@ -54,6 +47,19 @@ public class MainController {
         }
     }
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        this.stage.setOnCloseRequest(v -> {
+            if (!rememberLogin) {
+                try {
+                    Api.logout();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     public void changeToRegLog() {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
@@ -70,7 +76,7 @@ public class MainController {
     public void changeToDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard.fxml"));
-            BorderPane child = loader.load();
+            GridPane child = loader.load();
             child.prefHeightProperty().bind(rootContainer.prefHeightProperty());
             child.prefWidthProperty().bind(rootContainer.prefWidthProperty());
             DashboardController dashboardController = loader.getController();
