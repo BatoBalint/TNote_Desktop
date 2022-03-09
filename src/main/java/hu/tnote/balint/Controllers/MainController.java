@@ -6,23 +6,28 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.prefs.Preferences;
 
 public class MainController {
 
     @FXML
     private VBox rootContainer;
-    @FXML
-    private Label dataLabel;
-    Preferences pref;
-    private String PAT;
+
+    private boolean rememberLogin;
+    private Stage stage;
 
     public void initialize() {
-        pref = Preferences.userRoot();
-        PAT = pref.get("TNotePAT", "");
+        Preferences prefs = Preferences.userRoot();
+        String PAT = prefs.get("TNotePAT", "");     //Personal access token
+        rememberLogin = prefs.getBoolean("TNoteRememberLogin", true);
+
         if (PAT.isEmpty()) {
             try {
                 changeToRegLog();
@@ -30,6 +35,11 @@ public class MainController {
                 e.printStackTrace();
             }
         } else {
+            User.setToken(PAT);
+            User.setUser(
+                    Preferences.userRoot().getInt("TNoteUserId", -1),
+                    Preferences.userRoot().get("TNoteUserName", ""),
+                    Preferences.userRoot().get("TNoteUserEmail", ""));
             try {
                 changeToDashboard();
             } catch (Exception e) {
@@ -38,9 +48,43 @@ public class MainController {
         }
     }
 
-    @FXML
-    public void regLogBtnClick() {
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        this.stage.setOnCloseRequest(v -> {
+            if (!rememberLogin) {
+                try {
+                    Api.logout();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
+    public void changeToRegLog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
+            BorderPane child = loader.load();
+            ReglogController reglogController = loader.getController();
+            reglogController.setParentController(this);
+            VBox.setVgrow(child, Priority.ALWAYS);
+            rootContainer.getChildren().setAll(child);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeToDashboard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard.fxml"));
+            GridPane child = loader.load();
+            DashboardController dashboardController = loader.getController();
+            dashboardController.setParentController(this);
+            VBox.setVgrow(child, Priority.ALWAYS);
+            rootContainer.getChildren().setAll(child);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void alert(String text) {
@@ -49,29 +93,5 @@ public class MainController {
 
     private void test() {
         alert("test");
-    }
-
-    private void changeToRegLog() {
-        try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
-            VBox child = loader.load();
-            RegLogController controller = loader.getController();
-            controller.setParentController(this);
-            rootContainer.getChildren().setAll(child);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void changeToDashboard() {
-        try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard.fxml")).load();
-            RegLogController controller = loader.getController();
-            controller.setParentController(this);
-            VBox child = loader.load();
-            rootContainer.getChildren().setAll(child);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

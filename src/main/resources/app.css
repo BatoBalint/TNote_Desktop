@@ -1,44 +1,177 @@
+* {
+    -fx-BGColor: hsb(270, 100%, 10%);
+    -fx-secondaryBGColor: hsb(270, 100%, 30%);
+    -fx-thirdBGColor: hsb(270, 100%, 20%);
+    -fx-textColor: white;
+    -fx-secondaryTextColor: grey;
+}
+
 .root {
-    -fx-padding: 10px;
-    -fx-background-color: grey;
+    -fx-background-color: -fx-BGColor;
+    -fx-alignment: CENTER;
 }
 
 .label {
     -fx-font-size: 120%;
+    -fx-text-fill: -fx-textColor;
 }
 
-.inputVbox {
-    -fx-end-margin: 20px;
+.regBtn {
+    -fx-background-color: -fx-thirdBGColor;
 }
 
-.inputLabel {
-    -fx-text-fill: white;
+.loginBtn {
+    -fx-background-color: -fx-thirdBGColor;
 }
 
-.reglogInputContainer {
-    -fx-padding: 10px;
-    -fx-spacing: 20px;
-    -fx-background-radius: 3px;
+.regBtnSelected {
+    -fx-background-color: -fx-secondaryBGColor;
 }
 
-.reglogInputContainer, .reglogInputContainer .label {
-    -fx-background-color: #272f40;
+.loginBtnSelected {
+    -fx-background-color: -fx-secondaryBGColor;
 }
 
-.button {
-    -fx-background-color: white;
+.submitBtn {
+    -fx-background-color: #00b600;
+    -fx-font-weight: bold;
 }
 
 .regLogBtnContainer {
-    -fx-background-color: #272f40;
+    -fx-background-color: linear-gradient(from 50% 50% to 50% 49%, -fx-secondaryBGColor, -fx-thirdBGColor);
 }
 
-#regBtn {
-    -fx-background-radius: 5 5 0 0;
-    -fx-text-fill: white;
+.formContainer {
+    -fx-background-color: -fx-secondaryBGColor;
+    -fx-padding: 10 10 10 10;
 }
 
-#loginBtn {
-    -fx-background-radius: 5 5 0 0;
-    -fx-text-fill: white;
+.innerInputContainer {
+    -fx-spacing: 10;
 }
+
+.showPassBtn {
+    -fx-background-color: -fx-secondaryTextColor;
+    -fx-shape: "M17.659,9.597h-1.224c-0.199-3.235-2.797-5.833-6.032-6.033V2.341c0-0.222-0.182-0.403-0.403-0.403S9.597,2.119,9.597,2.341v1.223c-3.235,0.2-5.833,2.798-6.033,6.033H2.341c-0.222,0-0.403,0.182-0.403,0.403s0.182,0.403,0.403,0.403h1.223c0.2,3.235,2.798,5.833,6.033,6.032v1.224c0,0.222,0.182,0.403,0.403,0.403s0.403-0.182,0.403-0.403v-1.224c3.235-0.199,5.833-2.797,6.032-6.032h1.224c0.222,0,0.403-0.182,0.403-0.403S17.881,9.597,17.659,9.597 M14.435,10.403h1.193c-0.198,2.791-2.434,5.026-5.225,5.225v-1.193c0-0.222-0.182-0.403-0.403-0.403s-0.403,0.182-0.403,0.403v1.193c-2.792-0.198-5.027-2.434-5.224-5.225h1.193c0.222,0,0.403-0.182,0.403-0.403S5.787,9.597,5.565,9.597H4.373C4.57,6.805,6.805,4.57,9.597,4.373v1.193c0,0.222,0.182,0.403,0.403,0.403s0.403-0.182,0.403-0.403V4.373c2.791,0.197,5.026,2.433,5.225,5.224h-1.193c-0.222,0-0.403,0.182-0.403,0.403S14.213,10.403,14.435,10.403";
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+.showPassBtnClicked {
+    -fx-background-color: -fx-textColor;
+    -fx-shape: "M17.659,9.597h-1.224c-0.199-3.235-2.797-5.833-6.032-6.033V2.341c0-0.222-0.182-0.403-0.403-0.403S9.597,2.119,9.597,2.341v1.223c-3.235,0.2-5.833,2.798-6.033,6.033H2.341c-0.222,0-0.403,0.182-0.403,0.403s0.182,0.403,0.403,0.403h1.223c0.2,3.235,2.798,5.833,6.033,6.032v1.224c0,0.222,0.182,0.403,0.403,0.403s0.403-0.182,0.403-0.403v-1.224c3.235-0.199,5.833-2.797,6.032-6.032h1.224c0.222,0,0.403-0.182,0.403-0.403S17.881,9.597,17.659,9.597 M14.435,10.403h1.193c-0.198,2.791-2.434,5.026-5.225,5.225v-1.193c0-0.222-0.182-0.403-0.403-0.403s-0.403,0.182-0.403,0.403v1.193c-2.792-0.198-5.027-2.434-5.224-5.225h1.193c0.222,0,0.403-0.182,0.403-0.403S5.787,9.597,5.565,9.597H4.373C4.57,6.805,6.805,4.57,9.597,4.373v1.193c0,0.222,0.182,0.403,0.403,0.403s0.403-0.182,0.403-0.403V4.373c2.791,0.197,5.026,2.433,5.225,5.224h-1.193c-0.222,0-0.403,0.182-0.403,0.403S14.213,10.403,14.435,10.403";
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+
+.showPassBtn:focused, .showPassBtnClicked:focused {
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+
+.invisible {
+    visibility: false;
+}
+
+.btnContainer .button {
+    -fx-background-color: -fx-thirdBGColor;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.btnContainer .button:focused {
+    -fx-background-color: -fx-secondaryBGColor;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+
+/*region Roundings */
+
+.roundT {
+    -fx-background-radius: 10 0 0 0;
+}
+
+.roundR {
+    -fx-background-radius: 0 10 0 0;
+}
+
+.roundB {
+    -fx-background-radius: 0 0 10 0;
+}
+
+.roundL {
+    -fx-background-radius: 0 0 0 10;
+}
+
+.roundTR {
+    -fx-background-radius: 10 10 0 0;
+}
+
+.roundBL {
+    -fx-background-radius: 0 0 10 10;
+}
+
+.roundTRL {
+    -fx-background-radius: 10 10 0 10;
+}
+
+.roundTRB {
+    -fx-background-radius: 10 10 10 0;
+}
+
+/*endregion*/
+
+/*region Font Sizes*/
+.h1 {
+    -fx-font-size: 250%;
+}
+
+.h2 {
+    -fx-font-size: 200%;
+}
+
+.h3 {
+    -fx-font-size: 175%;
+}
+
+.h4 {
+    -fx-font-size: 150%;
+}
+
+.h5 {
+    -fx-font-size: 125%;
+}
+
+/*endregion*/
+
+/*region Text colors*/
+.text-primary {
+    -fx-text-fill: -fx-textColor;
+}
+
+.text-secondary {
+    -fx-text-fill: -fx-secondaryTextColor;
+}
+
+.text-red {
+    -fx-text-fill: #d31c1c;
+}
+/*endregion*/
+
+/*region Paddings*/
+.p-1 {
+    -fx-padding: 1;
+}
+
+.p-2 {
+    -fx-padding: 2;
+}
+
+.p-3 {
+    -fx-padding: 5;
+}
+
+.p-4 {
+    -fx-padding: 10;
+}
+/*endregion*/

@@ -1,30 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="rootContainer" alignment="CENTER" maxHeight="400" maxWidth="600" prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.RegLogController">
-    <VBox>
-        <HBox fx:id="regLogBtnContainer" maxWidth="200">
-            <Button fx:id="regBtn" styleClass="regOrLogBtn" text="Regisztráció" textAlignment="CENTER" />
-            <Button fx:id="loginBtn" styleClass="regOrLogBtn" text="Bejelentkezés" textAlignment="CENTER" />
-        </HBox>
-        <VBox maxWidth="200" prefWidth="200" styleClass="reglogInputContainer">
-            <VBox styleClass="inputVbox">
-                <Label styleClass="inputLabel" text="Név" />
-                <TextField prefWidth="200" />
+<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.ReglogController">
+   <center>
+      <VBox fillWidth="false" maxHeight="300.0" maxWidth="200.0" prefHeight="300.0" prefWidth="200.0" styleClass="centerContainer" BorderPane.alignment="CENTER">
+         <HBox fx:id="regLogBtnHbox" prefWidth="200.0">
+            <Button fx:id="regBtn" alignment="CENTER" mnemonicParsing="false" onAction="#regBtnClick" text="Regisztráció" />
+            <Button fx:id="loginBtn" alignment="CENTER" mnemonicParsing="false" onAction="#loginBtnClick" text="Bejelentkezés" />
+            <styleClass>
+               <String fx:value="regLogBtnContainer" />
+               <String fx:value="roundTR" />
+            </styleClass>
+         </HBox>
+         <VBox>
+            <styleClass>
+               <String fx:value="formContainer" />
+               <String fx:value="roundBL" />
+            </styleClass>
+            <VBox prefHeight="250.0" styleClass="outerInputContainer">
+               <VBox styleClass="innerInputContainer" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="nameContainer" styleClass="singleInputContainer">
+                     <Label text="Name" />
+                     <TextField fx:id="nameInput" />
+                  </VBox>
+                  <VBox fx:id="emailContainer" layoutX="10.0" layoutY="10.0">
+                     <Label text="Email" />
+                     <TextField fx:id="emailInput" />
+                  </VBox>
+                  <VBox fx:id="passwordContainer" layoutX="10.0" layoutY="52.0">
+                     <Label text="Password" />
+                     <HBox prefWidth="200.0">
+                        <TextField fx:id="passwordInputText"/>
+                        <PasswordField fx:id="passwordInputDots"/>
+                        <Button fx:id="showPassBtn" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0"
+                                mnemonicParsing="false" onAction="#showPassBtnClick" styleClass="showPassBtn"/>
+                     </HBox>
+                  </VBox>
+                  <VBox fx:id="passwordAgainContainer" layoutX="10.0" layoutY="94.0">
+                     <Label text="Password again" />
+                     <HBox prefWidth="200.0">
+                        <TextField fx:id="passwordAgainInputText" />
+                        <PasswordField fx:id="passwordAgainInputDots" />
+                        <Button fx:id="showPassBtnAgain" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#showPassAgainBtnClick" styleClass="showPassBtn" />
+                     </HBox>
+                  </VBox>
+               </VBox>
             </VBox>
-            <VBox styleClass="inputVbox">
-                <Label styleClass="inputLabel" text="Email" />
-                <TextField prefWidth="200" />
-            </VBox>
-            <VBox styleClass="inputVbox">
-                <Label styleClass="inputLabel" text="Jelszó" />
-                <TextField prefWidth="200" />
-            </VBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Button onAction="#backBtnClick" text="Back" />
+            <HBox alignment="CENTER_RIGHT" prefWidth="200.0" styleClass="submitBtnContainer">
+               <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitBtnClick" text="Regisztráció">
+                  <styleClass>
+                     <String fx:value="submitBtn" />
+                     <String fx:value="text-primary" />
+                  </styleClass>
+               </Button>
             </HBox>
-        </VBox>
-    </VBox>
-</VBox>
+         </VBox>
+      </VBox>
+   </center>
+</BorderPane>

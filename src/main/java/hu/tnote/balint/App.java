@@ -1,5 +1,6 @@
 package hu.tnote.balint;
 
+import hu.tnote.balint.Controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +19,10 @@ public class App extends Application {
         scene.getStylesheets().add(css);
         stage.setTitle("TNote");
         stage.setScene(scene);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        MainController mainController = fxmlLoader.getController();
+        mainController.setStage(stage);
         stage.show();
     }
 
