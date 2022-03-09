@@ -7,7 +7,7 @@
           xmlns="http://javafx.com/javafx/11.0.2"
           xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="hu.tnote.balint.Controllers.DashboardController"
-          maxWidth="Infinity" maxHeight="Infinity">
+          maxWidth="Infinity" maxHeight="Infinity" alignment="TOP_CENTER">
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" maxWidth="200" />
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -19,7 +19,7 @@
     <HBox prefHeight="50.0"
           GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="0"
           alignment="CENTER_LEFT">
-        <Label text="Label" fx:id="welcomeText" styleClass="h1" />
+        <Label fx:id="welcomeText" styleClass="h1" />
     </HBox>
     <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" maxWidth="Infinity" >
         <VBox fx:id="controlsContainer">
@@ -42,4 +42,5 @@
             </HBox>
         </VBox>
     </VBox>
+    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="contentContainer" styleClass="roundT, p-3" ></ScrollPane>
 </GridPane>

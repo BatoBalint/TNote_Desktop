@@ -157,3 +157,21 @@
     -fx-text-fill: #d31c1c;
 }
 /*endregion*/
+
+/*region Paddings*/
+.p-1 {
+    -fx-padding: 1;
+}
+
+.p-2 {
+    -fx-padding: 2;
+}
+
+.p-3 {
+    -fx-padding: 5;
+}
+
+.p-4 {
+    -fx-padding: 10;
+}
+/*endregion*/

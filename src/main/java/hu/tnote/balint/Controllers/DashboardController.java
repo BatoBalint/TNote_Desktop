@@ -2,10 +2,8 @@ package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.User;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
@@ -23,6 +21,8 @@ public class DashboardController {
     @FXML
     public Button profileBtn;
     @FXML
+    public ScrollPane contentContainer;
+    @FXML
     private GridPane rootContainer;
     @FXML
     private Button noteBtn;
@@ -30,15 +30,12 @@ public class DashboardController {
     private VBox controlsContainer;
     @FXML
     private VBox logoutVbox;
+    private int counter = 0;
     //endregion
 
     private MainController parentController;
 
     public void initialize() {
-        int id = User.getId();
-        String name = User.getName();
-        String email = User.getEmail();
-        welcomeText.setText(String.format("Üdv újra %s", name));
 
         uiInit();
     }
@@ -78,7 +75,7 @@ public class DashboardController {
 
     @FXML
     public void profileBtnClick() {
-        alert("profile");
+
     }
 
     //region Tools
