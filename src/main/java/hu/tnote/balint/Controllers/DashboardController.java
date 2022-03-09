@@ -1,13 +1,10 @@
 package hu.tnote.balint.Controllers;
 
-import hu.tnote.balint.User;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
-import java.lang.reflect.MalformedParametersException;
 
 public class DashboardController {
 
