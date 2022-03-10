@@ -76,10 +76,8 @@ public class DashboardController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        alert(notes.size() + "");
         for (Note n : notes) {
             noteVbox.getChildren().add(new Label(n.toString()));
-            System.out.println(n);
         }
 
         contentContainer.setContent(noteVbox);

@@ -42,5 +42,5 @@
             </HBox>
         </VBox>
     </VBox>
-    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="contentContainer" styleClass="roundT, p-3" ></ScrollPane>
+    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="contentContainer" styleClass="roundT, p-3"/>
 </GridPane>

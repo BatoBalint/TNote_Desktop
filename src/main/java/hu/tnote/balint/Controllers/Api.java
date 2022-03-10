@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Api {
@@ -49,13 +50,22 @@ public class Api {
     }
 
     public static void login(String email, String password) throws IOException, ParseException {
-        HttpURLConnection conn = sendData("login", "", email, password);
+        HashMap<String, String> loginData = new HashMap<>();
+        loginData.put("email", email);
+        loginData.put("password", password);
+
+        HttpURLConnection conn = sendPostData("login", loginData);
         checkStatusCode(conn);
         processReceivedData(conn);
     }
 
     public static void register(String name, String email, String password) throws IOException, ParseException {
-        HttpURLConnection conn = sendData("register", name, email, password);
+        HashMap<String, String> regData = new HashMap<>();
+        regData.put("name", name);
+        regData.put("email", email);
+        regData.put("password", password);
+
+        HttpURLConnection conn = sendPostData("register", regData);
         checkStatusCode(conn);
         processReceivedData(conn);
     }
@@ -82,14 +92,14 @@ public class Api {
         }
     }
 
-    private static HttpURLConnection sendData(String apiEndAddress, String name, String email, String password) throws IOException {
+    private static HttpURLConnection sendPostData(String apiEndAddress, HashMap<String, String> hashmap) throws IOException {
         HttpURLConnection conn = postConn(apiEndAddress);
         conn.connect();
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", name);
-        jsonObject.put("email", email);
-        jsonObject.put("password", password);
+        for (String key : hashmap.keySet()) {
+            jsonObject.put(key, hashmap.get(key).toString());
+        }
 
         OutputStreamWriter os = new OutputStreamWriter(conn.getOutputStream());
         BufferedWriter bw = new BufferedWriter(os);
@@ -140,10 +150,9 @@ public class Api {
         return conn;
     }
 
-    private static HttpURLConnection setBearer(HttpURLConnection conn, String token) {
+    private static void setBearer(HttpURLConnection conn, String token) {
         token = (!token.equals("")) ? token : TEST_TOKEN;
         conn.setRequestProperty("Authorization", "Bearer " + token);
-        return conn;
     }
 
     private static String readJson(HttpURLConnection conn) throws IOException {
