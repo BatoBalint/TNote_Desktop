@@ -18,6 +18,27 @@ public class Api {
     private static final String API_URL = BASE_URL + "api/";
     private static final String TEST_TOKEN = "";
 
+    public static List<Note> getNotes() throws IOException, ParseException {
+        HttpURLConnection conn = getConn("users/" + User.getId() + "/notes");
+        setBearer(conn, User.getToken());
+        conn.connect();
+
+        checkStatusCode(conn);
+
+        List<Note> noteList = new ArrayList<>();
+        JSONArray jsonArray = getJSONArray(conn);
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            int id = Integer.parseInt(jsonObject.get("id").toString());
+            int ownerId = Integer.parseInt(jsonObject.get("ownerId").toString());
+            String title = jsonObject.get("title").toString();
+            String content = jsonObject.get("content").toString();
+            Note n = new Note(id, ownerId, title, content);
+            noteList.add(n);
+        }
+        return noteList;
+    }
+
     public static void logout() throws IOException {
         HttpURLConnection conn = postConn("logout");
         setBearer(conn, User.getToken());
@@ -91,28 +112,6 @@ public class Api {
         int i = Integer.parseInt(user.get("id").toString());
         User.setToken(token);
         User.setUser(i, n, e);
-        System.out.println(User.asString());
-    }
-
-    public static List<Note> getNotes() throws IOException, ParseException {
-        HttpURLConnection conn = getConn("users/" + User.getId() + "/notes");
-        setBearer(conn, User.getToken());
-        conn.connect();
-
-        checkStatusCode(conn);
-
-        List<Note> noteList = new ArrayList<>();
-        JSONArray jsonArray = getJSONArray(conn);
-        for (Object o : jsonArray) {
-            JSONObject jsonObject = (JSONObject) o;
-            int id = Integer.parseInt(jsonObject.get("id").toString());
-            int ownerId = Integer.parseInt(jsonObject.get("ownerId").toString());
-            String title = jsonObject.get("title").toString();
-            String content = jsonObject.get("content").toString();
-            Note n = new Note(id, ownerId, title, content);
-            noteList.add(n);
-        }
-        return noteList;
     }
 
     //region Tools

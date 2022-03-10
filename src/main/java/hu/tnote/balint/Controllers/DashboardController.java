@@ -1,10 +1,14 @@
 package hu.tnote.balint.Controllers;
 
+import hu.tnote.balint.Note;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardController {
 
@@ -62,12 +66,28 @@ public class DashboardController {
 
     @FXML
     public void noteBtnClick() {
-        alert("note");
+        VBox noteVbox = new VBox();
+        noteVbox.setFillWidth(true);
+        List<Note> notes = new ArrayList<>();
+        try {
+            notes = Api.getNotes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        alert(notes.size() + "");
+        for (Note n : notes) {
+            noteVbox.getChildren().add(new Label(n.toString()));
+            System.out.println(n);
+        }
+
+        contentContainer.setContent(noteVbox);
     }
 
     @FXML
     public void settingsBtnClick() {
-        alert("settings");
+
     }
 
     @FXML

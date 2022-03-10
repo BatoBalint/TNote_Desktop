@@ -84,6 +84,10 @@
     -fx-background-radius: 0;
 }
 
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
 
 /*region Roundings */
 
@@ -155,6 +159,20 @@
 
 .text-red {
     -fx-text-fill: #d31c1c;
+}
+/*endregion*/
+
+/*region Background colors*/
+.bg-primary {
+    -fx-background-color: -fx-BGColor;
+}
+
+.bg-secondary {
+    -fx-background-color: -fx-secondaryBGColor;
+}
+
+.bg-third {
+    -fx-background-color: -fx-thirdBGColor;
 }
 /*endregion*/
 
