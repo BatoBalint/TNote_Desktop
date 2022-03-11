@@ -193,3 +193,10 @@
     -fx-padding: 10;
 }
 /*endregion*/
+
+/*region Margins*/
+.mx-auto {
+    -fx-start-margin: auto;
+    -fx-end-margin: auto;
+}
+/*endregion*/

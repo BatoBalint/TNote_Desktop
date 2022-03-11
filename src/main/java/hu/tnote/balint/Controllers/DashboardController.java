@@ -2,6 +2,7 @@ package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.Note;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.json.simple.parser.ParseException;
@@ -66,21 +67,7 @@ public class DashboardController {
 
     @FXML
     public void noteBtnClick() {
-        VBox noteVbox = new VBox();
-        noteVbox.setFillWidth(true);
-        List<Note> notes = new ArrayList<>();
-        try {
-            notes = Api.getNotes();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        for (Note n : notes) {
-            noteVbox.getChildren().add(new Label(n.toString()));
-        }
-
-        contentContainer.setContent(noteVbox);
+        loadFxmlToContentContainer("/hu/tnote/balint/insideViews/note-list-view.fxml");
     }
 
     @FXML
@@ -91,6 +78,16 @@ public class DashboardController {
     @FXML
     public void profileBtnClick() {
 
+    }
+
+    private void loadFxmlToContentContainer(String fxml) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        try {
+            VBox vbox = loader.load();
+            contentContainer.setContent(vbox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //region Tools

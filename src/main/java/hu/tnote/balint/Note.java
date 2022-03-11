@@ -6,6 +6,24 @@ public class Note {
     private String content;
     private String title;
 
+    //region Getter
+    public int getId() {
+        return id;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+    //endregion
+
     public Note(int id, int ownerId, String title, String content) {
         this.id = id;
         this.ownerId = ownerId;
