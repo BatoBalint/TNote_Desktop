@@ -32,7 +32,6 @@ public class DashboardController {
     private VBox controlsContainer;
     @FXML
     private VBox logoutVbox;
-    private int counter = 0;
     //endregion
 
     private MainController parentController;
@@ -49,6 +48,8 @@ public class DashboardController {
         HBox.setHgrow(profileBtn, Priority.ALWAYS);
 
         VBox.setVgrow(controlsContainer, Priority.ALWAYS);
+
+
     }
 
     public void setParentController(MainController mainController) {

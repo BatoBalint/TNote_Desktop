@@ -1,16 +1,13 @@
 package hu.tnote.balint.Controllers.InsideViews;
 
 import hu.tnote.balint.Controllers.Api;
+import hu.tnote.balint.CustomNode.NoteButton;
 import hu.tnote.balint.Note;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
 
@@ -30,7 +27,7 @@ public class NoteListController {
     }
 
     private void uiInit() {
-        rootContainer.setPadding(new Insets(40, 0, 0, 0));
+        rootContainer.setPadding(new Insets(40, 0, 40, 0));
     }
 
     private void loadNotes() {
@@ -38,9 +35,7 @@ public class NoteListController {
         List<Note> notes = new ArrayList<>();
         try {
             notes = Api.getNotes();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
@@ -53,11 +48,11 @@ public class NoteListController {
                 hbox.setSpacing(40);
                 hboxList.add(hbox);
             }
-            Button b = new Button();
-            b.setText(n.getTitle());
-            b.setMinWidth(200);
-            b.setMaxWidth(200);
-            hboxList.get(counter / 2).getChildren().add(b);
+            NoteButton nBtn = new NoteButton(n);
+            nBtn.setOnAction(v -> {
+                new Alert(Alert.AlertType.NONE, nBtn.getNoteContent(), ButtonType.OK).show();
+            });
+            hboxList.get(counter / 2).getChildren().add(nBtn.get());
             counter++;
         }
 
