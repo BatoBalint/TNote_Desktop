@@ -4,9 +4,12 @@ import hu.tnote.balint.Controllers.Api;
 import hu.tnote.balint.CustomNode.NoteButton;
 import hu.tnote.balint.Note;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
@@ -27,7 +30,6 @@ public class NoteListController {
     }
 
     private void uiInit() {
-        rootContainer.setPadding(new Insets(40, 0, 40, 0));
     }
 
     private void loadNotes() {
@@ -50,7 +52,14 @@ public class NoteListController {
             }
             NoteButton nBtn = new NoteButton(n);
             nBtn.setOnAction(v -> {
-                new Alert(Alert.AlertType.NONE, nBtn.getNoteContent(), ButtonType.OK).show();
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/insideViews/note-editor-view.fxml"));
+                    VBox child = loader.load();
+                    rootContainer.getChildren().setAll(child);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             });
             hboxList.get(counter / 2).getChildren().add(nBtn.get());
             counter++;
@@ -58,6 +67,7 @@ public class NoteListController {
 
         for (HBox h : hboxList) {
             h.setMaxWidth(440);
+            VBox.setMargin(h, new Insets(40, 0, 0, 0));
             rootContainer.getChildren().add(h);
         }
     }

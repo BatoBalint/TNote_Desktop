@@ -5,9 +5,12 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="hu.tnote.balint.Controllers.InsideViews.NoteListController" fx:id="rootContainer"
-      alignment="TOP_CENTER">
+      fx:controller="hu.tnote.balint.Controllers.InsideViews.NoteEditorController"
+      fx:id="rootContainer" stylesheets="@../css/noteEditor.css">
+
+    <TextArea fx:id="textArea"/>
 
 </VBox>
