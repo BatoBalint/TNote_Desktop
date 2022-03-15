@@ -56,7 +56,7 @@ public class Api {
 
         HttpURLConnection conn = sendPostData("login", loginData);
         checkStatusCode(conn);
-        processReceivedData(conn);
+        processReceivedAuthData(conn);
     }
 
     public static void register(String name, String email, String password) throws IOException, ParseException {
@@ -67,7 +67,7 @@ public class Api {
 
         HttpURLConnection conn = sendPostData("register", regData);
         checkStatusCode(conn);
-        processReceivedData(conn);
+        processReceivedAuthData(conn);
     }
 
     private static void checkStatusCode(HttpURLConnection conn) throws IOException {
@@ -112,7 +112,7 @@ public class Api {
         return conn;
     }
 
-    private static void processReceivedData(HttpURLConnection conn) throws IOException, ParseException {
+    private static void processReceivedAuthData(HttpURLConnection conn) throws IOException, ParseException {
         JSONObject regResponse = getJSONObject(conn);
         String token = regResponse.get("token").toString();
         System.out.println(token);

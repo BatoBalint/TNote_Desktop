@@ -18,6 +18,7 @@ public class NoteButton {
     public String getNoteContent() {
         return this.note.getContent();
     }
+    public Note getNote() { return this.note; }
 
     public NoteButton(Note note) {
         this.note = note;
