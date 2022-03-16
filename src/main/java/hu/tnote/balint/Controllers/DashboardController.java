@@ -1,5 +1,6 @@
 package hu.tnote.balint.Controllers;
 
+import hu.tnote.balint.Controllers.InsideViews.NoteListController;
 import hu.tnote.balint.Note;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,7 +69,9 @@ public class DashboardController {
 
     @FXML
     public void noteBtnClick() {
-        loadFxmlToContentContainer("/hu/tnote/balint/insideViews/note-list-view.fxml");
+        FXMLLoader loader = loadFxmlToContentContainer("/hu/tnote/balint/insideViews/note-list-view.fxml");
+        NoteListController noteListController = loader.getController();
+        noteListController.passScrollPane(contentContainer);
     }
 
     @FXML
@@ -81,14 +84,16 @@ public class DashboardController {
 
     }
 
-    private void loadFxmlToContentContainer(String fxml) {
+    private FXMLLoader loadFxmlToContentContainer(String fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         try {
             VBox vbox = loader.load();
             contentContainer.setContent(vbox);
+            return loader;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return loader;
     }
 
     //region Tools

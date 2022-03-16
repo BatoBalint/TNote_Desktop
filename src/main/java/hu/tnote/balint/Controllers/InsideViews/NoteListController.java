@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
@@ -21,6 +22,7 @@ public class NoteListController {
 
     @FXML
     public VBox rootContainer;
+    private ScrollPane scrollPane;
 
     public void initialize() {
         uiInit();
@@ -29,6 +31,10 @@ public class NoteListController {
     }
 
     private void uiInit() {
+    }
+
+    public void passScrollPane (ScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
     }
 
     private void loadNotes() {
@@ -55,7 +61,7 @@ public class NoteListController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/insideViews/note-editor-view.fxml"));
                     VBox child = loader.load();
                     NoteEditorController c = loader.getController();
-                    c.setNote(nBtn.getNote());
+                    c.passData(nBtn.getNote(), scrollPane);
                     rootContainer.getChildren().setAll(child);
                 } catch (IOException e) {
                     e.printStackTrace();

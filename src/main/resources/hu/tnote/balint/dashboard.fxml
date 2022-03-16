@@ -42,7 +42,7 @@
             </HBox>
         </VBox>
     </VBox>
-    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="contentContainer" styleClass="roundT, p-3" style="-fx-background-color: black" fitToWidth="true">
+    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="contentContainer" styleClass="roundT, p-3" fitToWidth="true">
 
     </ScrollPane>
 </GridPane>

@@ -7,15 +7,32 @@
 
 <VBox fx:id="rootContainer" stylesheets="@../css/noteEditor.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.InsideViews.NoteEditorController">
 
-    <Label fx:id="noteTitle">
+    <HBox fx:id="titleHbox" alignment="CENTER_LEFT" maxWidth="800">
+        <Label fx:id="noteTitle">
+          <VBox.margin>
+             <Insets bottom="20.0" />
+          </VBox.margin>
+          <styleClass>
+             <String fx:value="text-primary" />
+             <String fx:value="h2" />
+          </styleClass>
+        </Label>
+      <VBox fx:id="saveBtnContainer" alignment="CENTER_RIGHT" maxWidth="800.0" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <children>
+              <Button onAction="#saveBtnClick" styleClass="saveBtn" text="Mentés" />
+         </children>
+      </VBox>
       <VBox.margin>
          <Insets bottom="20.0" />
       </VBox.margin>
-      <styleClass>
-         <String fx:value="text-primary" />
-         <String fx:value="h2" />
-      </styleClass></Label>
+    </HBox>
 
-    <TextArea fx:id="textArea" />
+    <TextArea fx:id="textArea">
+      <VBox.margin>
+         <Insets bottom="20.0" />
+      </VBox.margin></TextArea>
 
 </VBox>

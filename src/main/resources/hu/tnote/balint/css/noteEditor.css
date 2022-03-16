@@ -60,3 +60,13 @@
     -fx-background-insets: 2.0, 0.0, 0.0;
     -fx-background-radius: 2.0em;
 }
+
+.saveBtn {
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-background-color: #02b402;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.2em;
+    -fx-padding: 5 10;
+}

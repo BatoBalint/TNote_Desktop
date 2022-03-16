@@ -54,7 +54,7 @@ public class Api {
         loginData.put("email", email);
         loginData.put("password", password);
 
-        HttpURLConnection conn = sendPostData("login", loginData);
+        HttpURLConnection conn = sendPostData("login", loginData, "");
         checkStatusCode(conn);
         processReceivedAuthData(conn);
     }
@@ -65,9 +65,20 @@ public class Api {
         regData.put("email", email);
         regData.put("password", password);
 
-        HttpURLConnection conn = sendPostData("register", regData);
+        HttpURLConnection conn = sendPostData("register", regData, "");
         checkStatusCode(conn);
         processReceivedAuthData(conn);
+    }
+
+    public static void saveNote(int id, String title, String content) throws IOException {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("title", title);
+        hashMap.put("content", content);
+        hashMap.put("ownerId", User.getId() + "");
+        HttpURLConnection conn = sendPatchData("notes/" + id, hashMap, User.getToken());
+
+        checkStatusCode(conn);
+        writeResponseMessage(conn);
     }
 
     private static void checkStatusCode(HttpURLConnection conn) throws IOException {
@@ -92,13 +103,46 @@ public class Api {
         }
     }
 
-    private static HttpURLConnection sendPostData(String apiEndAddress, HashMap<String, String> hashmap) throws IOException {
+    private static void writeResponseMessage(HttpURLConnection conn) throws IOException {
+        StringBuilder s = new StringBuilder();
+        s.append("Response message:").append("\n");
+
+        InputStreamReader is = new InputStreamReader(conn.getInputStream());
+        BufferedReader br = new BufferedReader(is);
+
+        String line = br.readLine();
+        while (line != null) {
+            s.append(line).append("\n");
+            line = br.readLine();
+        }
+
+        br.close();
+        is.close();
+
+        System.out.println(s);
+    }
+
+    private static HttpURLConnection sendPostData(String apiEndAddress, HashMap<String, String> hashmap, String token) throws IOException {
         HttpURLConnection conn = postConn(apiEndAddress);
+        if (!token.isEmpty()) setBearer(conn, token);
         conn.connect();
 
+        return sendDataDefault(conn, hashmap);
+    }
+
+    private static HttpURLConnection sendPatchData(String apiEndAddress, HashMap<String, String> hashmap, String token) throws IOException {
+        HttpURLConnection conn = patchConn(apiEndAddress);
+        if (!token.isEmpty()) setBearer(conn, token);
+        conn.connect();
+
+        return sendDataDefault(conn, hashmap);
+    }
+
+    private static HttpURLConnection sendDataDefault(HttpURLConnection conn, HashMap<String, String> hashmap) throws IOException {
         JSONObject jsonObject = new JSONObject();
         for (String key : hashmap.keySet()) {
-            jsonObject.put(key, hashmap.get(key).toString());
+            System.out.println(hashmap.get(key));
+            jsonObject.put(key, hashmap.get(key));
         }
 
         OutputStreamWriter os = new OutputStreamWriter(conn.getOutputStream());
@@ -144,6 +188,15 @@ public class Api {
 
     private static HttpURLConnection postConn(String apiAddressEnd) throws IOException {
         HttpURLConnection conn = defaultConn(apiAddressEnd);
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+
+        return conn;
+    }
+
+    private static HttpURLConnection patchConn(String apiAddressEnd) throws IOException {
+        HttpURLConnection conn = defaultConn(apiAddressEnd);
+        conn.setRequestProperty("X-HTTP-Method-Override", "PATCH");
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
 
