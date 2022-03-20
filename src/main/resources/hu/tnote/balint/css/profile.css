@@ -1,0 +1,4 @@
+.textHolder .label {
+    -fx-font-size: 150%;
+    -fx-text-fill: white;
+}

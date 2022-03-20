@@ -3,7 +3,6 @@ package hu.tnote.balint.Controllers.InsideViews;
 import hu.tnote.balint.Controllers.Api;
 import hu.tnote.balint.Note;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -21,7 +20,7 @@ public class NoteEditorController {
     @FXML
     private TextArea textArea;
     @FXML
-    private Label noteTitle;
+    private TextField noteTitle;
     @FXML
     private HBox titleHbox;
     private Note note;
@@ -59,9 +58,8 @@ public class NoteEditorController {
 
     @FXML
     public void saveBtnClick() {
-        new Alert(Alert.AlertType.NONE, "Save btn clicked", ButtonType.OK).show();
         try {
-            Api.saveNote(note.getId(), note.getTitle(), textArea.getText());
+            Api.saveNote(note.getId(), noteTitle.getText(), textArea.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }

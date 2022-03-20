@@ -1,6 +1,7 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.Controllers.InsideViews.NoteListController;
+import hu.tnote.balint.Controllers.InsideViews.ProfileController;
 import hu.tnote.balint.Note;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,7 +82,8 @@ public class DashboardController {
 
     @FXML
     public void profileBtnClick() {
-
+        FXMLLoader loader = loadFxmlToContentContainer("/hu/tnote/balint/insideViews/profile-view.fxml");
+        ProfileController noteListController = loader.getController();
     }
 
     private FXMLLoader loadFxmlToContentContainer(String fxml) {

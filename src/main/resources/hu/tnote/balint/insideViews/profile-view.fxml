@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="hu.tnote.balint.Controllers.InsideViews.ProfileController">
-
+<VBox xmlns="http://javafx.com/javafx/11.0.2"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="hu.tnote.balint.Controllers.InsideViews.ProfileController"
+      spacing="20" stylesheets="@../css/profile.css">
+    <HBox styleClass="textHolder">
+        <Label text="Név: "/>
+        <Label fx:id="nameLabel"/>
+    </HBox>
+    <HBox styleClass="textHolder">
+        <Label text="Email: "/>
+        <Label fx:id="emailLabel"/>
+    </HBox>
 </VBox>

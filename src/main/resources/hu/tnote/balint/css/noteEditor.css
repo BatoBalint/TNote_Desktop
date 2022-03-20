@@ -70,3 +70,8 @@
     -fx-font-size: 1.2em;
     -fx-padding: 5 10;
 }
+
+#noteTitle {
+    -fx-background-color: transparent;
+    -fx-border-radius: 0;
+}

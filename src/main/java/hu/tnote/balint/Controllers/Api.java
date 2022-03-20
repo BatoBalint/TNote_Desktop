@@ -78,7 +78,7 @@ public class Api {
         HttpURLConnection conn = sendPatchData("notes/" + id, hashMap, User.getToken());
 
         checkStatusCode(conn);
-        writeResponseMessage(conn);
+        //writeResponseMessage(conn);
     }
 
     private static void checkStatusCode(HttpURLConnection conn) throws IOException {
@@ -141,7 +141,6 @@ public class Api {
     private static HttpURLConnection sendDataDefault(HttpURLConnection conn, HashMap<String, String> hashmap) throws IOException {
         JSONObject jsonObject = new JSONObject();
         for (String key : hashmap.keySet()) {
-            System.out.println(hashmap.get(key));
             jsonObject.put(key, hashmap.get(key));
         }
 
