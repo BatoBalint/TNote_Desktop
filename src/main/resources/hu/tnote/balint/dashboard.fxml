@@ -27,13 +27,13 @@
                 <Label text="Logo" styleClass="h1, text-primary" />
             </HBox>
             <HBox styleClass="btnContainer">
+                <Button fx:id="noteBtn" text="Notes" onAction="#noteBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+            </HBox>
+            <HBox styleClass="btnContainer">
                 <Button fx:id="profileBtn" text="Profile" onAction="#profileBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
             </HBox>
             <HBox styleClass="btnContainer">
                 <Button fx:id="settingsBtn" text="Settings" onAction="#settingsBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
-            </HBox>
-            <HBox styleClass="btnContainer">
-                <Button fx:id="noteBtn" text="Notes" onAction="#noteBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
             </HBox>
         </VBox>
         <VBox fx:id="logoutVbox">

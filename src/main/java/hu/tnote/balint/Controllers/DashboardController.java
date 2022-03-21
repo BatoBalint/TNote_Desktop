@@ -39,8 +39,9 @@ public class DashboardController {
     private MainController parentController;
 
     public void initialize() {
-
         uiInit();
+
+
     }
 
     private void uiInit() {

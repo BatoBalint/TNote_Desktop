@@ -78,7 +78,13 @@
     -fx-background-radius: 0;
 }
 
-.btnContainer .button:focused {
+/*.btnContainer .button:focused {
+    -fx-background-color: -fx-secondaryBGColor;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}*/
+
+.btnFocus {
     -fx-background-color: -fx-secondaryBGColor;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
