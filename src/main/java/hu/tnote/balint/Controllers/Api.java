@@ -81,6 +81,17 @@ public class Api {
         //writeResponseMessage(conn);
     }
 
+    public static void addNote(int id, String title, String content) throws IOException {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("title", title);
+        hashMap.put("content", content);
+        hashMap.put("ownerId", User.getId() + "");
+        HttpURLConnection conn = sendPostData("notes", hashMap, User.getToken());
+
+        checkStatusCode(conn);
+        //writeResponseMessage(conn);
+    }
+
     private static void checkStatusCode(HttpURLConnection conn) throws IOException {
         int statusCode = conn.getResponseCode();
         if (statusCode / 100 != 2) {

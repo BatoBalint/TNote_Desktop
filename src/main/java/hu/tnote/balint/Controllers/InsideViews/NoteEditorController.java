@@ -29,6 +29,7 @@ public class NoteEditorController {
 
     public void initialize() {
         VBox.setVgrow(titleHbox, Priority.ALWAYS);
+        HBox.setHgrow(noteTitle, Priority.ALWAYS);
         rootContainer.setAlignment(Pos.TOP_CENTER);
 
         textArea.setMaxWidth(800);
@@ -58,10 +59,19 @@ public class NoteEditorController {
 
     @FXML
     public void saveBtnClick() {
-        try {
-            Api.saveNote(note.getId(), noteTitle.getText(), textArea.getText());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (note.getId() >= 0) {
+            try {
+                Api.saveNote(note.getId(), noteTitle.getText(), textArea.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                Api.addNote(note.getId(), noteTitle.getText(), textArea.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 }

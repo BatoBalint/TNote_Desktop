@@ -27,11 +27,16 @@ public class NoteButton {
 
     private void createButton() {
         this.button = new Button();
-        this.button.setText(note.getTitle());
         this.button.setMinWidth(200);
         this.button.setMaxWidth(200);
         this.button.setMinHeight(75);
         this.button.setMaxHeight(75);
+        if (note.getId() >= 0) {
+            this.button.setText(note.getTitle());
+        } else {
+            this.button.setText("+");
+            this.button.getStyleClass().add("h1");
+        }
         this.button.getStyleClass().add("noteButton");
         this.button.getStyleClass().add("roundTRBL");
         this.button.setAlignment(Pos.CENTER_LEFT);

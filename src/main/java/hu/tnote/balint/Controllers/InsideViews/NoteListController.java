@@ -3,6 +3,7 @@ package hu.tnote.balint.Controllers.InsideViews;
 import hu.tnote.balint.Controllers.Api;
 import hu.tnote.balint.CustomNode.NoteButton;
 import hu.tnote.balint.Note;
+import hu.tnote.balint.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -45,6 +46,8 @@ public class NoteListController {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+
+        notes.add(new Note(-1, User.getId(), "", ""));
 
         List<HBox> hboxList = new ArrayList<>();
 
