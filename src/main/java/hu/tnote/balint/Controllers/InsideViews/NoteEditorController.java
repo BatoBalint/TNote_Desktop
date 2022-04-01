@@ -36,25 +36,7 @@ public class NoteEditorController {
     public void initialize() {
         uiInit();
 
-        MenuItem test1 = new MenuItem("Text");
-        MenuItem test2 = new MenuItem("Longer Text");
-        MenuItem delete = new MenuItem("Törlés");
-
-        test1.setOnAction(actionEvent -> new Alert(Alert.AlertType.NONE, test1.getText(), ButtonType.OK).show());
-        test2.setOnAction(actionEvent -> new Alert(Alert.AlertType.NONE, test2.getText(), ButtonType.OK).show());
-        delete.setOnAction(actionEvent -> {
-            try {
-                Api.deleteNote(note.getId());
-                alertWait("Sikeres törlés");
-            } catch (IOException e) {
-                e.printStackTrace();
-                alert("Valami miatt nem sikerült törölni a jegyzetet");
-            }
-        });
-
-        menuBtn.getItems().add(test1);
-        menuBtn.getItems().add(test2);
-        menuBtn.getItems().add(delete);
+        moteButtonSetup();
 
         textArea.prefRowCountProperty().bind(lineCount);
         lineCount.set(23);
@@ -78,6 +60,22 @@ public class NoteEditorController {
 
         textArea.setMaxWidth(800);
         textArea.setWrapText(true);
+    }
+
+    private void moteButtonSetup() {
+        MenuItem delete = new MenuItem("Törlés");
+
+        delete.setOnAction(actionEvent -> {
+            try {
+                Api.deleteNote(note.getId());
+                alertWait("Sikeres törlés");
+            } catch (IOException e) {
+                e.printStackTrace();
+                alert("Valami miatt nem sikerült törölni a jegyzetet");
+            }
+        });
+
+        menuBtn.getItems().add(delete);
     }
 
     public void passData(Note note, ScrollPane scrollPane) {
