@@ -3,6 +3,10 @@ package hu.tnote.balint.Controllers.InsideViews;
 import hu.tnote.balint.Controllers.Api;
 import hu.tnote.balint.Note;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -23,17 +27,35 @@ public class NoteEditorController {
     private TextField noteTitle;
     @FXML
     private HBox titleHbox;
+    @FXML
+    public MenuButton menuBtn;
     private Note note;
     private ScrollPane scrollPane;
     private SimpleIntegerProperty lineCount = new SimpleIntegerProperty();
 
     public void initialize() {
-        VBox.setVgrow(titleHbox, Priority.ALWAYS);
-        HBox.setHgrow(noteTitle, Priority.ALWAYS);
-        rootContainer.setAlignment(Pos.TOP_CENTER);
+        uiInit();
 
-        textArea.setMaxWidth(800);
-        textArea.setWrapText(true);
+        MenuItem test1 = new MenuItem("Text");
+        MenuItem test2 = new MenuItem("Longer Text");
+        MenuItem delete = new MenuItem("Törlés");
+
+        test1.setOnAction(actionEvent -> new Alert(Alert.AlertType.NONE, test1.getText(), ButtonType.OK).show());
+        test2.setOnAction(actionEvent -> new Alert(Alert.AlertType.NONE, test2.getText(), ButtonType.OK).show());
+        delete.setOnAction(actionEvent -> {
+            try {
+                Api.deleteNote(note.getId());
+                alertWait("Sikeres törlés");
+            } catch (IOException e) {
+                e.printStackTrace();
+                alert("Valami miatt nem sikerült törölni a jegyzetet");
+            }
+        });
+
+        menuBtn.getItems().add(test1);
+        menuBtn.getItems().add(test2);
+        menuBtn.getItems().add(delete);
+
         textArea.prefRowCountProperty().bind(lineCount);
         lineCount.set(23);
         textArea.textProperty().addListener((observableValue, s, t1) -> {
@@ -47,6 +69,15 @@ public class NoteEditorController {
                 scrollPane.setVvalue(1.0D);
             };
         });
+    }
+
+    private void uiInit() {
+        VBox.setVgrow(titleHbox, Priority.ALWAYS);
+        HBox.setHgrow(noteTitle, Priority.ALWAYS);
+        rootContainer.setAlignment(Pos.TOP_CENTER);
+
+        textArea.setMaxWidth(800);
+        textArea.setWrapText(true);
     }
 
     public void passData(Note note, ScrollPane scrollPane) {
@@ -73,5 +104,23 @@ public class NoteEditorController {
             }
         }
 
+    }
+
+    @FXML
+    public void moreBtnClick() {
+        new Alert(Alert.AlertType.NONE, "TEST", ButtonType.OK).show();
+    }
+
+    @FXML
+    public void menubuttonAction() {
+        new Alert(Alert.AlertType.NONE, "Test", ButtonType.OK).show();
+    }
+
+    private void alert(String text) {
+        new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
+    }
+
+    private void alertWait(String text) {
+        new Alert(Alert.AlertType.NONE, text, ButtonType.OK).showAndWait();
     }
 }

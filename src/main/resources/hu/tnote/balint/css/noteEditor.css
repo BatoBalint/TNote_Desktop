@@ -71,6 +71,43 @@
     -fx-padding: 5 10;
 }
 
+.moreBtn {
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-background-color: #3f3f3f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.2em;
+}
+
+.menu-button .context-menu {
+    -fx-background-color: grey;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+}
+
+.menu-button .menu-item:focused {
+    -fx-background-color: white;
+    -fx-background-radius: 3;
+}
+
+.menu-button .menu-item .label {
+    -fx-text-fill: white;
+    -fx-padding: 2 5;
+}
+
+.menu-button .menu-item:focused > .label {
+    -fx-text-fill: black;
+}
+
+.menu-button .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button .arrow-button .arrow {
+    -fx-padding: 0;
+}
+
 #noteTitle {
     -fx-background-color: transparent;
     -fx-border-radius: 0;

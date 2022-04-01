@@ -92,6 +92,14 @@ public class Api {
         //writeResponseMessage(conn);
     }
 
+    public static void deleteNote(int id) throws IOException {
+        HttpURLConnection conn = deleteConn("notes/" + id);
+        setBearer(conn, User.getToken());
+
+        conn.connect();
+        checkStatusCode(conn);
+    }
+
     private static void checkStatusCode(HttpURLConnection conn) throws IOException {
         int statusCode = conn.getResponseCode();
         if (statusCode / 100 != 2) {
@@ -208,6 +216,14 @@ public class Api {
         HttpURLConnection conn = defaultConn(apiAddressEnd);
         conn.setRequestProperty("X-HTTP-Method-Override", "PATCH");
         conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+
+        return conn;
+    }
+
+    private static HttpURLConnection deleteConn(String apiAddressEnd) throws IOException {
+        HttpURLConnection conn = defaultConn(apiAddressEnd);
+        conn.setRequestMethod("DELETE");
         conn.setDoOutput(true);
 
         return conn;

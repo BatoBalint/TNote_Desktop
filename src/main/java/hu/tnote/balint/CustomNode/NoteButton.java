@@ -34,8 +34,8 @@ public class NoteButton {
         if (note.getId() >= 0) {
             this.button.setText(note.getTitle());
         } else {
-            this.button.setText("+");
-            this.button.getStyleClass().add("h1");
+            this.button.setText("+ Új jegyzet");
+            this.button.getStyleClass().add("h3");
         }
         this.button.getStyleClass().add("noteButton");
         this.button.getStyleClass().add("roundTRBL");
