@@ -1,13 +1,13 @@
 package hu.tnote.balint.Controllers.InsideViews;
 
-import hu.tnote.balint.Controllers.Api;
+import hu.tnote.balint.Api;
 import hu.tnote.balint.CustomNode.NoteButton;
 import hu.tnote.balint.Note;
 import hu.tnote.balint.User;
+import hu.tnote.balint.WindowManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
@@ -24,6 +24,7 @@ public class NoteListController {
     @FXML
     public VBox rootContainer;
     private ScrollPane scrollPane;
+    private WindowManager windowManager;
 
     public void initialize() {
         uiInit();
@@ -34,8 +35,12 @@ public class NoteListController {
     private void uiInit() {
     }
 
-    public void passScrollPane (ScrollPane scrollPane) {
+    public void setScrollPane (ScrollPane scrollPane) {
         this.scrollPane = scrollPane;
+    }
+
+    public void setWindowManager(WindowManager windowManager) {
+        this.windowManager = windowManager;
     }
 
     private void loadNotes() {
@@ -65,6 +70,7 @@ public class NoteListController {
                     VBox child = loader.load();
                     NoteEditorController c = loader.getController();
                     c.passData(nBtn.getNote(), scrollPane);
+                    c.setWindowManager(windowManager);
                     rootContainer.getChildren().setAll(child);
                 } catch (IOException e) {
                     e.printStackTrace();

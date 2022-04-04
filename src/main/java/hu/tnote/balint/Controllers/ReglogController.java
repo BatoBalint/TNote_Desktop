@@ -1,5 +1,7 @@
 package hu.tnote.balint.Controllers;
 
+import hu.tnote.balint.Api;
+import hu.tnote.balint.WindowManager;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -47,7 +49,7 @@ public class ReglogController {
     private Button showPassBtnAgain;
     //endregion
 
-    private MainController parentController;
+    private WindowManager windowManager;
     private boolean regSelected;
     private SimpleBooleanProperty showPassword;
     private SimpleBooleanProperty showPasswordAgain;
@@ -63,8 +65,8 @@ public class ReglogController {
         regBtnSelected();
     }
 
-    public void setParentController(MainController mainController) {
-        parentController = mainController;
+    public void setWindowManager(WindowManager windowManager) {
+        this.windowManager = windowManager;
     }
 
     private void uiInit() {
@@ -111,7 +113,7 @@ public class ReglogController {
                 try {
                     Api.register(name, email, pass);
                     clearInputs();
-                    parentController.changeToDashboard();
+                    windowManager.changeToDashboard();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -125,7 +127,7 @@ public class ReglogController {
             try {
                 Api.login(email, pass);
                 clearInputs();
-                parentController.changeToDashboard();
+                windowManager.changeToDashboard();
             } catch (IOException | ParseException e) {
                 alert("Nem sikerült a bejelentkezés");
                 e.printStackTrace();

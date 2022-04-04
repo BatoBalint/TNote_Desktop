@@ -1,18 +1,16 @@
 package hu.tnote.balint.Controllers;
 
+import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.InsideViews.NoteListController;
 import hu.tnote.balint.Controllers.InsideViews.ProfileController;
 import hu.tnote.balint.Controllers.InsideViews.SettingsController;
-import hu.tnote.balint.Note;
+import hu.tnote.balint.WindowManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DashboardController {
 
@@ -37,12 +35,12 @@ public class DashboardController {
     private VBox logoutVbox;
     //endregion
 
-    private MainController parentController;
+    private WindowManager windowManager;
 
     public void initialize() {
         uiInit();
 
-
+        profileBtnClick();
     }
 
     private void uiInit() {
@@ -56,15 +54,15 @@ public class DashboardController {
 
     }
 
-    public void setParentController(MainController mainController) {
-        parentController = mainController;
+    public void setWindowManager(WindowManager windowManager) {
+        this.windowManager = windowManager;
     }
 
     @FXML
     public void logoutBtnClick() {
         try {
             Api.logout();
-            parentController.changeToRegLog();
+            windowManager.changeToRegLog();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,9 +72,12 @@ public class DashboardController {
     public void noteBtnClick() {
         resetDashboardSelection();
         noteBtn.getStyleClass().add(0, "btnFocus");
-        FXMLLoader loader = loadFxmlToContentContainer("/hu/tnote/balint/insideViews/note-list-view.fxml");
-        NoteListController noteListController = loader.getController();
-        noteListController.passScrollPane(contentContainer);
+        windowManager.setNoteScrollpane(contentContainer);
+        try {
+            windowManager.changeToNoteList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

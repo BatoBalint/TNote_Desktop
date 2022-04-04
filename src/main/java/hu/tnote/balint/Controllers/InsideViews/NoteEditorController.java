@@ -1,12 +1,9 @@
 package hu.tnote.balint.Controllers.InsideViews;
 
-import hu.tnote.balint.Controllers.Api;
+import hu.tnote.balint.Api;
 import hu.tnote.balint.Note;
+import hu.tnote.balint.WindowManager;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -29,6 +26,7 @@ public class NoteEditorController {
     private HBox titleHbox;
     @FXML
     public MenuButton menuBtn;
+    private WindowManager windowManager;
     private Note note;
     private ScrollPane scrollPane;
     private SimpleIntegerProperty lineCount = new SimpleIntegerProperty();
@@ -36,7 +34,7 @@ public class NoteEditorController {
     public void initialize() {
         uiInit();
 
-        moteButtonSetup();
+        moreButtonSetup();
 
         textArea.prefRowCountProperty().bind(lineCount);
         lineCount.set(23);
@@ -53,6 +51,10 @@ public class NoteEditorController {
         });
     }
 
+    public void setWindowManager(WindowManager windowManager) {
+        this.windowManager = windowManager;
+    }
+
     private void uiInit() {
         VBox.setVgrow(titleHbox, Priority.ALWAYS);
         HBox.setHgrow(noteTitle, Priority.ALWAYS);
@@ -62,7 +64,7 @@ public class NoteEditorController {
         textArea.setWrapText(true);
     }
 
-    private void moteButtonSetup() {
+    private void moreButtonSetup() {
         MenuItem delete = new MenuItem("Törlés");
 
         delete.setOnAction(actionEvent -> {
@@ -75,7 +77,18 @@ public class NoteEditorController {
             }
         });
 
+        MenuItem test = new MenuItem("Vissza");
+
+        test.setOnAction(actionEvent -> {
+            try {
+                windowManager.changeToNoteList();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         menuBtn.getItems().add(delete);
+        menuBtn.getItems().add(test);
     }
 
     public void passData(Note note, ScrollPane scrollPane) {

@@ -1,7 +1,5 @@
-package hu.tnote.balint.Controllers;
+package hu.tnote.balint;
 
-import hu.tnote.balint.Note;
-import hu.tnote.balint.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

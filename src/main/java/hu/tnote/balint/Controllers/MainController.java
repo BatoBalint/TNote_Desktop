@@ -1,7 +1,9 @@
 package hu.tnote.balint.Controllers;
 
+import hu.tnote.balint.Api;
 import hu.tnote.balint.App;
 import hu.tnote.balint.User;
+import hu.tnote.balint.WindowManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -22,15 +24,18 @@ public class MainController {
 
     private boolean rememberLogin;
     private Stage stage;
+    private WindowManager windowManager;
 
     public void initialize() {
+        windowManager = new WindowManager(rootContainer);
+
         Preferences prefs = Preferences.userRoot();
         String PAT = prefs.get("TNotePAT", "");     //Personal access token
         rememberLogin = prefs.getBoolean("TNoteRememberLogin", true);
 
         if (PAT.isEmpty()) {
             try {
-                changeToRegLog();
+                windowManager.changeToRegLog();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -41,7 +46,7 @@ public class MainController {
                     Preferences.userRoot().get("TNoteUserName", ""),
                     Preferences.userRoot().get("TNoteUserEmail", ""));
             try {
-                changeToDashboard();
+                windowManager.changeToDashboard();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -59,32 +64,6 @@ public class MainController {
                 }
             }
         });
-    }
-
-    public void changeToRegLog() {
-        try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
-            BorderPane child = loader.load();
-            ReglogController reglogController = loader.getController();
-            reglogController.setParentController(this);
-            VBox.setVgrow(child, Priority.ALWAYS);
-            rootContainer.getChildren().setAll(child);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void changeToDashboard() {
-        try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard.fxml"));
-            GridPane child = loader.load();
-            DashboardController dashboardController = loader.getController();
-            dashboardController.setParentController(this);
-            VBox.setVgrow(child, Priority.ALWAYS);
-            rootContainer.getChildren().setAll(child);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void alert(String text) {
