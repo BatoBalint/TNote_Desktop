@@ -71,9 +71,12 @@ public class NoteEditorController {
             try {
                 Api.deleteNote(note.getId());
                 alertWait("Sikeres törlés");
+                windowManager.changeToNoteList();
             } catch (IOException e) {
                 e.printStackTrace();
                 alert("Valami miatt nem sikerült törölni a jegyzetet");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
@@ -81,6 +84,7 @@ public class NoteEditorController {
 
         test.setOnAction(actionEvent -> {
             try {
+                menuBtn.hide();
                 windowManager.changeToNoteList();
             } catch (Exception e) {
                 e.printStackTrace();

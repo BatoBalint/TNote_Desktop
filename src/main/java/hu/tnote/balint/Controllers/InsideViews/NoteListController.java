@@ -37,6 +37,12 @@ public class NoteListController {
 
     public void setScrollPane (ScrollPane scrollPane) {
         this.scrollPane = scrollPane;
+
+        final double SPEED = 0.005;
+        this.scrollPane.getContent().setOnScroll(scrollEvent -> {
+            double deltaY = scrollEvent.getDeltaY() * SPEED;
+            this.scrollPane.setVvalue(this.scrollPane.getVvalue() - deltaY);
+        });
     }
 
     public void setWindowManager(WindowManager windowManager) {
@@ -52,7 +58,9 @@ public class NoteListController {
             e.printStackTrace();
         }
 
-        notes.add(new Note(-1, User.getId(), "", ""));
+        for (int i = 0; i < 10; i++) {
+            notes.add(new Note(-1, User.getId(), "", ""));
+        }
 
         List<HBox> hboxList = new ArrayList<>();
 
