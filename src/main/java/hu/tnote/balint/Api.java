@@ -30,8 +30,8 @@ public class Api {
             JSONObject jsonObject = (JSONObject) o;
             int id = Integer.parseInt(jsonObject.get("id").toString());
             int ownerId = Integer.parseInt(jsonObject.get("ownerId").toString());
-            String title = jsonObject.get("title").toString();
-            String content = jsonObject.get("content").toString();
+            String title = (jsonObject.get("title") != null) ? jsonObject.get("title").toString() : "";
+            String content = (jsonObject.get("content") != null) ? jsonObject.get("content").toString() : "";
             Note n = new Note(id, ownerId, title, content);
             noteList.add(n);
         }

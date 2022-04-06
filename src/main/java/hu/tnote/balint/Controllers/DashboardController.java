@@ -37,11 +37,11 @@ public class DashboardController extends Controller {
 
     public void initialize() {
         uiInit();
-
-        profileBtnClick();
     }
 
-    public ScrollPane getScrollPane() { return this.contentContainer; }
+    public ScrollPane getScrollPane() {
+        return this.contentContainer;
+    }
 
     private void uiInit() {
         HBox.setHgrow(logoutBtn, Priority.ALWAYS);
@@ -88,25 +88,16 @@ public class DashboardController extends Controller {
     public void profileBtnClick() {
         resetDashboardSelection();
         profileBtn.getStyleClass().add(0, "btnFocus");
-        FXMLLoader loader = loadFxmlToContentContainer("/hu/tnote/balint/insideViews/profile-view.fxml");
-        ProfileController noteListController = loader.getController();
+        try {
+            windowManager.changeToFxml("/hu/tnote/balint/insideViews/profile-view.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void resetDashboardSelection() {
         profileBtn.getStyleClass().remove("btnFocus");
         settingsBtn.getStyleClass().remove("btnFocus");
         noteBtn.getStyleClass().remove("btnFocus");
-    }
-
-    private FXMLLoader loadFxmlToContentContainer(String fxml) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        try {
-            VBox vbox = loader.load();
-            contentContainer.setContent(vbox);
-            return loader;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return loader;
     }
 }

@@ -29,7 +29,6 @@ public class NoteEditorController extends Controller {
     public MenuButton menuBtn;
     private WindowManager windowManager;
     private Note note;
-    private ScrollPane scrollPane;
     private SimpleIntegerProperty lineCount = new SimpleIntegerProperty();
 
     public void initialize() {
@@ -47,7 +46,7 @@ public class NoteEditorController extends Controller {
                 lineCount.set(20);
             } else {
                 lineCount.set(lines.length + 1);
-                scrollPane.setVvalue(1.0D);
+                windowManager.scrollDown();
             };
         });
     }
@@ -96,12 +95,10 @@ public class NoteEditorController extends Controller {
         menuBtn.getItems().add(test);
     }
 
-    public void passData(Note note, ScrollPane scrollPane) {
+    public void passData(Note note) {
         this.note = note;
         noteTitle.setText(this.note.getTitle());
         textArea.setText(this.note.getContent());
-
-        this.scrollPane = scrollPane;
     }
 
     @FXML

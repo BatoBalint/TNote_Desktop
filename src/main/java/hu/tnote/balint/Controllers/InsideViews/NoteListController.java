@@ -59,7 +59,7 @@ public class NoteListController extends Controller {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             notes.add(new Note(-1, User.getId(), "", ""));
         }
 
@@ -75,16 +75,12 @@ public class NoteListController extends Controller {
             NoteButton nBtn = new NoteButton(n);
             nBtn.setOnAction(v -> {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/insideViews/note-editor-view.fxml"));
-                    VBox child = loader.load();
-                    NoteEditorController c = loader.getController();
-                    c.passData(nBtn.getNote(), scrollPane);
-                    c.setWindowManager(windowManager);
-                    rootContainer.getChildren().setAll(child);
+                    windowManager.changeToNoteEditor(nBtn.getNote());
                 } catch (IOException e) {
                     e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             });
             hboxList.get(counter / 2).getChildren().add(nBtn.get());
             counter++;
