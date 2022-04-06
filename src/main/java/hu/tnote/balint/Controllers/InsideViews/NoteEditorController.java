@@ -1,6 +1,7 @@
 package hu.tnote.balint.Controllers.InsideViews;
 
 import hu.tnote.balint.Api;
+import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.Note;
 import hu.tnote.balint.WindowManager;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,7 +14,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class NoteEditorController {
+public class NoteEditorController extends Controller {
     @FXML
     public VBox saveBtnContainer;
     @FXML
@@ -129,13 +130,5 @@ public class NoteEditorController {
     @FXML
     public void menubuttonAction() {
         new Alert(Alert.AlertType.NONE, "Test", ButtonType.OK).show();
-    }
-
-    private void alert(String text) {
-        new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
-    }
-
-    private void alertWait(String text) {
-        new Alert(Alert.AlertType.NONE, text, ButtonType.OK).showAndWait();
     }
 }

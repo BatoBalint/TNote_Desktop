@@ -1,5 +1,7 @@
 package hu.tnote.balint.Controllers.InsideViews;
 
-public class SettingsController {
+import hu.tnote.balint.Controllers.Controller;
+
+public class SettingsController extends Controller {
 
 }

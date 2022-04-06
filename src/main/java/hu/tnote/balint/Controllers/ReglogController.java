@@ -12,7 +12,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
-public class ReglogController {
+public class ReglogController extends Controller {
 
     //region FXML variables
     @FXML
@@ -49,7 +49,6 @@ public class ReglogController {
     private Button showPassBtnAgain;
     //endregion
 
-    private WindowManager windowManager;
     private boolean regSelected;
     private SimpleBooleanProperty showPassword;
     private SimpleBooleanProperty showPasswordAgain;
@@ -272,15 +271,4 @@ public class ReglogController {
 
         showPasswordAgain.set(!showPasswordAgain.get());
     }
-
-    //region Fot tests
-
-    public void alert(String text) {
-        new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
-    }
-
-    private void test() {
-        alert("test");
-    }
-    //endregion
 }

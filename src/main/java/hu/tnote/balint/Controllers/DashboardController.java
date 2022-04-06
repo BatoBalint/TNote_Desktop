@@ -12,7 +12,7 @@ import javafx.scene.layout.*;
 
 import java.io.IOException;
 
-public class DashboardController {
+public class DashboardController extends Controller {
 
     //region FXML-s
     @FXML
@@ -35,13 +35,13 @@ public class DashboardController {
     private VBox logoutVbox;
     //endregion
 
-    private WindowManager windowManager;
-
     public void initialize() {
         uiInit();
 
         profileBtnClick();
     }
+
+    public ScrollPane getScrollPane() { return this.contentContainer; }
 
     private void uiInit() {
         HBox.setHgrow(logoutBtn, Priority.ALWAYS);
@@ -50,12 +50,6 @@ public class DashboardController {
         HBox.setHgrow(profileBtn, Priority.ALWAYS);
 
         VBox.setVgrow(controlsContainer, Priority.ALWAYS);
-
-
-    }
-
-    public void setWindowManager(WindowManager windowManager) {
-        this.windowManager = windowManager;
     }
 
     @FXML
@@ -72,7 +66,6 @@ public class DashboardController {
     public void noteBtnClick() {
         resetDashboardSelection();
         noteBtn.getStyleClass().add(0, "btnFocus");
-        windowManager.setNoteScrollpane(contentContainer);
         try {
             windowManager.changeToNoteList();
         } catch (Exception e) {
@@ -84,8 +77,11 @@ public class DashboardController {
     public void settingsBtnClick() {
         resetDashboardSelection();
         settingsBtn.getStyleClass().add(0, "btnFocus");
-        FXMLLoader loader = loadFxmlToContentContainer("/hu/tnote/balint/insideViews/settings-view.fxml");
-        SettingsController noteListController = loader.getController();
+        try {
+            windowManager.changeToFxml("/hu/tnote/balint/insideViews/settings-view.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -113,14 +109,4 @@ public class DashboardController {
         }
         return loader;
     }
-
-    //region Tools
-    private void alert(String text) {
-        new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
-    }
-
-    private void test() {
-        alert("test");
-    }
-    //endregion
 }

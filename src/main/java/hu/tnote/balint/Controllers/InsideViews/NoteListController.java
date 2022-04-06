@@ -1,6 +1,7 @@
 package hu.tnote.balint.Controllers.InsideViews;
 
 import hu.tnote.balint.Api;
+import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.CustomNode.NoteButton;
 import hu.tnote.balint.Note;
 import hu.tnote.balint.User;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteListController {
+public class NoteListController extends Controller {
 
     @FXML
     public VBox rootContainer;
@@ -94,9 +95,5 @@ public class NoteListController {
             VBox.setMargin(h, new Insets(40, 0, 0, 0));
             rootContainer.getChildren().add(h);
         }
-    }
-
-    private void alert(String text) {
-        new Alert(Alert.AlertType.NONE, text, ButtonType.OK).show();
     }
 }

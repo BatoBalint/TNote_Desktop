@@ -175,7 +175,6 @@ public class Api {
     private static void processReceivedAuthData(HttpURLConnection conn) throws IOException, ParseException {
         JSONObject regResponse = getJSONObject(conn);
         String token = regResponse.get("token").toString();
-        System.out.println(token);
         JSONObject user = getJSONObjectFromString(regResponse.get("user").toString());
         String n = user.get("name").toString();
         String e = user.get("email").toString();

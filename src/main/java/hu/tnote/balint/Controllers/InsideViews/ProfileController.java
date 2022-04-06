@@ -1,10 +1,11 @@
 package hu.tnote.balint.Controllers.InsideViews;
 
+import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class ProfileController {
+public class ProfileController extends Controller {
 
     @FXML
     private Label emailLabel;
@@ -15,5 +16,4 @@ public class ProfileController {
         nameLabel.setText(User.getName());
         emailLabel.setText(User.getEmail());
     }
-
 }
