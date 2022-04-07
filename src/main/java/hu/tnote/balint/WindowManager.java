@@ -2,16 +2,14 @@ package hu.tnote.balint;
 
 import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.Controllers.DashboardController;
-import hu.tnote.balint.Controllers.InsideViews.NoteEditorController;
-import hu.tnote.balint.Controllers.InsideViews.NoteListController;
+import hu.tnote.balint.Controllers.InsideView.NoteEditorController;
+import hu.tnote.balint.Controllers.InsideView.NoteListController;
 import hu.tnote.balint.Controllers.ReglogController;
-import hu.tnote.balint.CustomNode.NoteButton;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
-import java.lang.reflect.MalformedParametersException;
 
 public class WindowManager {
     private VBox rootContainer;

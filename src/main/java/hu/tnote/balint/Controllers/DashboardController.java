@@ -1,12 +1,7 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.Api;
-import hu.tnote.balint.Controllers.InsideViews.NoteListController;
-import hu.tnote.balint.Controllers.InsideViews.ProfileController;
-import hu.tnote.balint.Controllers.InsideViews.SettingsController;
-import hu.tnote.balint.WindowManager;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 

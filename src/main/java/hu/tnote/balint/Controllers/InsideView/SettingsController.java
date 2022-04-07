@@ -1,4 +1,4 @@
-package hu.tnote.balint.Controllers.InsideViews;
+package hu.tnote.balint.Controllers.InsideView;
 
 import hu.tnote.balint.Controllers.Controller;
 

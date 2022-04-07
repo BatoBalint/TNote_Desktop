@@ -1,9 +1,8 @@
-package hu.tnote.balint.Controllers.InsideViews;
+package hu.tnote.balint.Controllers.InsideView;
 
 import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.Note;
-import hu.tnote.balint.WindowManager;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
