@@ -25,16 +25,12 @@ public class NoteListController extends Controller {
     @FXML
     public VBox rootContainer;
     private ScrollPane scrollPane;
-    private WindowManager windowManager;
 
     public void initialize() {
         uiInit();
-
-        loadNotes();
     }
 
-    private void uiInit() {
-    }
+    private void uiInit() {}
 
     public void setScrollPane (ScrollPane scrollPane) {
         this.scrollPane = scrollPane;
@@ -47,7 +43,9 @@ public class NoteListController extends Controller {
     }
 
     public void setWindowManager(WindowManager windowManager) {
-        this.windowManager = windowManager;
+        super.setWindowManager(windowManager);
+
+        loadNotes();
     }
 
     private void loadNotes() {
@@ -76,8 +74,6 @@ public class NoteListController extends Controller {
             nBtn.setOnAction(v -> {
                 try {
                     windowManager.changeToNoteEditor(nBtn.getNote());
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

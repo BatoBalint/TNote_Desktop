@@ -27,7 +27,6 @@ public class NoteEditorController extends Controller {
     private HBox titleHbox;
     @FXML
     public MenuButton menuBtn;
-    private WindowManager windowManager;
     private Note note;
     private SimpleIntegerProperty lineCount = new SimpleIntegerProperty();
 
@@ -49,10 +48,6 @@ public class NoteEditorController extends Controller {
                 windowManager.scrollDown();
             };
         });
-    }
-
-    public void setWindowManager(WindowManager windowManager) {
-        this.windowManager = windowManager;
     }
 
     private void uiInit() {
@@ -106,22 +101,21 @@ public class NoteEditorController extends Controller {
         if (note.getId() >= 0) {
             try {
                 Api.saveNote(note.getId(), noteTitle.getText(), textArea.getText());
+                alert("Sikeres mentés");
             } catch (IOException e) {
                 e.printStackTrace();
+                alert("Valami okból kifolyólag nem sikerült menteni a jegyzetet.");
             }
         } else {
             try {
                 Api.addNote(note.getId(), noteTitle.getText(), textArea.getText());
+                alert("Sikeres mentés");
             } catch (IOException e) {
                 e.printStackTrace();
+                alert("Valami okból kifolyólag nem sikerült menteni a jegyzetet.");
             }
         }
 
-    }
-
-    @FXML
-    public void moreBtnClick() {
-        new Alert(Alert.AlertType.NONE, "TEST", ButtonType.OK).show();
     }
 
     @FXML
