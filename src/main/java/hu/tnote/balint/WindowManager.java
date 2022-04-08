@@ -40,7 +40,7 @@ public class WindowManager {
         setInnerScrollpane(dashboardController.getScrollPane());
         VBox.setVgrow(child, Priority.ALWAYS);
         rootContainer.getChildren().setAll(child);
-        dashboardController.profileBtnClick();
+        dashboardController.noteBtnClick();
     }
 
     public void changeToNoteList() throws Exception {
