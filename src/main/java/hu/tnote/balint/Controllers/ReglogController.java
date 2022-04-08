@@ -64,10 +64,6 @@ public class ReglogController extends Controller {
         regBtnSelected();
     }
 
-    public void setWindowManager(WindowManager windowManager) {
-        this.windowManager = windowManager;
-    }
-
     private void uiInit() {
         HBox.setHgrow(regBtn, Priority.ALWAYS);
         HBox.setHgrow(loginBtn, Priority.ALWAYS);

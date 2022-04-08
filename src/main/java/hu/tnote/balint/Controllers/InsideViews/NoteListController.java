@@ -25,7 +25,6 @@ public class NoteListController extends Controller {
     @FXML
     public VBox rootContainer;
     private ScrollPane scrollPane;
-    private WindowManager windowManager;
 
     public void initialize() {
         uiInit();
@@ -44,10 +43,6 @@ public class NoteListController extends Controller {
             double deltaY = scrollEvent.getDeltaY() * SPEED;
             this.scrollPane.setVvalue(this.scrollPane.getVvalue() - deltaY);
         });
-    }
-
-    public void setWindowManager(WindowManager windowManager) {
-        this.windowManager = windowManager;
     }
 
     private void loadNotes() {

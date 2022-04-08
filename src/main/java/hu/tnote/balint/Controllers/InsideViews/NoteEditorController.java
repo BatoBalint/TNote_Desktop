@@ -27,7 +27,6 @@ public class NoteEditorController extends Controller {
     private HBox titleHbox;
     @FXML
     public MenuButton menuBtn;
-    private WindowManager windowManager;
     private Note note;
     private SimpleIntegerProperty lineCount = new SimpleIntegerProperty();
 
@@ -49,10 +48,6 @@ public class NoteEditorController extends Controller {
                 windowManager.scrollDown();
             };
         });
-    }
-
-    public void setWindowManager(WindowManager windowManager) {
-        this.windowManager = windowManager;
     }
 
     private void uiInit() {
