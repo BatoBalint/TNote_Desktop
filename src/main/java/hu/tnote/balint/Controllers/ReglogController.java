@@ -1,7 +1,6 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.Api;
-import hu.tnote.balint.WindowManager;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
