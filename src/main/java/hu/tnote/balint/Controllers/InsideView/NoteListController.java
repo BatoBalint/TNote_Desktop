@@ -28,21 +28,18 @@ public class NoteListController extends Controller {
 
     public void initialize() {
         uiInit();
-
-        loadNotes();
     }
 
-    private void uiInit() {
-    }
+    private void uiInit() {}
 
     public void setScrollPane (ScrollPane scrollPane) {
         this.scrollPane = scrollPane;
+    }
 
-        final double SPEED = 0.005;
-        this.scrollPane.getContent().setOnScroll(scrollEvent -> {
-            double deltaY = scrollEvent.getDeltaY() * SPEED;
-            this.scrollPane.setVvalue(this.scrollPane.getVvalue() - deltaY);
-        });
+    public void setWindowManager(WindowManager windowManager) {
+        super.setWindowManager(windowManager);
+
+        loadNotes();
     }
 
     private void loadNotes() {

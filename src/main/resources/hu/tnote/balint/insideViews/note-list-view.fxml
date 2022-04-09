@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="hu.tnote.balint.Controllers.InsideViews.NoteListController" fx:id="rootContainer"
+      fx:controller="hu.tnote.balint.Controllers.InsideView.NoteListController" fx:id="rootContainer"
       alignment="TOP_CENTER">
 
 </VBox>

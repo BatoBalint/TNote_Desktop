@@ -1,9 +1,8 @@
-package hu.tnote.balint.Controllers.InsideViews;
+package hu.tnote.balint.Controllers.InsideView;
 
 import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.Note;
-import hu.tnote.balint.WindowManager;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -101,22 +100,21 @@ public class NoteEditorController extends Controller {
         if (note.getId() >= 0) {
             try {
                 Api.saveNote(note.getId(), noteTitle.getText(), textArea.getText());
+                alert("Sikeres mentés");
             } catch (IOException e) {
                 e.printStackTrace();
+                alert("Valami okból kifolyólag nem sikerült menteni a jegyzetet.");
             }
         } else {
             try {
                 Api.addNote(note.getId(), noteTitle.getText(), textArea.getText());
+                alert("Sikeres mentés");
             } catch (IOException e) {
                 e.printStackTrace();
+                alert("Valami okból kifolyólag nem sikerült menteni a jegyzetet.");
             }
         }
 
-    }
-
-    @FXML
-    public void moreBtnClick() {
-        new Alert(Alert.AlertType.NONE, "TEST", ButtonType.OK).show();
     }
 
     @FXML
