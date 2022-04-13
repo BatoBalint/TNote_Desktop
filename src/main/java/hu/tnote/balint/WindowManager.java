@@ -7,6 +7,7 @@ import hu.tnote.balint.Controllers.InsideView.NoteListController;
 import hu.tnote.balint.Controllers.ReglogController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class WindowManager {
     private VBox rootContainer;
     private ScrollPane innerScrollpane;
+    private Popup activePopup = null;
 
     public WindowManager(VBox rootContainer) {
         this.rootContainer = rootContainer;
@@ -93,5 +95,32 @@ public class WindowManager {
 
     private boolean checkInnerScrollPane() {
         return innerScrollpane != null;
+    }
+
+    public void blurWindow() {
+        if (rootContainer.getEffect() == null) {
+            BoxBlur bb = new BoxBlur();
+            bb.setWidth(3);
+            bb.setHeight(3);
+            bb.setIterations(3);
+            rootContainer.setEffect(bb);
+        } else {
+            rootContainer.setEffect(null);
+        }
+    }
+
+    public void popup() {
+        if (activePopup != null) {
+            activePopup.hide();
+            activePopup = null;
+        }
+        activePopup = new Popup(rootContainer);
+        activePopup.show();
+    }
+
+    public void hidePopup() {
+        if (activePopup != null) {
+            activePopup.hide();
+        }
     }
 }
