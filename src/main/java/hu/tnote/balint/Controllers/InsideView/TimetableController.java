@@ -2,10 +2,7 @@ package hu.tnote.balint.Controllers.InsideView;
 
 import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
-import hu.tnote.balint.CustomNode.NoteButton;
-import hu.tnote.balint.Note;
 import hu.tnote.balint.TimetableElement;
-import hu.tnote.balint.User;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
