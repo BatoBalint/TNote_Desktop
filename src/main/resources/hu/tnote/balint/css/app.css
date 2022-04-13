@@ -164,6 +164,18 @@
     -fx-font-size: 125% !important;
 }
 
+.h6 {
+    -fx-font-size: 100% !important;
+}
+
+.h7 {
+    -fx-font-size: 80% !important;
+}
+
+.h8 {
+    -fx-font-size: 60% !important;
+}
+
 /*endregion*/
 
 /*region Text colors*/

@@ -9,10 +9,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class App extends Application {
+    private static boolean test = false;
+
     @Override
     public void start(Stage stage) throws IOException {
-        loadApp(stage);
-//        loadTest(stage);
+        if (test) loadTest(stage);
+        else loadApp(stage);
     }
 
     private void loadApp(Stage stage) throws IOException {
@@ -42,6 +44,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        if (args.length > 0 && args[0].equals("--test")) test = true;
         launch();
     }
 }

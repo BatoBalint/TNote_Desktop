@@ -14,6 +14,12 @@ public class TimetableElement {
 
     public String getTitle() { return this.title; }
 
+    public String getDescription() { return this.description; }
+
+    public LocalTime getStart() { return this.start; }
+
+    public LocalTime getEnd() { return this.end; }
+
     public TimetableElement(int id, int ttid, String day, String title, String description, LocalTime start, LocalTime end, boolean repeating) {
         this.id = id;
         this.ttid = ttid;
