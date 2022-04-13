@@ -105,6 +105,7 @@ public class DashboardController extends Controller {
     }
 
     private void resetDashboardSelection() {
+        timetableBtn.getStyleClass().remove("btnFocus");
         profileBtn.getStyleClass().remove("btnFocus");
         settingsBtn.getStyleClass().remove("btnFocus");
         noteBtn.getStyleClass().remove("btnFocus");
