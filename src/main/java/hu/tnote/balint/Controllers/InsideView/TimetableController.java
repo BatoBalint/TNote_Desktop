@@ -2,17 +2,19 @@ package hu.tnote.balint.Controllers.InsideView;
 
 import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
+import hu.tnote.balint.CustomNode.TTElementButton;
 import hu.tnote.balint.TimetableElement;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TimetableController extends Controller {
     @FXML
@@ -31,6 +33,8 @@ public class TimetableController extends Controller {
             e.printStackTrace();
         }
 
+        timetableElementList = timetableElementList.stream().sorted(Comparator.comparing(TimetableElement::getStart)).collect(Collectors.toList());
+
         List<HBox> hboxList = new ArrayList<>();
 
         for (TimetableElement tte : timetableElementList) {
@@ -40,8 +44,8 @@ public class TimetableController extends Controller {
                 hbox.setSpacing(40);
                 hboxList.add(hbox);
             }
-            Label label = new Label(tte.getTitle());
-            hboxList.get(counter / 2).getChildren().add(label);
+            TTElementButton tteBtn = new TTElementButton(tte);
+            hboxList.get(counter / 2).getChildren().add(tteBtn.getVBox());
             counter++;
         }
 
