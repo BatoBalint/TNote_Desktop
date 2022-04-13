@@ -1,7 +1,6 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.Api;
-import hu.tnote.balint.WindowManager;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -62,10 +61,6 @@ public class ReglogController extends Controller {
         uiInit();
 
         regBtnSelected();
-    }
-
-    public void setWindowManager(WindowManager windowManager) {
-        this.windowManager = windowManager;
     }
 
     private void uiInit() {

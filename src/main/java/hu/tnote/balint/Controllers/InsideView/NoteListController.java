@@ -1,4 +1,4 @@
-package hu.tnote.balint.Controllers.InsideView;
+package hu.tnote.balint.Controllers.InsideViews;
 
 import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
@@ -7,7 +7,10 @@ import hu.tnote.balint.Note;
 import hu.tnote.balint.User;
 import hu.tnote.balint.WindowManager;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -60,6 +63,8 @@ public class NoteListController extends Controller {
             nBtn.setOnAction(v -> {
                 try {
                     windowManager.changeToNoteEditor(nBtn.getNote());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
