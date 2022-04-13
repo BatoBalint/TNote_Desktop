@@ -97,25 +97,13 @@ public class WindowManager {
         return innerScrollpane != null;
     }
 
-    public void blurWindow() {
-        if (rootContainer.getEffect() == null) {
-            BoxBlur bb = new BoxBlur();
-            bb.setWidth(3);
-            bb.setHeight(3);
-            bb.setIterations(3);
-            rootContainer.setEffect(bb);
-        } else {
-            rootContainer.setEffect(null);
-        }
-    }
-
     public void popup() {
         if (activePopup != null) {
             activePopup.hide();
             activePopup = null;
         }
         activePopup = new Popup(rootContainer);
-        activePopup.show();
+        activePopup.setText("Test text").setColor("green").show();
     }
 
     public void hidePopup() {
