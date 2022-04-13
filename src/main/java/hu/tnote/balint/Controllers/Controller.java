@@ -22,6 +22,4 @@ public class Controller {
     protected void alertWait(String text) {
         new Alert(Alert.AlertType.NONE, text, ButtonType.OK).showAndWait();
     }
-
-
 }

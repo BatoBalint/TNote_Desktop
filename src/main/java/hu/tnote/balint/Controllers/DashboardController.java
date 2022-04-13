@@ -28,6 +28,8 @@ public class DashboardController extends Controller {
     private VBox controlsContainer;
     @FXML
     private VBox logoutVbox;
+    @FXML
+    private Button timetableBtn;
     //endregion
 
     public void initialize() {
@@ -43,6 +45,7 @@ public class DashboardController extends Controller {
         HBox.setHgrow(noteBtn, Priority.ALWAYS);
         HBox.setHgrow(settingsBtn, Priority.ALWAYS);
         HBox.setHgrow(profileBtn, Priority.ALWAYS);
+        HBox.setHgrow(timetableBtn, Priority.ALWAYS);
 
         VBox.setVgrow(controlsContainer, Priority.ALWAYS);
     }
@@ -64,6 +67,17 @@ public class DashboardController extends Controller {
         try {
             windowManager.changeToNoteList();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void timetableBtnClick() {
+        resetDashboardSelection();
+        timetableBtn.getStyleClass().add(0, "btnFocus");
+        try {
+            windowManager.changeToFxml("/hu/tnote/balint/insideViews/timetable-view.fxml");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

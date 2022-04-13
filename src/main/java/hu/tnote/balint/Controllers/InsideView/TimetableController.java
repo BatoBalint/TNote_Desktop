@@ -4,11 +4,11 @@ import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.CustomNode.NoteButton;
 import hu.tnote.balint.Note;
+import hu.tnote.balint.TimetableElement;
 import hu.tnote.balint.User;
-import hu.tnote.balint.WindowManager;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
@@ -17,54 +17,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteListController extends Controller {
-
+public class TimetableController extends Controller {
     @FXML
-    public VBox rootContainer;
+    private VBox rootContainer;
 
     public void initialize() {
-        uiInit();
+        loadTimetables();
     }
 
-    private void uiInit() {}
-
-    public void setWindowManager(WindowManager windowManager) {
-        super.setWindowManager(windowManager);
-
-        loadNotes();
-    }
-
-    private void loadNotes() {
+    private void loadTimetables() {
         int counter = 0;
-        List<Note> notes = new ArrayList<>();
+        List<TimetableElement> timetableElementList = new ArrayList<>();
         try {
-            notes = Api.getNotes();
+            timetableElementList = Api.getTimetableElements();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < 1; i++) {
-            notes.add(new Note(-1, User.getId(), "", ""));
-        }
-
         List<HBox> hboxList = new ArrayList<>();
 
-        for (Note n : notes) {
+        for (TimetableElement tte : timetableElementList) {
             HBox hbox;
             if (counter % 2 == 0) {
                 hbox = new HBox();
                 hbox.setSpacing(40);
                 hboxList.add(hbox);
             }
-            NoteButton nBtn = new NoteButton(n);
-            nBtn.setOnAction(v -> {
-                try {
-                    windowManager.changeToNoteEditor(nBtn.getNote());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            hboxList.get(counter / 2).getChildren().add(nBtn.get());
+            Label label = new Label(tte.getTitle());
+            hboxList.get(counter / 2).getChildren().add(label);
             counter++;
         }
 
@@ -74,4 +54,5 @@ public class NoteListController extends Controller {
             rootContainer.getChildren().add(h);
         }
     }
+
 }

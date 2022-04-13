@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,31 @@ public class Api {
             noteList.add(n);
         }
         return noteList;
+    }
+
+    public static List<TimetableElement> getTimetableElements() throws IOException, ParseException {
+        HttpURLConnection conn = getConn("users/" + User.getId() + "/fulltimetables");
+        setBearer(conn, User.getToken());
+        conn.connect();
+
+        checkStatusCode(conn);
+
+        List<TimetableElement> timetableElementList = new ArrayList<>();
+        JSONArray jsonArray = getJSONArray(conn);
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            int id = Integer.parseInt(jsonObject.get("id").toString());
+            int ttid = Integer.parseInt(jsonObject.get("ttid").toString());
+            String day = jsonObject.get("day").toString();
+            String title = jsonObject.get("title").toString();
+            String description = jsonObject.get("description").toString();
+            LocalTime start = LocalTime.parse(jsonObject.get("start").toString());
+            LocalTime end = LocalTime.parse(jsonObject.get("end").toString());
+            boolean repeating = Boolean.parseBoolean(jsonObject.get("repeating").toString());
+            TimetableElement tte = new TimetableElement(id, ttid, day, title, description, start, end, repeating);
+            timetableElementList.add(tte);
+        }
+        return timetableElementList;
     }
 
     public static void logout() throws IOException {

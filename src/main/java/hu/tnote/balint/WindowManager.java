@@ -50,7 +50,6 @@ public class WindowManager {
         VBox vbox = loader.load();
         NoteListController noteListController = loader.getController();
         noteListController.setWindowManager(this);
-        noteListController.setScrollPane(innerScrollpane);
         innerScrollpane.setContent(vbox);
 
         setScrollPaneScrollSpeed();
