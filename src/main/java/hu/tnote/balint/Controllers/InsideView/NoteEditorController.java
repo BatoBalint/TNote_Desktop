@@ -5,7 +5,9 @@ import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.Note;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -59,6 +61,7 @@ public class NoteEditorController extends Controller {
     }
 
     private void moreButtonSetup() {
+        menuBtn.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         MenuItem delete = new MenuItem("Törlés");
 
         delete.setOnAction(actionEvent -> {
@@ -119,6 +122,5 @@ public class NoteEditorController extends Controller {
 
     @FXML
     public void menubuttonAction() {
-        new Alert(Alert.AlertType.NONE, "Test", ButtonType.OK).show();
     }
 }
