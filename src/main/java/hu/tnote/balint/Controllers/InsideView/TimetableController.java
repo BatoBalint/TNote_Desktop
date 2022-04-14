@@ -6,22 +6,47 @@ import hu.tnote.balint.CustomNode.TTElementButton;
 import hu.tnote.balint.TimetableElement;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class TimetableController extends Controller {
     @FXML
     private VBox rootContainer;
+    @FXML
+    public HBox timetableContainer;
 
     public void initialize() {
-        loadTimetables();
+        timetableContainer.setSpacing(20);
+        ttTest();
+        //loadTimetables();
+    }
+
+    private void ttTest() {
+        for (int i = 0; i < 7; i++) {
+            VBox a = new VBox();
+            if (i == 1) a.setStyle("-fx-background-color: darkgrey; -fx-background-radius: 2; -fx-padding: 5 2");
+            Label day = new Label("Nap");
+            day.setStyle("-fx-font-size: 125%");
+            a.getChildren().add(day);
+            a.setSpacing(5);
+            for (int j = 0; j < (Math.random() * 4) + 1; j++) {
+                TTElementButton tteBtn = new TTElementButton(new TimetableElement(1, 1, "Hetfo", "Matek",
+                        "Csudijo", LocalTime.now(), LocalTime.now().plusHours(2), true));
+                a.getChildren().add(tteBtn.getVBox());
+            }
+            timetableContainer.getChildren().add(a);
+        }
     }
 
     private void loadTimetables() {

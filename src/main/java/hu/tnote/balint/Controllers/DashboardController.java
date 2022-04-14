@@ -84,6 +84,7 @@ public class DashboardController extends Controller {
 
     @FXML
     public void settingsBtnClick() {
+        windowManager.popup();
         resetDashboardSelection();
         settingsBtn.getStyleClass().add(0, "btnFocus");
         try {

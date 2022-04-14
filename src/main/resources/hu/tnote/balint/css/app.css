@@ -6,6 +6,10 @@
     -fx-secondaryTextColor: grey;
 }
 
+.mainViewVBox {
+    -fx-background-color: black;
+}
+
 .root {
     -fx-background-color: -fx-BGColor;
     -fx-alignment: CENTER;

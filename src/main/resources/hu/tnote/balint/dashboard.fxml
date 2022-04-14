@@ -9,11 +9,11 @@
           fx:controller="hu.tnote.balint.Controllers.DashboardController"
           maxWidth="Infinity" maxHeight="Infinity" alignment="TOP_CENTER">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" maxWidth="200" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="200" maxWidth="200" />
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" maxHeight="50" vgrow="NEVER" />
+        <RowConstraints minHeight="50" maxHeight="50" vgrow="NEVER" />
         <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
     </rowConstraints>
     <HBox prefHeight="50.0"
