@@ -17,7 +17,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class TimetableController extends Controller {
@@ -28,8 +27,8 @@ public class TimetableController extends Controller {
 
     public void initialize() {
         timetableContainer.setSpacing(20);
-        ttTest();
-        //loadTimetables();
+//        ttTest();
+        loadTimetables();
     }
 
     private void ttTest() {

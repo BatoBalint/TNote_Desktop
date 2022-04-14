@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,7 @@ public class Api {
         JSONArray jsonArray = getJSONArray(conn);
         for (Object o : jsonArray) {
             JSONObject jsonObject = (JSONObject) o;
+
             int id = Integer.parseInt(jsonObject.get("id").toString());
             int ttid = Integer.parseInt(jsonObject.get("ttid").toString());
             String day = jsonObject.get("day").toString();
@@ -58,6 +60,7 @@ public class Api {
             LocalTime start = LocalTime.parse(jsonObject.get("start").toString());
             LocalTime end = LocalTime.parse(jsonObject.get("end").toString());
             boolean repeating = Boolean.parseBoolean(jsonObject.get("repeating").toString());
+
             TimetableElement tte = new TimetableElement(id, ttid, day, title, description, start, end, repeating);
             timetableElementList.add(tte);
         }
@@ -118,6 +121,48 @@ public class Api {
 
     public static void deleteNote(int id) throws IOException {
         HttpURLConnection conn = deleteConn("notes/" + id);
+        setBearer(conn, User.getToken());
+
+        conn.connect();
+        checkStatusCode(conn);
+    }
+
+    public static void saveTTElement(TimetableElement tte) throws IOException {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("ttid", tte.getTtid() + "");
+        hashMap.put("day", tte.getDay());
+        hashMap.put("title", tte.getTitle());
+        hashMap.put("description", tte.getDescription());
+        hashMap.put("start", tte.getStart().format(DateTimeFormatter.ISO_LOCAL_TIME));
+        hashMap.put("end", tte.getEnd().format(DateTimeFormatter.ISO_LOCAL_TIME));
+        hashMap.put("repeating", (tte.isRepeating() ? "1" : "0"));
+
+        HttpURLConnection conn = sendPatchData("ttelements/" + tte.getId(), hashMap, User.getToken());
+
+//        checkStatusCode(conn);
+        writeResponseMessage(conn);
+    }
+
+    public static void addTTElement(TimetableElement tte) throws IOException {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("ttid", tte.getTtid() + "");
+        hashMap.put("day", tte.getDay());
+        hashMap.put("title", tte.getTitle());
+        hashMap.put("description", tte.getDescription());
+        hashMap.put("start", tte.getStart().format(DateTimeFormatter.ISO_LOCAL_TIME));
+        hashMap.put("end", tte.getEnd().format(DateTimeFormatter.ISO_LOCAL_TIME));
+        hashMap.put("repeating", (tte.isRepeating() ? "1" : "0"));
+
+        System.out.println(hashMap.toString());
+
+        HttpURLConnection conn = sendPostData("ttelements", hashMap, User.getToken());
+
+        checkStatusCode(conn);
+        writeResponseMessage(conn);
+    }
+
+    public static void deleteTTElement(int id) throws IOException {
+        HttpURLConnection conn = deleteConn("ttelements/" + id);
         setBearer(conn, User.getToken());
 
         conn.connect();

@@ -1,11 +1,15 @@
 package hu.tnote.balint.CustomNode;
 
 import hu.tnote.balint.TimetableElement;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+
+import java.util.EventListener;
 
 public class TTElementButton {
     private TimetableElement ttelement;
@@ -62,6 +66,10 @@ public class TTElementButton {
 
             return formatted.toString();
         }
+    }
+
+    public void addOnClickListener(EventHandler<MouseEvent> eventHandler) {
+        container.setOnMouseClicked(eventHandler);
     }
 
     public VBox getVBox() {

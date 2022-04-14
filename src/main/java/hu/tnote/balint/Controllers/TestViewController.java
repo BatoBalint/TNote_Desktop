@@ -1,5 +1,6 @@
 package hu.tnote.balint.Controllers;
 
+import hu.tnote.balint.Api;
 import hu.tnote.balint.CustomNode.NoteButton;
 import hu.tnote.balint.CustomNode.TTElementButton;
 import hu.tnote.balint.Note;
@@ -9,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.time.LocalTime;
 
 public class TestViewController extends Controller {
@@ -27,6 +29,13 @@ public class TestViewController extends Controller {
                 true);
 
         TTElementButton tteBtn = new TTElementButton(tte);
+        tteBtn.addOnClickListener(v -> {
+            try {
+                Api.addTTElement(tte);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         rootContainer.getChildren().add(tteBtn.getVBox());
     }

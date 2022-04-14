@@ -7,15 +7,13 @@ import hu.tnote.balint.Controllers.InsideView.NoteListController;
 import hu.tnote.balint.Controllers.ReglogController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
 
 public class WindowManager {
-    private VBox rootContainer;
+    private final VBox rootContainer;
     private ScrollPane innerScrollpane;
-    private Popup activePopup = null;
 
     public WindowManager(VBox rootContainer) {
         this.rootContainer = rootContainer;
@@ -24,6 +22,8 @@ public class WindowManager {
     public void setInnerScrollpane(ScrollPane scrollPane) {
         this.innerScrollpane = scrollPane;
     }
+
+    public VBox getRootContainer() { return rootContainer; }
 
     public void changeToRegLog() throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));
@@ -95,20 +95,5 @@ public class WindowManager {
 
     private boolean checkInnerScrollPane() {
         return innerScrollpane != null;
-    }
-
-    public void popup() {
-        if (activePopup != null) {
-            activePopup.hide();
-            activePopup = null;
-        }
-        activePopup = new Popup(rootContainer);
-        activePopup.setText("Test text").setColor("green").show();
-    }
-
-    public void hidePopup() {
-        if (activePopup != null) {
-            activePopup.hide();
-        }
     }
 }
