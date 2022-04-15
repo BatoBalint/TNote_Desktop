@@ -13,9 +13,11 @@ import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,53 +33,36 @@ public class TimetableController extends Controller {
         loadTimetables();
     }
 
-    private void ttTest() {
-        for (int i = 0; i < 7; i++) {
-            VBox a = new VBox();
-            if (i == 1) a.setStyle("-fx-background-color: darkgrey; -fx-background-radius: 2; -fx-padding: 5 2");
-            Label day = new Label("Nap");
-            day.setStyle("-fx-font-size: 125%");
-            a.getChildren().add(day);
-            a.setSpacing(5);
-            for (int j = 0; j < (Math.random() * 4) + 1; j++) {
-                TTElementButton tteBtn = new TTElementButton(new TimetableElement(1, 1, "Hetfo", "Matek",
-                        "Csudijo", LocalTime.now(), LocalTime.now().plusHours(2), true));
-                a.getChildren().add(tteBtn.getVBox());
-            }
-            timetableContainer.getChildren().add(a);
-        }
-    }
-
     private void loadTimetables() {
-        int counter = 0;
+        String[] dayNames = "Hétfő Kedd Szerda Csütörtök Péntek Szomat Vasárnap".split(" ");
+        String[] dayNamesEN = "Monday Tuesday Wednesday Thursday Friday Saturday Sunday".split(" ");
+        HashMap<String, Integer> dayToNum = new HashMap<>();
+        for (int i = 0; i < dayNamesEN.length; i++) {
+            dayToNum.put(dayNamesEN[i], i);
+        }
+
         List<TimetableElement> timetableElementList = new ArrayList<>();
         try {
             timetableElementList = Api.getTimetableElements();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+        timetableElementList.sort(Comparator.comparing(a -> dayToNum.getOrDefault(a.getDay(), 6)));
 
-        timetableElementList = timetableElementList.stream().sorted(Comparator.comparing(TimetableElement::getStart)).collect(Collectors.toList());
+        int today = LocalDate.now().getDayOfWeek().getValue() - 1;
 
-        List<HBox> hboxList = new ArrayList<>();
-
-        for (TimetableElement tte : timetableElementList) {
-            HBox hbox;
-            if (counter % 2 == 0) {
-                hbox = new HBox();
-                hbox.setSpacing(40);
-                hboxList.add(hbox);
-            }
-            TTElementButton tteBtn = new TTElementButton(tte);
-            hboxList.get(counter / 2).getChildren().add(tteBtn.getVBox());
-            counter++;
+        for (int i = 0; i < dayNames.length; i++) {
+            VBox a = new VBox();
+            if (i == today) a.setStyle("-fx-background-color: darkgrey; -fx-background-radius: 3; -fx-padding: 5");
+            Label day = new Label(dayNames[i]);
+            day.setStyle("-fx-font-size: 125%");
+            a.getChildren().add(day);
+            a.setSpacing(5);
+            a.getChildren().add(new TTElementButton(new TimetableElement(-1, -1, null, null, null, null, null, true)).getVBox());
+            timetableContainer.getChildren().add(a);
         }
-
-        for (HBox h : hboxList) {
-            h.setMaxWidth(440);
-            VBox.setMargin(h, new Insets(40, 0, 0, 0));
-            rootContainer.getChildren().add(h);
+        for (TimetableElement e: timetableElementList) {
+            ((VBox) timetableContainer.getChildren().get(dayToNum.get(e.getDay()))).getChildren().add(new TTElementButton(e).getVBox());
         }
     }
-
 }

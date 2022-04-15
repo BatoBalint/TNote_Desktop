@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.InsideView.TTElementEditorController"
+      stylesheets="@../css/ttelementEditor.css">
+   <GridPane hgap="5.0">
+     <columnConstraints>
+       <ColumnConstraints hgrow="ALWAYS" maxWidth="180" />
+       <ColumnConstraints hgrow="ALWAYS" maxWidth="180" />
+     </columnConstraints>
+     <rowConstraints>
+       <RowConstraints minHeight="50" vgrow="ALWAYS" />
+       <RowConstraints minHeight="50" vgrow="ALWAYS" />
+       <RowConstraints minHeight="50" vgrow="ALWAYS" />
+       <RowConstraints minHeight="50" vgrow="ALWAYS" />
+     </rowConstraints>
+       <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="0">
+           <Label text="Óra neve" />
+           <TextField />
+       </VBox>
+       <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="0">
+           <Label text="Leírás" />
+           <TextField />
+       </VBox>
+
+       <ComboBox maxWidth="180" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="Hétfő" />
+                   <String fx:value="Kedd" />
+                   <String fx:value="Szerda" />
+                   <String fx:value="Csütörtök" />
+                   <String fx:value="Péntek" />
+                   <String fx:value="Szombat" />
+                   <String fx:value="Vasárnap" />
+               </FXCollections>
+           </items>
+       </ComboBox>
+       <CheckBox selected="true" text="Ismétlődik" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+       <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="2">
+           <Label text="Óra kezdés" />
+           <TextField />
+       </VBox>
+       <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="2">
+           <Label text="Óra vége" />
+           <TextField />
+       </VBox>
+
+       <VBox GridPane.columnIndex="1" GridPane.rowIndex="3" alignment="CENTER_RIGHT">
+           <Button text="Mentés" />
+       </VBox>
+
+   </GridPane>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+
+</VBox>

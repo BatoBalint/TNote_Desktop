@@ -12,7 +12,7 @@ import javafx.scene.layout.*;
 import java.io.IOException;
 
 public class WindowManager {
-    private final VBox rootContainer;
+    private static VBox rootContainer = null;
     private ScrollPane innerScrollpane;
 
     public WindowManager(VBox rootContainer) {
@@ -23,7 +23,7 @@ public class WindowManager {
         this.innerScrollpane = scrollPane;
     }
 
-    public VBox getRootContainer() { return rootContainer; }
+    public static VBox getRootContainer() { return rootContainer; }
 
     public void changeToRegLog() throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("reglog-view.fxml"));

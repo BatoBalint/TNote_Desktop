@@ -41,7 +41,7 @@ public class Popup {
 
     public Popup(VBox parentContainer, String text, String popupColor) {
         this(parentContainer, text);
-        contentContainer.setStyle("-fx-background-color: " + popupColor);
+        contentContainer.setStyle(contentContainer.getStyle() + "; -fx-background-color: " + popupColor);
     }
 
     //endregion
@@ -104,7 +104,7 @@ public class Popup {
         contentContainer.setAlignment(Pos.TOP_LEFT);
         contentContainer.setOpacity(1);
         contentContainer.setStyle("-fx-background-color: " + popupColor + ";" +
-                "-fx-background-radius: 5;");
+                "-fx-background-radius: 5");
 
         contentContainer.getChildren().add(titleBarContainer);
     }

@@ -1,7 +1,10 @@
 package hu.tnote.balint.CustomNode;
 
+import hu.tnote.balint.Popup;
 import hu.tnote.balint.TimetableElement;
+import hu.tnote.balint.WindowManager;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -9,11 +12,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-import java.util.EventListener;
+import java.io.IOException;
 
 public class TTElementButton {
     private TimetableElement ttelement;
     private VBox container;
+    private VBox ttelementEditorContainer;
     private Label titleLabel;
     private Label descLabel;
     private Label timeLabel;
@@ -21,6 +25,20 @@ public class TTElementButton {
     public TTElementButton(TimetableElement timetableElement) {
         this.ttelement = timetableElement;
 
+        basicInit();
+        ttelementEditorInit();
+        container.setOnMouseClicked(v -> {
+            new Popup(WindowManager.getRootContainer(), "Órarend elem felvétele", "#22FFFF")
+                    .turnOffHideOnWindowClick().setTextColor("#0000AA").addBody(ttelementEditorContainer).show();
+        });
+        if (ttelement.getId() != -1) {
+            init();
+        } else {
+            plusBtnInit();
+        }
+    }
+
+    private void basicInit() {
         container = new VBox();
         container.setFillWidth(true);
 
@@ -31,7 +49,18 @@ public class TTElementButton {
         container.getStyleClass().add("noteButton");
         container.getStyleClass().add("roundTRBL");
         container.getStyleClass().add("p-4");
+    }
 
+    private void plusBtnInit() {
+        container.setAlignment(Pos.CENTER);
+
+        titleLabel = new Label("+");
+        titleLabel.getStyleClass().add("h1");
+
+        container.getChildren().add(titleLabel);
+    }
+
+    private void init() {
         titleLabel = new Label(ttelement.getTitle());
         titleLabel.getStyleClass().add("h3");
 
@@ -48,6 +77,17 @@ public class TTElementButton {
         container.getChildren().add(titleLabel);
         container.getChildren().add(descLabel);
         container.getChildren().add(timeLabelHbox);
+    }
+
+    private void ttelementEditorInit() {
+        ttelementEditorContainer = new VBox();
+        ttelementEditorContainer.setFillWidth(true);
+        ttelementEditorContainer.setAlignment(Pos.TOP_CENTER);
+        try {
+            ttelementEditorContainer.getChildren().add(FXMLLoader.load(getClass().getResource("/hu/tnote/balint/insideViews/ttelement-editor.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String formatDescription(String raw) {
