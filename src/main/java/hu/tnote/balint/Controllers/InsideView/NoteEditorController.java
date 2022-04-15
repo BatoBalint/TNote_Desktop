@@ -3,6 +3,7 @@ package hu.tnote.balint.Controllers.InsideView;
 import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.Note;
+import hu.tnote.balint.Popup;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.NodeOrientation;
@@ -103,18 +104,23 @@ public class NoteEditorController extends Controller {
         if (note.getId() >= 0) {
             try {
                 Api.saveNote(note.getId(), noteTitle.getText(), textArea.getText());
-                alert("Sikeres mentés");
+                new Popup("Sikeres mentés").setColor("#22FF44")
+                        .setTextColor("#00AA11").setCloseTimer(2000)
+                        .withFadeInAndOut().show();
             } catch (IOException e) {
                 e.printStackTrace();
-                alert("Valami okból kifolyólag nem sikerült menteni a jegyzetet.");
+                new Popup("Valami okból kifolyólag nem sikerült a mentés")
+                        .setColor("#FF2222").setTextColor("990000").show();
             }
         } else {
             try {
                 Api.addNote(note.getId(), noteTitle.getText(), textArea.getText());
-                alert("Sikeres mentés");
+                new Popup("Sikeres mentés").setColor("#22FF44")
+                        .setTextColor("#00AA11").setCloseTimer(2000).show();
             } catch (IOException e) {
                 e.printStackTrace();
-                alert("Valami okból kifolyólag nem sikerült menteni a jegyzetet.");
+                new Popup("Valami okból kifolyólag nem sikerült a mentés")
+                        .setColor("#FF2222").setTextColor("990000").show();
             }
         }
 

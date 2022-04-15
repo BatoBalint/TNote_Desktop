@@ -28,7 +28,7 @@ public class TTElementButton {
         basicInit();
         ttelementEditorInit();
         container.setOnMouseClicked(v -> {
-            new Popup(WindowManager.getRootContainer(), "Órarend elem felvétele", "#22FFFF")
+            new Popup("Órarend elem felvétele", "#22FFFF")
                     .turnOffHideOnWindowClick().setTextColor("#0000AA").addBody(ttelementEditorContainer).show();
         });
         if (ttelement.getId() != -1) {

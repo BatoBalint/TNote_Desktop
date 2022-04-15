@@ -1,7 +1,9 @@
 package hu.tnote.balint;
 
+import javafx.animation.FadeTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -9,12 +11,15 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
+import java.util.Timer;
 
 public class Popup {
     private VBox parentContainer;               //the container in which the popup will be displayed (absolute pos, popup can be anywhere despite parent,
                                                 // recommended most outer container for blur effect to work properly)
     private VBox trickyContainer;               //add to parent container, turn off managed but contents show properly without messing with dashboard
-    private VBox contentContainer;              //hold the popup window
+    private VBox contentContainer;              //holds the popup window
     private HBox titleBarContainer;             //holds the label container and close button
     private VBox labelContainer;                //holds the title text
     private VBox xBtnContainer;                 //holds the close button
@@ -27,20 +32,24 @@ public class Popup {
     private int popupWidth = 400;
     private int popupHeight = 50;               //currently, not in use
     private int popupTopMargin = 20;            //distance from top of the window
+    private int closeWaitMilisec = 0;
+    private int fadeTranstionMilis = 200;
+    private boolean fadeIn = true;
+    private boolean fadeOut = true;
 
     //region Constructors
 
-    public Popup(VBox parentContainer) {
-        defaultInit(parentContainer);
+    public Popup() {
+        defaultInit();
     }
 
-    public Popup(VBox parentContainer, String text) {
-        this(parentContainer);
+    public Popup(String text) {
+        this();
         popupLabel.setText(text);
     }
 
-    public Popup(VBox parentContainer, String text, String popupColor) {
-        this(parentContainer, text);
+    public Popup(String text, String popupColor) {
+        this(text);
         contentContainer.setStyle(contentContainer.getStyle() + "; -fx-background-color: " + popupColor);
     }
 
@@ -48,8 +57,8 @@ public class Popup {
 
     //region Initialize
 
-    private void defaultInit(VBox parentContainer) {
-        this.parentContainer = parentContainer;
+    private void defaultInit() {
+        this.parentContainer = WindowManager.getRootContainer();
 
         containerXCenter = new SimpleIntegerProperty();
         containerXCenter.bind(parentContainer.widthProperty().divide(2));
@@ -123,12 +132,42 @@ public class Popup {
         if (withBlur) {
             parentContainer.getChildren().get(0).setEffect(new GaussianBlur((blurRadius)));
         }
+
         parentContainer.getChildren().add(trickyContainer);
+
+        if (fadeIn) {
+            FadeTransition fadeInTransition = new FadeTransition(Duration.millis(fadeTranstionMilis), contentContainer);
+            fadeInTransition.setFromValue(0);
+            fadeInTransition.setToValue(1.0);
+            fadeInTransition.play();
+            System.out.println("fade in playing");
+        } else contentContainer.setOpacity(1);
+
+        if (closeWaitMilisec > 0) {
+            Task<Void> sleeper = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    Thread.sleep(closeWaitMilisec);
+                    return null;
+                }
+            };
+            sleeper.setOnSucceeded(e -> { hide(); });
+            new Thread(sleeper).start();
+        }
     }
 
     public void hide() {
         parentContainer.getChildren().get(0).setEffect(null);
-        parentContainer.getChildren().remove(trickyContainer);
+
+        if (fadeOut) {
+            FadeTransition fadeOutTransition = new FadeTransition(Duration.millis(fadeTranstionMilis), contentContainer);
+            fadeOutTransition.setFromValue(1.0);
+            fadeOutTransition.setToValue(0);
+            fadeOutTransition.play();
+            fadeOutTransition.setOnFinished(e -> { parentContainer.getChildren().remove(trickyContainer); });
+            System.out.println(fadeOutTransition.getFromValue() + " -> " + fadeOutTransition.getToValue());
+            System.out.println("fade out playing");
+        } else parentContainer.getChildren().remove(trickyContainer);
     }
 
     //region Options
@@ -179,6 +218,32 @@ public class Popup {
     public Popup addBody(VBox body) {
         contentContainer.getChildren().add(body);
         return this;
+    }
+
+    public Popup setCloseTimer(int milisec) {
+        closeWaitMilisec = milisec;
+        return this;
+    }
+
+    public Popup withFadeIn() {
+        fadeIn = true;
+        return this;
+    }
+
+    public Popup withFadeOut() {
+        fadeOut = true;
+        return  this;
+    }
+
+    public Popup withFadeInAndOut() {
+        fadeIn = true;
+        fadeOut = true;
+        return this;
+    }
+
+    public Popup setFadeTransitionTime(int milis) {
+        fadeTranstionMilis = milis;
+        return  this;
     }
 
     //endregion
