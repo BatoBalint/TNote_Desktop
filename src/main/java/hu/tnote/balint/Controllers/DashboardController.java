@@ -1,14 +1,11 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.Api;
-import hu.tnote.balint.Popup;
-import hu.tnote.balint.TimetableElement;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
-import java.time.LocalTime;
 
 public class DashboardController extends Controller {
 
@@ -79,7 +76,7 @@ public class DashboardController extends Controller {
         resetDashboardSelection();
         timetableBtn.getStyleClass().add(0, "btnFocus");
         try {
-            windowManager.changeToFxml("/hu/tnote/balint/insideViews/timetable-view.fxml");
+            windowManager.changeToTimetable();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,7 +87,7 @@ public class DashboardController extends Controller {
         resetDashboardSelection();
         settingsBtn.getStyleClass().add(0, "btnFocus");
         try {
-            windowManager.changeToFxml("/hu/tnote/balint/insideViews/settings-view.fxml");
+            windowManager.changeToFxml("/hu/tnote/balint/InsideView/settings-view.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,7 +98,7 @@ public class DashboardController extends Controller {
         resetDashboardSelection();
         profileBtn.getStyleClass().add(0, "btnFocus");
         try {
-            windowManager.changeToFxml("/hu/tnote/balint/insideViews/profile-view.fxml");
+            windowManager.changeToFxml("/hu/tnote/balint/InsideView/profile-view.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

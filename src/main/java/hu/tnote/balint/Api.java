@@ -19,54 +19,7 @@ public class Api {
     private static final String API_URL = BASE_URL + "api/";
     private static final String TEST_TOKEN = "";
 
-    public static List<Note> getNotes() throws IOException, ParseException {
-        HttpURLConnection conn = getConn("users/" + User.getId() + "/notes");
-        setBearer(conn, User.getToken());
-        conn.connect();
-
-        checkStatusCode(conn);
-
-        List<Note> noteList = new ArrayList<>();
-        JSONArray jsonArray = getJSONArray(conn);
-        for (Object o : jsonArray) {
-            JSONObject jsonObject = (JSONObject) o;
-            int id = Integer.parseInt(jsonObject.get("id").toString());
-            int ownerId = Integer.parseInt(jsonObject.get("ownerId").toString());
-            String title = (jsonObject.get("title") != null) ? jsonObject.get("title").toString() : "";
-            String content = (jsonObject.get("content") != null) ? jsonObject.get("content").toString() : "";
-            Note n = new Note(id, ownerId, title, content);
-            noteList.add(n);
-        }
-        return noteList;
-    }
-
-    public static List<TimetableElement> getTimetableElements() throws IOException, ParseException {
-        HttpURLConnection conn = getConn("users/" + User.getId() + "/fulltimetables");
-        setBearer(conn, User.getToken());
-        conn.connect();
-
-        checkStatusCode(conn);
-
-        List<TimetableElement> timetableElementList = new ArrayList<>();
-        JSONArray jsonArray = getJSONArray(conn);
-        for (Object o : jsonArray) {
-            JSONObject jsonObject = (JSONObject) o;
-
-            int id = Integer.parseInt(jsonObject.get("id").toString());
-            int ttid = Integer.parseInt(jsonObject.get("ttid").toString());
-            String day = jsonObject.get("day").toString();
-            String title = jsonObject.get("title").toString();
-            String description = jsonObject.get("description").toString();
-            LocalTime start = LocalTime.parse(jsonObject.get("start").toString());
-            LocalTime end = LocalTime.parse(jsonObject.get("end").toString());
-            boolean repeating = Boolean.parseBoolean(jsonObject.get("repeating").toString());
-
-            TimetableElement tte = new TimetableElement(id, ttid, day, title, description, start, end, repeating);
-            timetableElementList.add(tte);
-        }
-        return timetableElementList;
-    }
-
+    //region Auth
     public static void logout() throws IOException {
         HttpURLConnection conn = postConn("logout");
         setBearer(conn, User.getToken());
@@ -95,6 +48,29 @@ public class Api {
         HttpURLConnection conn = sendPostData("register", regData, "");
         checkStatusCode(conn);
         processReceivedAuthData(conn);
+    }
+    //endregion
+
+    //region Notes
+    public static List<Note> getNotes() throws IOException, ParseException {
+        HttpURLConnection conn = getConn("users/" + User.getId() + "/notes");
+        setBearer(conn, User.getToken());
+        conn.connect();
+
+        checkStatusCode(conn);
+
+        List<Note> noteList = new ArrayList<>();
+        JSONArray jsonArray = getJSONArray(conn);
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            int id = Integer.parseInt(jsonObject.get("id").toString());
+            int ownerId = Integer.parseInt(jsonObject.get("ownerId").toString());
+            String title = (jsonObject.get("title") != null) ? jsonObject.get("title").toString() : "";
+            String content = (jsonObject.get("content") != null) ? jsonObject.get("content").toString() : "";
+            Note n = new Note(id, ownerId, title, content);
+            noteList.add(n);
+        }
+        return noteList;
     }
 
     public static void saveNote(int id, String title, String content) throws IOException {
@@ -126,6 +102,35 @@ public class Api {
         conn.connect();
         checkStatusCode(conn);
     }
+    //endregion
+
+    //region Timetable
+    public static List<TimetableElement> getTimetableElements() throws IOException, ParseException {
+        HttpURLConnection conn = getConn("users/" + User.getId() + "/fulltimetables");
+        setBearer(conn, User.getToken());
+        conn.connect();
+
+        checkStatusCode(conn);
+
+        List<TimetableElement> timetableElementList = new ArrayList<>();
+        JSONArray jsonArray = getJSONArray(conn);
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+
+            int id = Integer.parseInt(jsonObject.get("id").toString());
+            int ttid = Integer.parseInt(jsonObject.get("ttid").toString());
+            String day = jsonObject.get("day").toString();
+            String title = jsonObject.get("title").toString();
+            String description = jsonObject.get("description").toString();
+            LocalTime start = LocalTime.parse(jsonObject.get("start").toString());
+            LocalTime end = LocalTime.parse(jsonObject.get("end").toString());
+            boolean repeating = jsonObject.get("repeating").toString().equals("1");
+
+            TimetableElement tte = new TimetableElement(id, ttid, day, title, description, start, end, repeating);
+            timetableElementList.add(tte);
+        }
+        return timetableElementList;
+    }
 
     public static void saveTTElement(TimetableElement tte) throws IOException {
         HashMap<String, String> hashMap = new HashMap<>();
@@ -139,11 +144,12 @@ public class Api {
 
         HttpURLConnection conn = sendPatchData("ttelements/" + tte.getId(), hashMap, User.getToken());
 
-//        checkStatusCode(conn);
-        writeResponseMessage(conn);
+        checkStatusCode(conn);
+//        writeResponseMessage(conn);
     }
 
     public static void addTTElement(TimetableElement tte) throws IOException {
+        System.out.println("|" + tte.getDescription() + "|");
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("ttid", tte.getTtid() + "");
         hashMap.put("day", tte.getDay());
@@ -153,12 +159,10 @@ public class Api {
         hashMap.put("end", tte.getEnd().format(DateTimeFormatter.ISO_LOCAL_TIME));
         hashMap.put("repeating", (tte.isRepeating() ? "1" : "0"));
 
-        System.out.println(hashMap.toString());
-
         HttpURLConnection conn = sendPostData("ttelements", hashMap, User.getToken());
 
         checkStatusCode(conn);
-        writeResponseMessage(conn);
+//        writeResponseMessage(conn);
     }
 
     public static void deleteTTElement(int id) throws IOException {
@@ -168,6 +172,43 @@ public class Api {
         conn.connect();
         checkStatusCode(conn);
     }
+
+    public static List<Integer> getTimetableIds() throws IOException, ParseException {
+        List<Integer> idList = new ArrayList<>();
+        HttpURLConnection conn = getConn("users/" + User.getId() + "/timetables");
+        setBearer(conn, User.getToken());
+        conn.connect();
+
+        checkStatusCode(conn);
+
+        JSONArray jsonArray = getJSONArray(conn);
+        if (jsonArray.isEmpty()) {
+            idList.add(createTimetable());
+        } else {
+            for (Object o : jsonArray) {
+                JSONObject jsonObject = (JSONObject) o;
+                idList.add(Integer.parseInt(jsonObject.get("id").toString()));
+            }
+        }
+        return idList;
+    }
+
+    private static int createTimetable() throws IOException, ParseException {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("userId", User.getId() + "");
+        hashMap.put("name", "TimetableDefaultName");
+
+        HttpURLConnection conn = sendPostData("timetables", hashMap, User.getToken());
+
+        JSONArray jsonArray = getJSONArray(conn);
+        int id = Integer.parseInt(((JSONObject) jsonArray.get(0)).get("id").toString());
+
+        checkStatusCode(conn);
+//        writeResponseMessage(conn);
+
+        return id;
+    }
+    //endregion
 
     private static void checkStatusCode(HttpURLConnection conn) throws IOException {
         int statusCode = conn.getResponseCode();
@@ -322,8 +363,12 @@ public class Api {
     }
 
     private static JSONArray getJSONArrayFromString(String stringJson) throws ParseException {
-        JSONParser perser = new JSONParser();
-        return (JSONArray) perser.parse(String.valueOf(stringJson));
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = new JSONArray();
+        if (parser.parse(String.valueOf(stringJson)).getClass().equals(JSONObject.class)) {
+            jsonArray.add(parser.parse(String.valueOf(stringJson)));
+            return jsonArray;
+        } else return (JSONArray) parser.parse(String.valueOf(stringJson));
     }
 
     private static JSONArray getJSONArray(HttpURLConnection conn) throws IOException, ParseException {

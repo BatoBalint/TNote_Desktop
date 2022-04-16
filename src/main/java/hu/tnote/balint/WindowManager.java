@@ -4,6 +4,7 @@ import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.Controllers.DashboardController;
 import hu.tnote.balint.Controllers.InsideView.NoteEditorController;
 import hu.tnote.balint.Controllers.InsideView.NoteListController;
+import hu.tnote.balint.Controllers.InsideView.TimetableController;
 import hu.tnote.balint.Controllers.ReglogController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -48,7 +49,7 @@ public class WindowManager {
     public void changeToNoteList() throws Exception {
         if (!checkInnerScrollPane()) throw new Exception("Note Scroll Pane is null");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/insideViews/note-list-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/InsideView/note-list-view.fxml"));
         VBox vbox = loader.load();
         NoteListController noteListController = loader.getController();
         noteListController.setWindowManager(this);
@@ -60,11 +61,21 @@ public class WindowManager {
     public void changeToNoteEditor(Note note) throws Exception {
         if (!checkInnerScrollPane()) throw new Exception("Note Scroll Pane is null");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/insideViews/note-editor-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/InsideView/note-editor-view.fxml"));
         VBox vbox = loader.load();
         NoteEditorController c = loader.getController();
         c.setWindowManager(this);
         c.passData(note);
+        innerScrollpane.setContent(vbox);
+
+        setScrollPaneScrollSpeed();
+    }
+
+    public void changeToTimetable() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/InsideView/timetable-view.fxml"));
+        VBox vbox = loader.load();
+        TimetableController c = loader.getController();
+        c.setWindowManager(this);
         innerScrollpane.setContent(vbox);
 
         setScrollPaneScrollSpeed();

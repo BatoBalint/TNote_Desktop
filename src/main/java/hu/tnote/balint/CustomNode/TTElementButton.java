@@ -1,5 +1,7 @@
 package hu.tnote.balint.CustomNode;
 
+import hu.tnote.balint.Controllers.Controller;
+import hu.tnote.balint.Controllers.InsideView.TTElementEditorController;
 import hu.tnote.balint.Popup;
 import hu.tnote.balint.TimetableElement;
 import hu.tnote.balint.WindowManager;
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class TTElementButton {
+    private WindowManager windowManager;
     private TimetableElement ttelement;
     private VBox container;
     private VBox ttelementEditorContainer;
@@ -26,16 +29,21 @@ public class TTElementButton {
         this.ttelement = timetableElement;
 
         basicInit();
+    }
+
+    public void setWindowManager(WindowManager windowManager) {
+        this.windowManager = windowManager;
+
         ttelementEditorInit();
-        container.setOnMouseClicked(v -> {
-            new Popup("Órarend elem felvétele", "#22FFFF")
-                    .turnOffHideOnWindowClick().setTextColor("#0000AA").addBody(ttelementEditorContainer).show();
-        });
         if (ttelement.getId() != -1) {
             init();
         } else {
             plusBtnInit();
         }
+        container.setOnMouseClicked(v -> {
+            new Popup("Órarend elem felvétele", "#22FFFF")
+                    .turnOffHideOnWindowClick().setTextColor("#0000AA").addBody(ttelementEditorContainer).show();
+        });
     }
 
     private void basicInit() {
@@ -84,7 +92,12 @@ public class TTElementButton {
         ttelementEditorContainer.setFillWidth(true);
         ttelementEditorContainer.setAlignment(Pos.TOP_CENTER);
         try {
-            ttelementEditorContainer.getChildren().add(FXMLLoader.load(getClass().getResource("/hu/tnote/balint/insideViews/ttelement-editor.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/hu/tnote/balint/InsideView/ttelement-editor.fxml"));
+            ttelementEditorContainer.getChildren().add(loader.load());
+            TTElementEditorController c = loader.getController();
+
+            c.setTTElement(this.ttelement);
+            c.setWindowManager(this.windowManager);
         } catch (IOException e) {
             e.printStackTrace();
         }

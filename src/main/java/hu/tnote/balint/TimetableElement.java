@@ -26,6 +26,18 @@ public class TimetableElement {
         return day;
     }
 
+    public int getDayAsInt() {
+        return switch (day) {
+            case "Monday" -> 0;
+            case "Tuesday" -> 1;
+            case "Wednesday" -> 2;
+            case "Thursday" -> 3;
+            case "Friday" -> 4;
+            case "Saturday" -> 5;
+            default -> 6;
+        };
+    }
+
     public String getTitle() {
         return title;
     }
@@ -58,6 +70,18 @@ public class TimetableElement {
         this.day = day;
     }
 
+    public void setDayAsInt(int dayInt) {
+        switch (dayInt) {
+            case 0 -> this.day = "Monday";
+            case 1 -> this.day = "Tuesday";
+            case 2 -> this.day = "Wednesday";
+            case 3 -> this.day = "Thursday";
+            case 4 -> this.day = "Friday";
+            case 5 -> this.day = "Saturday";
+            default -> this.day = "Sunday";
+        }
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -79,6 +103,12 @@ public class TimetableElement {
     }
 
     //endregion
+
+    public TimetableElement(int id, int ttid, int day) {
+        this.id = id;
+        this.ttid = ttid;
+        setDayAsInt(day);
+    }
 
     public TimetableElement(int id, int ttid, String day, String title, String description, LocalTime start, LocalTime end, boolean repeating) {
         this.id = id;

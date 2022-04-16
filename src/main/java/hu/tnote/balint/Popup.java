@@ -1,6 +1,8 @@
 package hu.tnote.balint;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
@@ -13,9 +15,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 
 public class Popup {
+    private static List<Popup> currentPopups = new ArrayList<>();
+
     private VBox parentContainer;               //the container in which the popup will be displayed (absolute pos, popup can be anywhere despite parent,
                                                 // recommended most outer container for blur effect to work properly)
     private VBox trickyContainer;               //add to parent container, turn off managed but contents show properly without messing with dashboard
@@ -34,8 +40,8 @@ public class Popup {
     private int popupTopMargin = 20;            //distance from top of the window
     private int closeWaitMilisec = 0;
     private int fadeTranstionMilis = 200;
-    private boolean fadeIn = true;
-    private boolean fadeOut = true;
+    private boolean fadeIn = false;
+    private boolean fadeOut = false;
 
     //region Constructors
 
@@ -64,7 +70,7 @@ public class Popup {
         containerXCenter.bind(parentContainer.widthProperty().divide(2));
 
         popupLabel = new Label();
-        popupLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 125%");
+        popupLabel.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 125%");
 
         labelContainerInit();
         xBtnContainerInit();
@@ -80,13 +86,15 @@ public class Popup {
 
     private void labelContainerInit() {
         labelContainer = new VBox();
-        labelContainer.setAlignment(Pos.CENTER_LEFT);
+        labelContainer.setAlignment(Pos.TOP_LEFT);
         labelContainer.getChildren().add(popupLabel);
     }
 
     private void xBtnContainerInit() {
         xBtnContainer = new VBox();
         xBtnContainer.setAlignment(Pos.CENTER_RIGHT);
+        xBtnContainer.setMinWidth(20);
+        xBtnContainer.setMaxHeight(20);
         HBox.setHgrow(xBtnContainer, Priority.ALWAYS);
         xBtn = new Label("\uD83D\uDDD9");
         xBtn.setStyle("-fx-font-size: 150%; -fx-font-weight: 900; -fx-text-fill: white; -fx-background-color: transparent");
@@ -128,7 +136,10 @@ public class Popup {
 
     //endregion
 
+    protected VBox getContentContainer() { return this.contentContainer; }
+
     public void show() {
+        currentPopups.add(this);
         if (withBlur) {
             parentContainer.getChildren().get(0).setEffect(new GaussianBlur((blurRadius)));
         }
@@ -140,7 +151,6 @@ public class Popup {
             fadeInTransition.setFromValue(0);
             fadeInTransition.setToValue(1.0);
             fadeInTransition.play();
-            System.out.println("fade in playing");
         } else contentContainer.setOpacity(1);
 
         if (closeWaitMilisec > 0) {
@@ -157,6 +167,7 @@ public class Popup {
     }
 
     public void hide() {
+        currentPopups.remove(this);
         parentContainer.getChildren().get(0).setEffect(null);
 
         if (fadeOut) {
@@ -165,9 +176,34 @@ public class Popup {
             fadeOutTransition.setToValue(0);
             fadeOutTransition.play();
             fadeOutTransition.setOnFinished(e -> { parentContainer.getChildren().remove(trickyContainer); });
-            System.out.println(fadeOutTransition.getFromValue() + " -> " + fadeOutTransition.getToValue());
-            System.out.println("fade out playing");
         } else parentContainer.getChildren().remove(trickyContainer);
+    }
+
+    public static void hideAll() {
+        for (Popup p: currentPopups) {
+            p.hide();
+        }
+    }
+
+    public static void hideByIndex(int i) {
+        if (i >= 0 && i < currentPopups.size()) {
+            currentPopups.get(i).hide();
+        }
+    }
+
+    public static void blink() {
+        if (currentPopups.size() > 0) {
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(100), currentPopups.get(0).getContentContainer());
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0.7);
+            fadeOut.setOnFinished(e -> {
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(100), currentPopups.get(0).getContentContainer());
+                fadeIn.setFromValue(0.7);
+                fadeIn.setToValue(1);
+                fadeIn.play();
+            });
+            fadeOut.play();
+        }
     }
 
     //region Options
@@ -244,6 +280,16 @@ public class Popup {
     public Popup setFadeTransitionTime(int milis) {
         fadeTranstionMilis = milis;
         return  this;
+    }
+
+    public Popup setWidth(int width) {
+        this.popupWidth = width;
+        return this;
+    }
+
+    public Popup setDistanceFromTop(int distance) {
+        this.popupTopMargin = distance;
+        return this;
     }
 
     //endregion
