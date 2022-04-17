@@ -7,60 +7,64 @@
 <?import javafx.scene.layout.*?>
 
 <VBox stylesheets="@../css/ttelementEditor.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.InsideView.TTElementEditorController">
-   <GridPane hgap="5.0">
-     <columnConstraints>
-       <ColumnConstraints hgrow="ALWAYS" maxWidth="180" />
-       <ColumnConstraints hgrow="ALWAYS" maxWidth="180" />
-     </columnConstraints>
-     <rowConstraints>
-       <RowConstraints minHeight="50" vgrow="ALWAYS" />
-       <RowConstraints minHeight="50" vgrow="ALWAYS" />
-       <RowConstraints minHeight="50" vgrow="ALWAYS" />
-       <RowConstraints minHeight="50" vgrow="ALWAYS" />
-     </rowConstraints>
-       <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="0">
-           <Label text="Óra neve" />
-           <TextField fx:id="titleInput" onKeyTyped="#titleTyped"/>
-       </VBox>
-       <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="0">
-           <Label text="Leírás" />
-           <TextField fx:id="descInput" />
-       </VBox>
+    <GridPane hgap="5.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="180" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="180" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="50" vgrow="ALWAYS" />
+            <RowConstraints minHeight="50" vgrow="ALWAYS" />
+            <RowConstraints minHeight="50" vgrow="ALWAYS" />
+            <RowConstraints minHeight="50" vgrow="ALWAYS" />
+        </rowConstraints>
+        <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Óra neve" />
+            <TextField fx:id="titleInput" onKeyTyped="#titleTyped" />
+        </VBox>
+        <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label text="Leírás" />
+            <TextField fx:id="descInput" />
+        </VBox>
 
-       <ComboBox fx:id="dayInput" maxWidth="180" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" onAction="#comboboxAction">
-           <items>
-               <FXCollections fx:factory="observableArrayList">
-                   <String fx:value="Hétfő" />
-                   <String fx:value="Kedd" />
-                   <String fx:value="Szerda" />
-                   <String fx:value="Csütörtök" />
-                   <String fx:value="Péntek" />
-                   <String fx:value="Szombat" />
-                   <String fx:value="Vasárnap" />
-               </FXCollections>
-           </items>
-       </ComboBox>
-       <CheckBox fx:id="repeatingInput" selected="true" text="Ismétlődik" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <ComboBox fx:id="dayInput" maxWidth="180" onAction="#comboboxAction" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Hétfő" />
+                    <String fx:value="Kedd" />
+                    <String fx:value="Szerda" />
+                    <String fx:value="Csütörtök" />
+                    <String fx:value="Péntek" />
+                    <String fx:value="Szombat" />
+                    <String fx:value="Vasárnap" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <CheckBox fx:id="repeatingInput" selected="true" text="Ismétlődik" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-       <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="2">
-           <Label text="Óra kezdés" />
-           <TextField fx:id="startInput" promptText="hh:mm:ss" onKeyTyped="#startTyped"/>
-       </VBox>
-       <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="2">
-           <Label text="Óra vége" />
-           <TextField fx:id="endInput" promptText="hh:mm:ss" onKeyTyped="#endTyped"/>
-       </VBox>
+        <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <Label text="Óra kezdés" />
+            <TextField fx:id="startInput" onKeyTyped="#startTyped" promptText="hh:mm:ss" />
+        </VBox>
+        <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label text="Óra vége" />
+            <TextField fx:id="endInput" onKeyTyped="#endTyped" promptText="hh:mm:ss" />
+        </VBox>
 
-       <VBox alignment="CENTER_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="0">
-           <Label text="A piros mezők megadása kötelező" styleClass="warningLabel"/>
-       </VBox>
-       <VBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
-           <Button fx:id="saveBtn" onAction="#saveBtnClick" text="Mentés" styleClass="saveBtn"/>
-       </VBox>
+        <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <Label styleClass="warningLabel" text="A piros mezők megadása kötelező" />
+        </VBox>
+        <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <Button fx:id="deleteBtn" onAction="#deleteBtnClick" styleClass="deleteBtn" text="Törlés" />
+            <Button fx:id="saveBtn" onAction="#saveBtnClick" styleClass="saveBtn" text="Mentés">
+            <HBox.margin>
+               <Insets left="10.0" />
+            </HBox.margin></Button>
+        </HBox>
 
-   </GridPane>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+    </GridPane>
+    <padding>
+       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
 
 </VBox>

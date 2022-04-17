@@ -7,10 +7,13 @@ import hu.tnote.balint.TimetableElement;
 import hu.tnote.balint.WindowManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import java.util.Optional;
 
 public class TTElementEditorController extends Controller {
 
@@ -29,6 +32,8 @@ public class TTElementEditorController extends Controller {
     @FXML
     private Button saveBtn;
     private TimetableElement ttelement;
+    @FXML
+    private Button deleteBtn;
 
     public void initialize() {
         ttelement = null;
@@ -109,6 +114,7 @@ public class TTElementEditorController extends Controller {
 
     public void setTTElement(TimetableElement ttelement) {
         this.ttelement = ttelement;
+        if (ttelement.getId() == -1) deleteBtn.setManaged(false);
 
         loadDataToInputs();
         addWarningIfEmpty();
@@ -212,5 +218,19 @@ public class TTElementEditorController extends Controller {
     public void endTyped() {
         if (endInput.getText().length() == 0) endInput.getStyleClass().add("red");
         else endInput.getStyleClass().remove("red");
+    }
+
+    @FXML
+    public void deleteBtnClick() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.getButtonTypes().add(new ButtonType("Törlés", ButtonBar.ButtonData.APPLY));
+        alert.getButtonTypes().add(new ButtonType("Mégse", ButtonBar.ButtonData.CANCEL_CLOSE));
+
+        alert.setTitle("this is the title");
+        alert.setContentText("this is the context text");
+//        alert.setHeaderText("this is the header text");
+        alert.setGraphic(null);
+
+        alert.show();
     }
 }

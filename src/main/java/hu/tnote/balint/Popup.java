@@ -1,8 +1,6 @@
 package hu.tnote.balint;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
@@ -17,7 +15,6 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 public class Popup {
     private static List<Popup> currentPopups = new ArrayList<>();
@@ -32,6 +29,7 @@ public class Popup {
     private Label popupLabel;                   //title
     private Label xBtn;                         //close button
     private IntegerProperty containerXCenter;
+    private IntegerProperty containerYCenter;
     private boolean withBlur = false;
     private String popupColor = "white";
     private int blurRadius = 4;
@@ -42,6 +40,7 @@ public class Popup {
     private int fadeTranstionMilis = 200;
     private boolean fadeIn = false;
     private boolean fadeOut = false;
+    private boolean closeOnWindoClick = true;
 
     //region Constructors
 
@@ -68,6 +67,8 @@ public class Popup {
 
         containerXCenter = new SimpleIntegerProperty();
         containerXCenter.bind(parentContainer.widthProperty().divide(2));
+        containerYCenter = new SimpleIntegerProperty();
+        containerYCenter.bind(parentContainer.heightProperty().divide(2));
 
         popupLabel = new Label();
         popupLabel.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 125%");
@@ -78,10 +79,6 @@ public class Popup {
 
         contentContainerInit();
         trickyContainerInit();
-
-        parentContainer.getChildren().get(0).setOnMouseClicked(v -> {
-            this.hide();
-        });
     }
 
     private void labelContainerInit() {
@@ -138,6 +135,8 @@ public class Popup {
 
     protected VBox getContentContainer() { return this.contentContainer; }
 
+    protected boolean isCloseOnWindoClick() { return this.closeOnWindoClick; }
+
     public void show() {
         currentPopups.add(this);
         if (withBlur) {
@@ -181,7 +180,7 @@ public class Popup {
 
     public static void hideAll() {
         for (Popup p: currentPopups) {
-            p.hide();
+            if (p.isCloseOnWindoClick()) p.hide();
         }
     }
 
@@ -289,6 +288,11 @@ public class Popup {
 
     public Popup setDistanceFromTop(int distance) {
         this.popupTopMargin = distance;
+        return this;
+    }
+
+    public Popup placeToCenter() {
+        this.contentContainer.translateYProperty().bind(containerYCenter.subtract(contentContainer.heightProperty().divide(2)));
         return this;
     }
 

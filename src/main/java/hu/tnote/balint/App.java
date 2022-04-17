@@ -2,8 +2,10 @@ package hu.tnote.balint;
 
 import hu.tnote.balint.Controllers.MainController;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,6 +23,8 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         String css = App.class.getResource("/hu/tnote/balint/css/app.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        css = App.class.getResource("/hu/tnote/balint/css/buttons.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setTitle("TNote");
         stage.setScene(scene);

@@ -194,6 +194,10 @@
 .text-red {
     -fx-text-fill: #d31c1c;
 }
+
+.text-white {
+    -fx-text-fill: white;
+}
 /*endregion*/
 
 /*region Background colors*/

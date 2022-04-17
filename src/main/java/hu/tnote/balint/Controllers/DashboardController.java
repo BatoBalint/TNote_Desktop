@@ -1,6 +1,9 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.Api;
+import hu.tnote.balint.Popup;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
