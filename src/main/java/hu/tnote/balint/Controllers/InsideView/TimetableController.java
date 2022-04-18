@@ -5,6 +5,7 @@ import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.CustomNode.TTElementButton;
 import hu.tnote.balint.TimetableElement;
 import hu.tnote.balint.WindowManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -32,7 +33,7 @@ public class TimetableController extends Controller {
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
 
-        loadTimetables();
+        new Thread(this::loadTimetables).start();
     }
 
     private void loadTimetables() {
@@ -52,6 +53,7 @@ public class TimetableController extends Controller {
 
         int today = LocalDate.now().getDayOfWeek().getValue() - 1;
 
+        List<VBox> vBoxList = new ArrayList<>();
         for (int i = 0; i < dayNames.length; i++) {
             VBox a = new VBox();
             if (i == today) a.setStyle("-fx-background-color: darkgrey; -fx-background-radius: 3; -fx-padding: 5");
@@ -63,12 +65,18 @@ public class TimetableController extends Controller {
             tteBtn.setWindowManager(this.windowManager);
             a.getChildren().add(tteBtn.getVBox());
 
-            timetableContainer.getChildren().add(a);
+            vBoxList.add(a);
         }
         for (TimetableElement e: timetableElementList) {
             TTElementButton tteBtn = new TTElementButton(e);
             tteBtn.setWindowManager(this.windowManager);
-            ((VBox) timetableContainer.getChildren().get(e.getDayAsInt())).getChildren().add(tteBtn.getVBox());
+            vBoxList.get(e.getDayAsInt()).getChildren().add(tteBtn.getVBox());
         }
+
+        Platform.runLater(() -> {
+            for (VBox v: vBoxList) {
+                timetableContainer.getChildren().add(v);
+            }
+        });
     }
 }

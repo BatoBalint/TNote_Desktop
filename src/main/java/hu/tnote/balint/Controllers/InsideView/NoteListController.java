@@ -6,6 +6,7 @@ import hu.tnote.balint.CustomNode.NoteButton;
 import hu.tnote.balint.Note;
 import hu.tnote.balint.User;
 import hu.tnote.balint.WindowManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -34,7 +35,7 @@ public class NoteListController extends Controller {
     public void setWindowManager(WindowManager windowManager) {
         super.setWindowManager(windowManager);
 
-        loadNotes();
+        new Thread(this::loadNotes).start();
     }
 
     private void loadNotes() {
@@ -76,7 +77,9 @@ public class NoteListController extends Controller {
         for (HBox h : hboxList) {
             h.setMaxWidth(440);
             VBox.setMargin(h, new Insets(40, 0, 0, 0));
-            rootContainer.getChildren().add(h);
+            Platform.runLater(() -> {
+                rootContainer.getChildren().add(h);
+            });
         }
     }
 }

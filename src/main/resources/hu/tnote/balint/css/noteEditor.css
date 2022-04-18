@@ -83,7 +83,8 @@
 .menu-button .context-menu {
     -fx-background-color: grey;
     -fx-background-radius: 5;
-    -fx-padding: 5;
+    -fx-padding: 15 5 5 5;
+    -fx-background-insets: 10 0 0 0;
 }
 
 .menu-button .menu-item:focused {
@@ -94,6 +95,20 @@
 .menu-button .menu-item .label {
     -fx-text-fill: white;
     -fx-padding: 2 5;
+}
+
+.menu-button .menuItemDelete .label {
+    -fx-text-fill: red;
+}
+
+.menu-button .menuItemDelete:focused {
+    -fx-background-color: red;
+    -fx-background-radius: 3;
+}
+
+.menu-button .menuItemDelete:focused .label {
+    -fx-text-fill: white !important;
+    -fx-background-color: red;
 }
 
 .menu-button .menu-item:focused > .label {

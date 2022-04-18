@@ -104,6 +104,12 @@ public class WindowManager {
         }
     }
 
+    public void scrollUp() {
+        if (checkInnerScrollPane()) {
+            innerScrollpane.setVvalue(0.0D);
+        }
+    }
+
     private boolean checkInnerScrollPane() {
         return innerScrollpane != null;
     }

@@ -37,18 +37,10 @@ public class NoteEditorController extends Controller {
 
         moreButtonSetup();
 
-        textArea.prefRowCountProperty().bind(lineCount);
+        textArea.prefRowCountProperty().bind(lineCount.add(2));
         lineCount.set(23);
         textArea.textProperty().addListener((observableValue, s, t1) -> {
-            t1 = t1.replace("\n", "\na");
-            String[] lines = t1.split("\n");
-
-            if (lines.length < 19) {
-                lineCount.set(20);
-            } else {
-                lineCount.set(lines.length + 1);
-                windowManager.scrollDown();
-            };
+            calculatePrefRowCount(t1);
         });
     }
 
@@ -59,6 +51,19 @@ public class NoteEditorController extends Controller {
 
         textArea.setMaxWidth(800);
         textArea.setWrapText(true);
+    }
+
+    private void calculatePrefRowCount(String t1) {
+        t1 += "\n";
+        t1 = t1.replace("\n", "a\na");
+        String[] lines = t1.split("\n");
+
+        if (lines.length < 21) {
+            lineCount.set(21);
+        } else {
+            lineCount.set(lines.length);
+            windowManager.scrollDown();
+        };
     }
 
     private void moreButtonSetup() {
@@ -83,6 +88,7 @@ public class NoteEditorController extends Controller {
                 }
             }
         });
+        delete.getStyleClass().add("menuItemDelete");
 
         MenuItem test = new MenuItem("Vissza");
 
@@ -95,6 +101,7 @@ public class NoteEditorController extends Controller {
             }
         });
 
+
         menuBtn.getItems().add(delete);
         menuBtn.getItems().add(test);
     }
@@ -103,6 +110,9 @@ public class NoteEditorController extends Controller {
         this.note = note;
         noteTitle.setText(this.note.getTitle());
         textArea.setText(this.note.getContent());
+
+        calculatePrefRowCount(textArea.getText());
+        windowManager.scrollUp();
     }
 
     @FXML
