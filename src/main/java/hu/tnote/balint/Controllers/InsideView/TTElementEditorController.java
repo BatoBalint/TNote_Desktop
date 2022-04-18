@@ -222,15 +222,23 @@ public class TTElementEditorController extends Controller {
 
     @FXML
     public void deleteBtnClick() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.getButtonTypes().add(new ButtonType("Törlés", ButtonBar.ButtonData.APPLY));
-        alert.getButtonTypes().add(new ButtonType("Mégse", ButtonBar.ButtonData.CANCEL_CLOSE));
-
-        alert.setTitle("this is the title");
-        alert.setContentText("this is the context text");
-//        alert.setHeaderText("this is the header text");
-        alert.setGraphic(null);
-
-        alert.show();
+        StringBuilder message = new StringBuilder();
+        message.append("Biztos, hogy törölni szeretnéd ezt az órát?\n");
+        message.append("\"").append(ttelement.getTitle());
+        if (!ttelement.getDescription().equals("")) message.append(", ").append(ttelement.getDescription());
+        message.append("\"");
+        if (new Popup().confirm(message.toString()).get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+            Popup.hideAll();
+            try {
+                Api.deleteTTElement(ttelement.getId());
+                new Popup("Sikeres törlés").setColor("#22FF44")
+                        .setTextColor("#00AA11").setCloseTimer(2000)
+                        .withFadeInAndOut().show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                new Popup("Valami okból kifolyólag nem sikerült a törlés")
+                        .setColor("#FF2222").setTextColor("990000").show();
+            }
+        }
     }
 }

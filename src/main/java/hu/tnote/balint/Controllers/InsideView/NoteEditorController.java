@@ -66,15 +66,21 @@ public class NoteEditorController extends Controller {
         MenuItem delete = new MenuItem("Törlés");
 
         delete.setOnAction(actionEvent -> {
-            try {
-                Api.deleteNote(note.getId());
-                alertWait("Sikeres törlés");
-                windowManager.changeToNoteList();
-            } catch (IOException e) {
-                e.printStackTrace();
-                alert("Valami miatt nem sikerült törölni a jegyzetet");
-            } catch (Exception e) {
-                e.printStackTrace();
+            StringBuilder message = new StringBuilder();
+            message.append("Biztos törölni szeretnéd ezt az jegyzetet?\n\"").append(note.getTitle()).append("\"");
+            if (new Popup().confirm(message.toString()).get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                Popup.hideAll();
+                try {
+                    Api.deleteNote(note.getId());
+                    new Popup("Sikeres törlés").setColor("#22FF44")
+                            .setTextColor("#00AA11").setCloseTimer(2000)
+                            .withFadeInAndOut().show();
+                    windowManager.changeToNoteList();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    new Popup("Valami okból kifolyólag nem sikerült a törlés")
+                            .setColor("#FF2222").setTextColor("990000").show();
+                }
             }
         });
 
@@ -102,15 +108,21 @@ public class NoteEditorController extends Controller {
     @FXML
     public void saveBtnClick() {
         if (note.getId() >= 0) {
-            try {
-                Api.saveNote(note.getId(), noteTitle.getText(), textArea.getText());
-                new Popup("Sikeres mentés").setColor("#22FF44")
-                        .setTextColor("#00AA11").setCloseTimer(2000)
-                        .withFadeInAndOut().show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                new Popup("Valami okból kifolyólag nem sikerült a mentés")
+            if (noteTitle.getText().trim().length() == 0) {
+                new Popup("A cím mező nem lehet üres")
                         .setColor("#FF2222").setTextColor("990000").show();
+            } else {
+
+                try {
+                    Api.saveNote(note.getId(), noteTitle.getText(), textArea.getText());
+                    new Popup("Sikeres mentés").setColor("#22FF44")
+                            .setTextColor("#00AA11").setCloseTimer(2000)
+                            .withFadeInAndOut().show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    new Popup("Valami okból kifolyólag nem sikerült a mentés")
+                            .setColor("#FF2222").setTextColor("990000").show();
+                }
             }
         } else {
             try {
@@ -123,7 +135,6 @@ public class NoteEditorController extends Controller {
                         .setColor("#FF2222").setTextColor("990000").show();
             }
         }
-
     }
 
     @FXML

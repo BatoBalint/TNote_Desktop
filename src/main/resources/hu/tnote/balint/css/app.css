@@ -212,6 +212,10 @@
 .bg-third {
     -fx-background-color: -fx-thirdBGColor;
 }
+
+.bg-transparent {
+    -fx-background-color: transparent;
+}
 /*endregion*/
 
 /*region Paddings*/

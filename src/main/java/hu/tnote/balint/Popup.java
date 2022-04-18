@@ -1,20 +1,28 @@
 package hu.tnote.balint;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Popup {
     private static List<Popup> currentPopups = new ArrayList<>();
@@ -94,7 +102,7 @@ public class Popup {
         xBtnContainer.setMaxHeight(20);
         HBox.setHgrow(xBtnContainer, Priority.ALWAYS);
         xBtn = new Label("\uD83D\uDDD9");
-        xBtn.setStyle("-fx-font-size: 150%; -fx-font-weight: 900; -fx-text-fill: white; -fx-background-color: transparent");
+        xBtn.setStyle("-fx-font-size: 150%; -fx-font-weight: 900; -fx-text-fill: black; -fx-background-color: transparent");
         xBtn.setOnMouseClicked(e -> {
             this.hide();
         });
@@ -165,6 +173,34 @@ public class Popup {
         }
     }
 
+    public Optional<ButtonType> confirm(String text) {
+        ButtonType okBtn = new ButtonType("Igen", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelbtn = new ButtonType("Mégse", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        Dialog<ButtonType> d = new Dialog<>();
+
+        Window parentWindow = parentContainer.getScene().getWindow();
+
+        d.initStyle(StageStyle.TRANSPARENT);
+        d.getDialogPane().getScene().setFill(Color.TRANSPARENT);
+        d.getDialogPane().getStylesheets().addAll(getClass().getResource("/hu/tnote/balint/css/app.css").toExternalForm(),
+                getClass().getResource("/hu/tnote/balint/css/buttons.css").toExternalForm());
+        d.getDialogPane().getStyleClass().add("bg-secondary");
+        Label textLabel = new Label(text);
+        textLabel.setWrapText(true);
+        d.getDialogPane().setMaxWidth(400);
+        d.getDialogPane().setContent(textLabel);
+        d.getDialogPane().getButtonTypes().add(okBtn);
+        d.getDialogPane().getButtonTypes().add(cancelbtn);
+        d.getDialogPane().getStyleClass().addAll("roundTRBL");
+        d.getDialogPane().getScene().getWindow().setX(parentWindow.getX() + (parentWindow.getWidth() / 2) - (d.getDialogPane().getWidth() / 2));
+        d.getDialogPane().getScene().getWindow().setY(parentWindow.getY() + (parentWindow.getHeight() / 2) - 75);
+        ((ButtonBar) d.getDialogPane().getChildren().get(2)).getButtons().get(0).getStyleClass().add("saveBtn");
+        ((ButtonBar) d.getDialogPane().getChildren().get(2)).getButtons().get(1).getStyleClass().add("deleteBtn");
+
+        return d.showAndWait();
+    }
+
     public void hide() {
         currentPopups.remove(this);
         parentContainer.getChildren().get(0).setEffect(null);
@@ -179,9 +215,16 @@ public class Popup {
     }
 
     public static void hideAll() {
-        for (Popup p: currentPopups) {
-            if (p.isCloseOnWindoClick()) p.hide();
-        }
+        new Thread(() -> {
+            int modifier = 0;
+            for (int i = 0; i < currentPopups.size() - modifier; i++) {
+                int finalI = i;
+                int finalModifier = modifier;
+                Platform.runLater(() -> currentPopups.get(finalI - finalModifier).hide());
+                modifier++;
+            }
+        }).start();
+
     }
 
     public static void hideByIndex(int i) {
@@ -246,6 +289,7 @@ public class Popup {
     }
 
     public Popup turnOffHideOnWindowClick() {
+        closeOnWindoClick = false;
         parentContainer.getChildren().get(0).setOnMouseClicked(v -> {});
         return this;
     }

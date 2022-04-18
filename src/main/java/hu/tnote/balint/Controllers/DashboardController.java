@@ -87,6 +87,7 @@ public class DashboardController extends Controller {
 
     @FXML
     public void settingsBtnClick() {
+        System.out.println(new Popup().confirm("Biztos vagy benne hogy ilyen felelotlen function akarsz meghivni? egy pici cseresznye leesett a kamion tetejerol mikor azt megelozte egy aggressziv bombis cigany"));
         resetDashboardSelection();
         settingsBtn.getStyleClass().add(0, "btnFocus");
         try {

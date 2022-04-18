@@ -8,7 +8,7 @@
 <VBox fx:id="rootContainer" stylesheets="@../css/noteEditor.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.InsideView.NoteEditorController">
 
     <HBox fx:id="titleHbox" alignment="CENTER_LEFT" maxWidth="800">
-        <TextField fx:id="noteTitle">
+        <TextField fx:id="noteTitle" promptText="Cím">
           <VBox.margin>
              <Insets bottom="20.0" />
           </VBox.margin>
