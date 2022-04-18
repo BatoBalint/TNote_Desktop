@@ -149,7 +149,6 @@ public class Api {
     }
 
     public static void addTTElement(TimetableElement tte) throws IOException {
-        System.out.println("|" + tte.getDescription() + "|");
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("ttid", tte.getTtid() + "");
         hashMap.put("day", tte.getDay());
