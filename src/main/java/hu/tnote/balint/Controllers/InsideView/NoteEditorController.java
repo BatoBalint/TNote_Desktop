@@ -129,10 +129,10 @@ public class NoteEditorController extends Controller {
                 try {
                     Api.addNote(note.getId(), noteTitle.getText(), textArea.getText());
                     new Popup("Sikeres mentés").setColor("#22FF44")
-                            .setTextColor("#00AA11").setCloseTimer(2000).show();
+                            .setTextColor("#00AA11").withFadeInAndOut().setCloseTimer(2000).show();
                 } catch (IOException e) {
                     new Popup("Valami okból kifolyólag nem sikerült a mentés")
-                            .setColor("#FF2222").setTextColor("#990000").show();
+                            .setColor("#FF2222").withFadeInAndOut().setTextColor("#990000").show();
                 }
             }
         }

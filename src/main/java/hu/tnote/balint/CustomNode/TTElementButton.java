@@ -42,7 +42,7 @@ public class TTElementButton {
         }
         container.setOnMouseClicked(v -> {
             new Popup("Órarend elem felvétele", "#170624")
-                    .turnOffHideOnWindowClick().setTextColor("#4c1d95").addBody(ttelementEditorContainer).show();
+                    .turnOffHideOnWindowClick().setTextColor("#4c1d95").withBlur().addBody(ttelementEditorContainer).show();
         });
     }
 
