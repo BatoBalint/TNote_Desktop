@@ -58,13 +58,13 @@ public class DashboardController extends Controller {
         try {
             String response = Api.logout();
             if (!response.split("\\|")[0].equals("200")) {
-                new Popup("Valami okból kifolyólag nem sikerült a kijelentkezés").setTextColor("#770000").setColor("red")
+                new Popup("Valami okból kifolyólag nem sikerült a kijelentkezés").setWidth(440).setTextColor("#770000").setColor("red")
                         .setCloseTimer(4000).withFadeInAndOut().show();
             } else {
                 windowManager.changeToRegLog();
             }
         } catch (IOException e) {
-            new Popup("Valami okból kifolyólag nem sikerült a kijelentkezés").setTextColor("#770000").setColor("red")
+            new Popup("Valami okból kifolyólag nem sikerült a kijelentkezés").setWidth(440).setTextColor("#770000").setColor("red")
                     .setCloseTimer(4000).withFadeInAndOut().show();
         }
     }

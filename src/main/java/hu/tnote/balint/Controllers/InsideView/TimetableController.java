@@ -3,6 +3,7 @@ package hu.tnote.balint.Controllers.InsideView;
 import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.CustomNode.TTElementButton;
+import hu.tnote.balint.Popup;
 import hu.tnote.balint.TimetableElement;
 import hu.tnote.balint.WindowManager;
 import javafx.application.Platform;
@@ -43,8 +44,10 @@ public class TimetableController extends Controller {
         try {
             timetableElementList = Api.getTimetableElements();
             usedTtid = Api.getTimetableIds().get(0);
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            new Popup("Nem sikerült csatlakozni a szerverhez").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show();
+        } catch (ParseException e) {
+            new Popup("Hiba történt a órarend betöltésekor").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show();
         }
         timetableElementList = timetableElementList.stream()
                 .sorted(Comparator.comparing(TimetableElement::getDayAsInt))

@@ -130,6 +130,7 @@ public class ReglogController extends Controller {
 
             try {
                 int statuscode = Api.login(email, pass);
+                System.out.println(statuscode);
                 if (statuscode / 100 == 2) {
                     clearInputs();
                     windowManager.changeToDashboard();

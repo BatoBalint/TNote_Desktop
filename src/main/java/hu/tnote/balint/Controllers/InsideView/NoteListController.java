@@ -1,11 +1,8 @@
 package hu.tnote.balint.Controllers.InsideView;
 
-import hu.tnote.balint.Api;
+import hu.tnote.balint.*;
 import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.CustomNode.NoteButton;
-import hu.tnote.balint.Note;
-import hu.tnote.balint.User;
-import hu.tnote.balint.WindowManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,8 +40,10 @@ public class NoteListController extends Controller {
         List<Note> notes = new ArrayList<>();
         try {
             notes = Api.getNotes();
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            new Popup("Nem sikerült csatlakozni a szerverhez").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show();
+        } catch (ParseException e) {
+            new Popup("Hiba történt a jegyzetek betöltésekor").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show();
         }
 
         for (int i = 0; i < 1; i++) {

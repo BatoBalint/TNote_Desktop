@@ -327,6 +327,8 @@ public class Popup {
 
     public Popup setWidth(int width) {
         this.popupWidth = width;
+        contentContainer.setMinWidth(popupWidth);
+        contentContainer.setMaxWidth(popupWidth);
         return this;
     }
 
