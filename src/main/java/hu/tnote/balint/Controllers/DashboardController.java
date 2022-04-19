@@ -56,10 +56,16 @@ public class DashboardController extends Controller {
     @FXML
     public void logoutBtnClick() {
         try {
-            System.out.println(Api.logout());
-            windowManager.changeToRegLog();
+            String response = Api.logout();
+            if (!response.split("\\|")[0].equals("200")) {
+                new Popup("Valami okból kifolyólag nem sikerült a kijelentkezés").setTextColor("#770000").setColor("red")
+                        .setCloseTimer(4000).withFadeInAndOut().show();
+            } else {
+                windowManager.changeToRegLog();
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            new Popup("Valami okból kifolyólag nem sikerült a kijelentkezés").setTextColor("#770000").setColor("red")
+                    .setCloseTimer(4000).withFadeInAndOut().show();
         }
     }
 
