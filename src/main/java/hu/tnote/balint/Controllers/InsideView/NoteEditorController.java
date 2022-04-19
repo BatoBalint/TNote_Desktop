@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -46,19 +45,6 @@ public class NoteEditorController extends Controller {
 
         textArea.setMaxWidth(800);
         textArea.setWrapText(true);
-    }
-
-    private void calculatePrefRowCount(String t1) {
-        t1 += "\n";
-        t1 = t1.replace("\n", "a\na");
-        String[] lines = t1.split("\n");
-
-        if (lines.length < 21) {
-            lineCount.set(21);
-        } else {
-            lineCount.set(lines.length);
-            windowManager.scrollDown();
-        };
     }
 
     private void moreButtonSetup() {
@@ -150,9 +136,5 @@ public class NoteEditorController extends Controller {
                 }
             }
         }
-    }
-
-    @FXML
-    public void menubuttonAction() {
     }
 }
