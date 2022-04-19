@@ -8,7 +8,7 @@ public class User {
     private static String EMAIL;
     private static String PAT; //Personal access token
     private static String CREATED_AT;
-    private static boolean REMAIN_SINGED_IN = false;
+    private static boolean REMEMBER_LOGIN = false;
 
     //region Getter / Setter
     public static int getId() {
@@ -34,7 +34,7 @@ public class User {
     }
 
     public static boolean isRemainSingedIn() {
-        return REMAIN_SINGED_IN;
+        return REMEMBER_LOGIN;
     }
 
     public static void setId(int id) {
@@ -65,8 +65,10 @@ public class User {
         Preferences.userRoot().put("TNoteUserCreatedAt", createdAt);
     }
 
-    public static void setRemainSingedIn(boolean remainSingedIn) {
-        REMAIN_SINGED_IN = remainSingedIn;
+    public static void setRemainSingedIn(boolean rememberLogin) {
+        REMEMBER_LOGIN = rememberLogin;
+        Preferences.userRoot().remove("TNoteRememberLogin");
+        Preferences.userRoot().putBoolean("TNoteRememberLogin", rememberLogin);
     }
 
     //endregion

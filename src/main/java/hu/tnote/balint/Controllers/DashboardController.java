@@ -68,6 +68,8 @@ public class DashboardController extends Controller {
                 new Popup("Valami okból kifolyólag nem sikerült a kijelentkezés").setWidth(440).setTextColor("#770000").setColor("red")
                         .setCloseTimer(4000).withFadeInAndOut().show();
             } else {
+                new Popup("Sikeres kijelentkezés").setWidth(400).setColor("#22FF44")
+                        .setTextColor("#00AA11").setCloseTimer(3000).withFadeInAndOut().show();
                 windowManager.changeToRegLog();
             }
         } catch (IOException e) {

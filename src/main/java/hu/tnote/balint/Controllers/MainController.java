@@ -3,14 +3,9 @@ package hu.tnote.balint.Controllers;
 import hu.tnote.balint.Api;
 import hu.tnote.balint.User;
 import hu.tnote.balint.WindowManager;
-import javafx.animation.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -20,7 +15,6 @@ public class MainController extends Controller {
     @FXML
     private VBox rootContainer;
 
-    private boolean rememberLogin;
     private Stage stage;
 
     public void initialize() {
@@ -28,7 +22,6 @@ public class MainController extends Controller {
 
         Preferences prefs = Preferences.userRoot();
         String PAT = prefs.get("TNotePAT", "");     //Personal access token
-        rememberLogin = prefs.getBoolean("TNoteRememberLogin", true);
 
         if (PAT.isEmpty()) {
             try {
@@ -54,8 +47,9 @@ public class MainController extends Controller {
     public void setStage(Stage stage) {
         this.stage = stage;
         this.stage.setOnCloseRequest(v -> {
-            if (!rememberLogin) {
+            if (!Preferences.userRoot().getBoolean("TNoteRememberLogin", false)) {
                 try {
+                    User.setToken(Preferences.userRoot().get("TNotePAT", ""));
                     Api.logout();
                 } catch (IOException e) {
                     e.printStackTrace();

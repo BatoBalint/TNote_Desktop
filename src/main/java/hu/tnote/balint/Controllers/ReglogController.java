@@ -11,10 +11,15 @@ import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class ReglogController extends Controller {
 
     //region FXML variables
+    @FXML
+    public VBox rememberContainer;
+    @FXML
+    public CheckBox rememberLogin;
     @FXML
     private Button loginBtn;
     @FXML
@@ -106,6 +111,7 @@ public class ReglogController extends Controller {
 
             if (ok) {
                 try {
+                    Preferences.userRoot().putBoolean("TNoteRememberLogin", rememberLogin.isSelected());
                     int statuscode = Api.register(name, email, pass);
                     if (statuscode / 100 == 2) {
                         clearInputs();
@@ -129,8 +135,8 @@ public class ReglogController extends Controller {
             }
 
             try {
+                Preferences.userRoot().putBoolean("TNoteRememberLogin", rememberLogin.isSelected());
                 int statuscode = Api.login(email, pass);
-                System.out.println(statuscode);
                 if (statuscode / 100 == 2) {
                     clearInputs();
                     windowManager.changeToDashboard();
