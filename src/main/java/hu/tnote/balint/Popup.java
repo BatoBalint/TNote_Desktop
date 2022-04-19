@@ -1,7 +1,9 @@
 package hu.tnote.balint;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
@@ -145,6 +147,8 @@ public class Popup {
 
     protected boolean isCloseOnWindoClick() { return this.closeOnWindoClick; }
 
+    protected IntegerProperty getContainerXCenter() { return this.containerXCenter; }
+
     public void show() {
         currentPopups.add(this);
         if (withBlur) {
@@ -235,16 +239,29 @@ public class Popup {
 
     public static void blink() {
         if (currentPopups.size() > 0) {
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(100), currentPopups.get(0).getContentContainer());
-            fadeOut.setFromValue(1);
-            fadeOut.setToValue(0.7);
-            fadeOut.setOnFinished(e -> {
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(100), currentPopups.get(0).getContentContainer());
-                fadeIn.setFromValue(0.7);
-                fadeIn.setToValue(1);
-                fadeIn.play();
+//            FadeTransition fadeOut = new FadeTransition(Duration.millis(100), currentPopups.get(0).getContentContainer());
+//            fadeOut.setFromValue(1);
+//            fadeOut.setToValue(0.7);
+//            fadeOut.setOnFinished(e -> {
+//                FadeTransition fadeIn = new FadeTransition(Duration.millis(100), currentPopups.get(0).getContentContainer());
+//                fadeIn.setFromValue(0.7);
+//                fadeIn.setToValue(1);
+//                fadeIn.play();
+//            });
+//            fadeOut.play();
+            int shakeWidth = 6;
+            VBox container = currentPopups.get(currentPopups.size() - 1).getContentContainer();
+            container.translateXProperty().unbind();
+
+            TranslateTransition shake = new TranslateTransition();
+            shake.setNode(container);
+            shake.setByX(shakeWidth);
+            shake.setCycleCount(3);
+            shake.setDuration(Duration.millis(100));
+            shake.play();
+            shake.setOnFinished(v -> {
+                container.translateXProperty().bind(currentPopups.get(currentPopups.size() - 1).getContainerXCenter().subtract(container.widthProperty().divide(2)));
             });
-            fadeOut.play();
         }
     }
 

@@ -1,7 +1,8 @@
 * {
-    -fx-BGColor: hsb(270, 100%, 10%);
-    -fx-secondaryBGColor: hsb(270, 100%, 30%);
-    -fx-thirdBGColor: hsb(270, 100%, 20%);
+    -fx-BGColor: #1F082F; /*hsb(270, 100%, 10%);*/
+    -fx-secondaryBGColor: #4c1d95; /*hsb(270, 100%, 30%);*/
+    -fx-thirdBGColor: #412174; /*hsb(270, 100%, 20%);*/
+    -fx-orange: #FF6C00;
     -fx-textColor: white;
     -fx-secondaryTextColor: grey;
 }
@@ -99,7 +100,7 @@
 
 .noteButton:hover {
     -fx-text-fill: -fx-textColor;
-    -fx-background-color: rgba(255, 165, 0, 0.8);
+    -fx-background-color: -fx-orange;
 }
 
 .noteButton, .noteButton:hover {

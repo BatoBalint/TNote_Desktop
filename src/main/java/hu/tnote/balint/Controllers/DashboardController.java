@@ -5,7 +5,10 @@ import hu.tnote.balint.Popup;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.ImageCursor;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
@@ -33,6 +36,8 @@ public class DashboardController extends Controller {
     private VBox logoutVbox;
     @FXML
     private Button timetableBtn;
+    @FXML
+    private ImageView logoImageview;
     //endregion
 
     public void initialize() {
@@ -44,6 +49,8 @@ public class DashboardController extends Controller {
     }
 
     private void uiInit() {
+        //logoImageview.setImage(new Image(getClass().getResource("/hu/tnote/balint/images/tnote_logo_new.png").toExternalForm()));
+
         HBox.setHgrow(logoutBtn, Priority.ALWAYS);
         HBox.setHgrow(noteBtn, Priority.ALWAYS);
         HBox.setHgrow(settingsBtn, Priority.ALWAYS);

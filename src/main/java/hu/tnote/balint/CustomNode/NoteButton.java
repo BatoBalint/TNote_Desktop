@@ -2,14 +2,9 @@ package hu.tnote.balint.CustomNode;
 
 import hu.tnote.balint.Note;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 public class NoteButton {
     private Button button;

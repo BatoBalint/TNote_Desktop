@@ -41,8 +41,8 @@ public class TTElementButton {
             plusBtnInit();
         }
         container.setOnMouseClicked(v -> {
-            new Popup("Órarend elem felvétele", "#22FFFF")
-                    .turnOffHideOnWindowClick().setTextColor("#0000AA").addBody(ttelementEditorContainer).show();
+            new Popup("Órarend elem felvétele", "#170624")
+                    .turnOffHideOnWindowClick().setTextColor("#4c1d95").addBody(ttelementEditorContainer).show();
         });
     }
 

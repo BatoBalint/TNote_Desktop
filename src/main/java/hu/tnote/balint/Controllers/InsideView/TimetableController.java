@@ -45,9 +45,9 @@ public class TimetableController extends Controller {
             timetableElementList = Api.getTimetableElements();
             usedTtid = Api.getTimetableIds().get(0);
         } catch (IOException e) {
-            new Popup("Nem sikerült csatlakozni a szerverhez").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show();
+            Platform.runLater(() -> new Popup("Nem sikerült csatlakozni a szerverhez").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show());
         } catch (ParseException e) {
-            new Popup("Hiba történt a órarend betöltésekor").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show();
+            Platform.runLater(() -> new Popup("Hiba történt a órarend betöltésekor").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show());
         }
         timetableElementList = timetableElementList.stream()
                 .sorted(Comparator.comparing(TimetableElement::getDayAsInt))

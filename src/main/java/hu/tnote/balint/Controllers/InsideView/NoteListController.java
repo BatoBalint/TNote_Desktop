@@ -41,9 +41,9 @@ public class NoteListController extends Controller {
         try {
             notes = Api.getNotes();
         } catch (IOException e) {
-            new Popup("Nem sikerült csatlakozni a szerverhez").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show();
+            Platform.runLater(() -> new Popup("Nem sikerült csatlakozni a szerverhez").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show());
         } catch (ParseException e) {
-            new Popup("Hiba történt a jegyzetek betöltésekor").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show();
+            Platform.runLater(() -> new Popup("Hiba történt a jegyzetek betöltésekor").setTextColor("#770000").setColor("red").setCloseTimer(3000).withFadeInAndOut().show());
         }
 
         for (int i = 0; i < 1; i++) {

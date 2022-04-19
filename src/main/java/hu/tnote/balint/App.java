@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -27,6 +28,7 @@ public class App extends Application {
         css = App.class.getResource("/hu/tnote/balint/css/buttons.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setTitle("TNote");
+        stage.getIcons().setAll(new Image(getClass().getResource("/hu/tnote/balint/images/tnote_logo_new.png").toExternalForm()));
         stage.setScene(scene);
         stage.setMinWidth(800);
         stage.setMinHeight(500);

@@ -1,51 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="rootContainer"
-          xmlns="http://javafx.com/javafx/11.0.2"
-          xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="hu.tnote.balint.Controllers.DashboardController"
-          maxWidth="Infinity" maxHeight="Infinity" alignment="TOP_CENTER">
+<GridPane fx:id="rootContainer" alignment="TOP_CENTER" maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.DashboardController">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" minWidth="200" maxWidth="200" />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="200" minWidth="200" />
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="50" maxHeight="50" vgrow="NEVER" />
+        <RowConstraints maxHeight="50" minHeight="50" vgrow="NEVER" />
         <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
     </rowConstraints>
-    <HBox prefHeight="50.0"
-          GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="0"
-          alignment="CENTER_LEFT">
-        <Label fx:id="welcomeText" styleClass="h1" />
+    <HBox alignment="CENTER_LEFT" prefHeight="50" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="0">
+        <Label fx:id="welcomeText" styleClass="h1"/>
     </HBox>
-    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" maxWidth="Infinity" >
+    <VBox maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
         <VBox fx:id="controlsContainer">
-            <HBox styleClass="btnContainer" prefHeight="50">
-                <Label text="Logo" styleClass="h1, text-primary" />
+<!--            <HBox prefHeight="50" styleClass="btnContainer" alignment="TOP_CENTER">-->
+<!--                <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" fx:id="logoImageview"/>-->
+<!--            </HBox>-->
+            <HBox styleClass="btnContainer">
+                <Button fx:id="noteBtn" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#noteBtnClick" prefHeight="50" styleClass="h5, text-primary" text="Jegyzetek" />
             </HBox>
             <HBox styleClass="btnContainer">
-                <Button fx:id="noteBtn" text="Jegyzetek" onAction="#noteBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+                <Button fx:id="timetableBtn" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#timetableBtnClick" prefHeight="50" styleClass="h5, text-primary" text="Órarend" />
             </HBox>
             <HBox styleClass="btnContainer">
-                <Button fx:id="timetableBtn" text="Órarend" onAction="#timetableBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+                <Button fx:id="profileBtn" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#profileBtnClick" prefHeight="50" styleClass="h5, text-primary" text="Profil" />
             </HBox>
             <HBox styleClass="btnContainer">
-                <Button fx:id="profileBtn" text="Profil" onAction="#profileBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
-            </HBox>
-            <HBox styleClass="btnContainer">
-                <Button fx:id="settingsBtn" text="Beállítások" onAction="#settingsBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-primary" />
+                <Button fx:id="settingsBtn" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#settingsBtnClick" prefHeight="50" styleClass="h5, text-primary" text="Beállítások" />
             </HBox>
         </VBox>
         <VBox fx:id="logoutVbox">
             <HBox styleClass="btnContainer">
-                <Button fx:id="logoutBtn" text="Kijelentkezés" onAction="#logoutBtnClick" maxWidth="Infinity" prefHeight="50" alignment="CENTER_LEFT" styleClass="h5, text-red" />
+                <Button fx:id="logoutBtn" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#logoutBtnClick" prefHeight="50" styleClass="h5, text-red" text="Kijelentkezés" />
             </HBox>
         </VBox>
     </VBox>
-    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="contentContainer" styleClass="roundT, p-3" fitToWidth="true">
+    <ScrollPane fx:id="contentContainer" fitToWidth="true" styleClass="roundT, p-3" GridPane.columnIndex="1" GridPane.rowIndex="1">
 
     </ScrollPane>
 </GridPane>

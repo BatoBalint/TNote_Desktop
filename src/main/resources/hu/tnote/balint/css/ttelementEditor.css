@@ -1,5 +1,5 @@
-.label {
-    -fx-text-fill: black;
+.label, .check-box {
+    -fx-text-fill: white;
 }
 
 .red {
