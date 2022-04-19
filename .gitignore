@@ -1,2 +1,4 @@
 # Project exclude paths
 /target/
+/src/main/java/META-INF/MANIFEST.MF
+/out/artifacts/TNote_jar/TNote.jar
