@@ -61,7 +61,7 @@
     -fx-background-insets: 5 0 5 2;
 }
 
-/* SVG From https://iconmonstr.com/eye-9-svg/ Date: 2022/04/19*/
+/* SVGs (in .showPassBtn and .showPassBtnClicked) From https://iconmonstr.com/eye-9-svg/ Date: 2022/04/19*/
 
 .showPassBtnClicked {
     -fx-background-color: -fx-textColor;
