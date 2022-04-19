@@ -239,16 +239,6 @@ public class Popup {
 
     public static void blink() {
         if (currentPopups.size() > 0) {
-//            FadeTransition fadeOut = new FadeTransition(Duration.millis(100), currentPopups.get(0).getContentContainer());
-//            fadeOut.setFromValue(1);
-//            fadeOut.setToValue(0.7);
-//            fadeOut.setOnFinished(e -> {
-//                FadeTransition fadeIn = new FadeTransition(Duration.millis(100), currentPopups.get(0).getContentContainer());
-//                fadeIn.setFromValue(0.7);
-//                fadeIn.setToValue(1);
-//                fadeIn.play();
-//            });
-//            fadeOut.play();
             int shakeWidth = 6;
             VBox container = currentPopups.get(currentPopups.size() - 1).getContentContainer();
             container.translateXProperty().unbind();
@@ -257,6 +247,7 @@ public class Popup {
             shake.setNode(container);
             shake.setByX(shakeWidth);
             shake.setCycleCount(3);
+            shake.setAutoReverse(true);
             shake.setDuration(Duration.millis(100));
             shake.play();
             shake.setOnFinished(v -> {

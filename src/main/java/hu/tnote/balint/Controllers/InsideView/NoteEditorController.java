@@ -4,6 +4,7 @@ import hu.tnote.balint.Api;
 import hu.tnote.balint.Controllers.Controller;
 import hu.tnote.balint.Note;
 import hu.tnote.balint.Popup;
+import hu.tnote.balint.WindowManager;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.NodeOrientation;
@@ -112,12 +113,7 @@ public class NoteEditorController extends Controller {
         noteTitle.setText(this.note.getTitle());
         textArea.setText(this.note.getContent());
 
-        textArea.prefRowCountProperty().bind(lineCount);
-        lineCount.set(50);
-        textArea.textProperty().addListener((observableValue, s, t1) -> {
-            calculatePrefRowCount(t1);
-        });
-        calculatePrefRowCount(this.note.getContent());
+        textArea.prefHeightProperty().bind(WindowManager.getRootContainer().heightProperty().subtract(150));
     }
 
     @FXML
