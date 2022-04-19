@@ -7,6 +7,8 @@ public class User {
     private static String NAME;
     private static String EMAIL;
     private static String PAT; //Personal access token
+    private static String CREATED_AT;
+    private static boolean REMAIN_SINGED_IN = false;
 
     //region Getter / Setter
     public static int getId() {
@@ -23,6 +25,16 @@ public class User {
 
     public static String getToken() {
         return PAT;
+    }
+
+    public static String getCreatedAt() {
+        String[] half = CREATED_AT.split("T");
+
+        return half[0] + " " + half[1].split("\\.")[0];
+    }
+
+    public static boolean isRemainSingedIn() {
+        return REMAIN_SINGED_IN;
     }
 
     public static void setId(int id) {
@@ -46,6 +58,15 @@ public class User {
             Preferences.userRoot().remove("TNoteUserName");
             Preferences.userRoot().remove("TNoteUserEmail");
         }
+    }
+
+    public static void setCreatedAt(String createdAt) {
+        CREATED_AT = createdAt;
+        Preferences.userRoot().put("TNoteUserCreatedAt", createdAt);
+    }
+
+    public static void setRemainSingedIn(boolean remainSingedIn) {
+        REMAIN_SINGED_IN = remainSingedIn;
     }
 
     //endregion

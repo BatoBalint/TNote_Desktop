@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Label?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.2"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="hu.tnote.balint.Controllers.InsideView.ProfileController"
-      spacing="20" stylesheets="@../css/profile.css">
-    <HBox styleClass="textHolder">
-        <Label text="Név: "/>
-        <Label fx:id="nameLabel"/>
-    </HBox>
-    <HBox styleClass="textHolder">
-        <Label text="Email: "/>
-        <Label fx:id="emailLabel"/>
-    </HBox>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" stylesheets="@../css/profile.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.tnote.balint.Controllers.InsideView.ProfileController">
+    <VBox styleClass="textHolder">
+        <Label styleClass="text-secondary, h6" text="Név:" />
+        <Label fx:id="nameLabel" />
+    </VBox>
+    <VBox styleClass="textHolder">
+        <Label styleClass="text-secondary, h6" text="Email:" />
+        <Label fx:id="emailLabel" />
+    </VBox>
+    <VBox styleClass="textHolder">
+        <Label styleClass="text-secondary, h6" text="Regisztráció időpontja:" />
+        <Label fx:id="createdAtLabel" />
+    </VBox>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
 </VBox>

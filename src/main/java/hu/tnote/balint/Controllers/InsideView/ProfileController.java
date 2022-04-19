@@ -11,9 +11,12 @@ public class ProfileController extends Controller {
     private Label emailLabel;
     @FXML
     private Label nameLabel;
+    @FXML
+    private Label createdAtLabel;
 
     public void initialize() {
         nameLabel.setText(User.getName());
         emailLabel.setText(User.getEmail());
+        createdAtLabel.setText(User.getCreatedAt());
     }
 }

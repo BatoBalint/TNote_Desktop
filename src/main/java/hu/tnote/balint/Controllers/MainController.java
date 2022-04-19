@@ -3,11 +3,14 @@ package hu.tnote.balint.Controllers;
 import hu.tnote.balint.Api;
 import hu.tnote.balint.User;
 import hu.tnote.balint.WindowManager;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -35,6 +38,7 @@ public class MainController extends Controller {
             }
         } else {
             User.setToken(PAT);
+            User.setCreatedAt(Preferences.userRoot().get("TNoteUserCreatedAt", ""));
             User.setUser(
                     Preferences.userRoot().getInt("TNoteUserId", -1),
                     Preferences.userRoot().get("TNoteUserName", ""),

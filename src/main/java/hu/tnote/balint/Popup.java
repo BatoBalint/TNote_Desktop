@@ -239,16 +239,17 @@ public class Popup {
 
     public static void blink() {
         if (currentPopups.size() > 0) {
-            int shakeWidth = 6;
+            int shakeWidth = 20;
             VBox container = currentPopups.get(currentPopups.size() - 1).getContentContainer();
             container.translateXProperty().unbind();
+            container.setTranslateX(container.getTranslateX() - (shakeWidth / 2));
 
             TranslateTransition shake = new TranslateTransition();
             shake.setNode(container);
             shake.setByX(shakeWidth);
-            shake.setCycleCount(3);
+            shake.setCycleCount(6);
             shake.setAutoReverse(true);
-            shake.setDuration(Duration.millis(100));
+            shake.setDuration(Duration.millis(50));
             shake.play();
             shake.setOnFinished(v -> {
                 container.translateXProperty().bind(currentPopups.get(currentPopups.size() - 1).getContainerXCenter().subtract(container.widthProperty().divide(2)));

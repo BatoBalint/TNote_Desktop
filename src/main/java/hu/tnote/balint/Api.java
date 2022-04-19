@@ -323,7 +323,9 @@ public class Api {
         String n = user.get("name").toString();
         String e = user.get("email").toString();
         int i = Integer.parseInt(user.get("id").toString());
+        String createdAt = user.get("created_at").toString();
         User.setToken(token);
+        User.setCreatedAt(createdAt);
         User.setUser(i, n, e);
     }
 

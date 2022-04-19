@@ -1,6 +1,7 @@
 package hu.tnote.balint;
 
 import hu.tnote.balint.Controllers.MainController;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
