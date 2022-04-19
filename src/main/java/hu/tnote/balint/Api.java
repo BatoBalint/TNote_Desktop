@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.Buffer;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,34 +21,44 @@ public class Api {
     private static final String TEST_TOKEN = "";
 
     //region Auth
-    public static void logout() throws IOException {
+    public static String logout() throws IOException {
         HttpURLConnection conn = postConn("logout");
         setBearer(conn, User.getToken());
         conn.connect();
 
-        checkStatusCode(conn);
         User.setToken("");
+        return getResponse(conn);
     }
 
-    public static void login(String email, String password) throws IOException, ParseException {
+    public static int login(String email, String password) throws IOException, ParseException {
         HashMap<String, String> loginData = new HashMap<>();
         loginData.put("email", email);
         loginData.put("password", password);
 
         HttpURLConnection conn = sendPostData("login", loginData, "");
-        checkStatusCode(conn);
-        processReceivedAuthData(conn);
+
+        int statuscode = conn.getResponseCode();
+        if (statuscode / 100 == 2) {
+            processReceivedAuthData(conn);
+        }
+
+        return statuscode;
     }
 
-    public static void register(String name, String email, String password) throws IOException, ParseException {
+    public static int register(String name, String email, String password) throws IOException, ParseException {
         HashMap<String, String> regData = new HashMap<>();
         regData.put("name", name);
         regData.put("email", email);
         regData.put("password", password);
 
         HttpURLConnection conn = sendPostData("register", regData, "");
-        checkStatusCode(conn);
-        processReceivedAuthData(conn);
+
+        int statuscode = conn.getResponseCode();
+        if (statuscode / 100 == 2) {
+            processReceivedAuthData(conn);
+        }
+
+        return statuscode;
     }
     //endregion
 
@@ -229,6 +240,28 @@ public class Api {
             is.close();
             throw new RuntimeException(String.valueOf(s));
         }
+    }
+
+    private static String getResponse(HttpURLConnection conn) throws IOException {
+        int statusCode = conn.getResponseCode();
+        StringBuilder s = new StringBuilder();
+        s.append(statusCode).append("|");
+
+        InputStreamReader is;
+        if (statusCode / 100 > 2) is = new InputStreamReader(conn.getErrorStream());
+        else is = new InputStreamReader(conn.getInputStream());
+        BufferedReader br = new BufferedReader(is);
+
+        String line = br.readLine();
+        while (line != null && !line.equals("")) {
+            s.append(line);
+            line = br.readLine();
+        }
+
+        br.close();
+        is.close();
+
+        return s.toString();
     }
 
     private static void writeResponseMessage(HttpURLConnection conn) throws IOException {

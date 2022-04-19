@@ -168,10 +168,14 @@ public class TTElementEditorController extends Controller {
                     new Popup("Sikeres mentés").setColor("#22FF44")
                             .setTextColor("#00AA11").setCloseTimer(2000)
                             .withFadeInAndOut().show();
+                    windowManager.changeToTimetable();
                 } catch (IOException e) {
                     e.printStackTrace();
                     new Popup("Valami okból kifolyólag nem sikerült a mentés")
                             .setColor("#FF2222").setTextColor("990000").show();
+                    try {
+                        windowManager.changeToTimetable();
+                    } catch (IOException ignored) {}
                 }
             } else {
                 try {
@@ -179,14 +183,18 @@ public class TTElementEditorController extends Controller {
                     new Popup("Sikeres mentés").setColor("#22FF44")
                             .setTextColor("#00AA11").setCloseTimer(2000)
                             .withFadeInAndOut().show();
+                    windowManager.changeToTimetable();
                 } catch (IOException e) {
                     e.printStackTrace();
                     new Popup("Valami okból kifolyólag nem sikerült a mentés")
                             .setColor("#FF2222").setTextColor("990000").show();
+                    try {
+                        windowManager.changeToTimetable();
+                    } catch (IOException ignored) {}
                 }
             }
             try {
-                windowManager.changeToFxml("/hu/tnote/balint/InsideView/timetable-view.fxml");
+                windowManager.changeToTimetable();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -234,10 +242,14 @@ public class TTElementEditorController extends Controller {
                 new Popup("Sikeres törlés").setColor("#22FF44")
                         .setTextColor("#00AA11").setCloseTimer(2000)
                         .withFadeInAndOut().show();
+                windowManager.changeToTimetable();
             } catch (IOException e) {
                 e.printStackTrace();
                 new Popup("Valami okból kifolyólag nem sikerült a törlés")
                         .setColor("#FF2222").setTextColor("990000").show();
+                try {
+                    windowManager.changeToTimetable();
+                } catch (IOException ignored) {}
             }
         }
     }

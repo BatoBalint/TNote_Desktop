@@ -1,6 +1,7 @@
 package hu.tnote.balint.Controllers;
 
 import hu.tnote.balint.Api;
+import hu.tnote.balint.Popup;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -101,66 +102,79 @@ public class ReglogController extends Controller {
             String pass = passwordInputText.getText().trim();
             String passAgain = passwordAgainInputText.getText().trim();
 
-            String errors = checkInputs(name, email, pass, passAgain);
+            boolean ok = checkInputs(name, email, pass, passAgain);
 
-            if (errors.isEmpty()) {
+            if (ok) {
                 try {
-                    Api.register(name, email, pass);
-                    clearInputs();
-                    windowManager.changeToDashboard();
+                    int statuscode = Api.register(name, email, pass);
+                    if (statuscode / 100 == 2) {
+                        clearInputs();
+                        windowManager.changeToDashboard();
+                        new Popup("Sikeres regisztráció").setTextColor("#00EE00").setColor("green").setCloseTimer(4000).withFadeInAndOut().show();
+                    }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    new Popup("Valami okból kifolyólag nem sikerült a regisztráció").setTextColor("#550000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
                 }
-            } else alert(errors);
+            }
         } else {
             String email = emailInput.getText().trim();
             String pass = passwordInputText.getText().trim();
 
-            if (email.isEmpty() || pass.isEmpty()) return;
+            if (email.isEmpty()) {
+                new Popup("Az email cím megadása kötelező").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+                return;
+            } else if (pass.isEmpty()) {
+                new Popup("Az jelszó megadása kötelező").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+                return;
+            }
 
             try {
-                Api.login(email, pass);
-                clearInputs();
-                windowManager.changeToDashboard();
+                int statuscode = Api.login(email, pass);
+                if (statuscode / 100 == 2) {
+                    clearInputs();
+                    windowManager.changeToDashboard();
+                }
+                if (statuscode == 401) {
+                    new Popup("Helytelen email cím vagy jelszó").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+                }
             } catch (IOException | ParseException e) {
-                alert("Nem sikerült a bejelentkezés");
-                e.printStackTrace();
+                new Popup("Valami okból kifolyólag nem sikerült a bejelentkezés").setTextColor("#550000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
             }
         }
     }
 
-    private String checkInputs(String name, String email, String pass, String passAgain) {
-        String nameError = "";
-        String emailError = "";
-        String passError= "";
-
+    private boolean checkInputs(String name, String email, String pass, String passAgain) {
         if (name.isEmpty()) {
-            nameError = "A név nem lehet üres.";
+            new Popup("A név mező nem lehet üres").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+            return false;
         } else if (name.length() < 5) {
-            nameError = "A névnek legalább 5 karakternek kell lennie.";
+            new Popup("A névnek legalább 5 karakternek kell lennie").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+            return false;
         } else if (name.length() > 255) {
-            nameError = "A név nem lehet hosszabb 255 karakternél.";
+            new Popup("A név nem lehet hosszabb 255 karakternél").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+            return false;
         }
 
         if (email.isEmpty()) {
-            emailError = "Az email nem lehet üres.";
+            new Popup("Az email nem lehet üres").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+            return false;
         } else if (!emailFormatCheck(email)) {
-            emailError = "Az email nem jó formátúmú.";
+            new Popup("Az email nem jó formátúmú").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+            return false;
         }
 
         if (pass.isEmpty()) {
-            passError = "A jelszó nem lehet üres.";
+            new Popup("A jelszó nem lehet üres").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+            return false;
         } else if (pass.length() < 8) {
-            passError = "A jelszónak elegalább 8 karakternek kell lennie.";
+            new Popup("A jelszónak elegalább 8 karakternek kell lennie").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+            return false;
         } else if (!pass.equals(passAgain)) {
-            passError = "A két jelszó nem egyezik meg.";
+            new Popup("A két jelszó nem egyezik meg").setTextColor("#770000").setColor("red").setCloseTimer(4000).withFadeInAndOut().show();
+            return false;
         }
 
-        nameError = (nameError.isEmpty()) ? "" : nameError + "\n";
-        emailError = (emailError.isEmpty()) ? "" : emailError + "\n";
-        passError = (passError.isEmpty()) ? "" : passError + "\n";
-
-        return nameError + emailError + passError;
+        return true;
     }
 
     private boolean emailFormatCheck(String email) {

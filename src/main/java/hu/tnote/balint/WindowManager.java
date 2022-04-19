@@ -77,7 +77,6 @@ public class WindowManager {
         TimetableController c = loader.getController();
         c.setWindowManager(this);
         innerScrollpane.setContent(vbox);
-
         setScrollPaneScrollSpeed();
     }
 

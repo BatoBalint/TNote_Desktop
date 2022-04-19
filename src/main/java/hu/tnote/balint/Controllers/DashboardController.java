@@ -56,7 +56,7 @@ public class DashboardController extends Controller {
     @FXML
     public void logoutBtnClick() {
         try {
-            Api.logout();
+            System.out.println(Api.logout());
             windowManager.changeToRegLog();
         } catch (IOException e) {
             e.printStackTrace();

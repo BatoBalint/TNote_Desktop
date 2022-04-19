@@ -36,12 +36,6 @@ public class NoteEditorController extends Controller {
         uiInit();
 
         moreButtonSetup();
-
-        textArea.prefRowCountProperty().bind(lineCount.add(2));
-        lineCount.set(23);
-        textArea.textProperty().addListener((observableValue, s, t1) -> {
-            calculatePrefRowCount(t1);
-        });
     }
 
     private void uiInit() {
@@ -111,8 +105,12 @@ public class NoteEditorController extends Controller {
         noteTitle.setText(this.note.getTitle());
         textArea.setText(this.note.getContent());
 
-        calculatePrefRowCount(textArea.getText());
-        windowManager.scrollUp();
+        textArea.prefRowCountProperty().bind(lineCount);
+        lineCount.set(50);
+        textArea.textProperty().addListener((observableValue, s, t1) -> {
+            calculatePrefRowCount(t1);
+        });
+        calculatePrefRowCount(this.note.getContent());
     }
 
     @FXML
