@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
@@ -34,8 +35,6 @@ public class NoteEditorController extends Controller {
 
     public void initialize() {
         uiInit();
-
-        moreButtonSetup();
     }
 
     private void uiInit() {
@@ -48,6 +47,8 @@ public class NoteEditorController extends Controller {
     }
 
     private void moreButtonSetup() {
+        menuBtn.getItems().removeAll();
+
         menuBtn.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         MenuItem delete = new MenuItem("Törlés");
 
@@ -90,14 +91,16 @@ public class NoteEditorController extends Controller {
         });
 
 
-        menuBtn.getItems().add(delete);
-        menuBtn.getItems().add(test);
+        if (note.getId() != -1) menuBtn.getItems().add(delete);
+        if (menuBtn.getItems().size() == 0) menuBtn.getItems().add(test);
     }
 
     public void passData(Note note) {
         this.note = note;
         noteTitle.setText(this.note.getTitle());
         textArea.setText(this.note.getContent());
+
+        moreButtonSetup();
 
         textArea.prefHeightProperty().bind(WindowManager.getRootContainer().heightProperty().subtract(150));
     }
@@ -124,13 +127,14 @@ public class NoteEditorController extends Controller {
         } else {
             if (noteTitle.getText().trim().length() == 0) {
                 new Popup("A cím mező nem lehet üres")
-                        .setColor("#FF2222").setTextColor("#990000").show();
+                        .setColor("#FF2222").setTextColor("#990000").withFadeInAndOut().setCloseTimer(3000).show();
             } else {
                 try {
-                    Api.addNote(note.getId(), noteTitle.getText(), textArea.getText());
+                    note = Api.addNote(note.getId(), noteTitle.getText(), textArea.getText());
                     new Popup("Sikeres mentés").setColor("#22FF44")
                             .setTextColor("#00AA11").withFadeInAndOut().setCloseTimer(2000).show();
-                } catch (IOException e) {
+                    moreButtonSetup();
+                } catch (IOException | ParseException e ) {
                     new Popup("Valami okból kifolyólag nem sikerült a mentés")
                             .setColor("#FF2222").withFadeInAndOut().setTextColor("#990000").show();
                 }

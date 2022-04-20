@@ -95,15 +95,22 @@ public class Api {
         //writeResponseMessage(conn);
     }
 
-    public static void addNote(int id, String title, String content) throws IOException {
+    public static Note addNote(int id, String title, String content) throws IOException, ParseException {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("title", title);
         hashMap.put("content", content);
         hashMap.put("ownerId", User.getId() + "");
         HttpURLConnection conn = sendPostData("notes", hashMap, User.getToken());
 
+        JSONObject jsonObject = getJSONObject(conn);
+        Note note = new Note(Integer.parseInt(jsonObject.get("id").toString()),
+                Integer.parseInt(jsonObject.get("ownerId").toString()),
+                jsonObject.get("title").toString(),
+                (jsonObject.get("content") == null) ? "" : jsonObject.get("content").toString());
+
         checkStatusCode(conn);
         //writeResponseMessage(conn);
+        return note;
     }
 
     public static void deleteNote(int id) throws IOException {
