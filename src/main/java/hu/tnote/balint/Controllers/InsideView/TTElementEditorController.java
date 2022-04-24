@@ -45,70 +45,101 @@ public class TTElementEditorController extends Controller {
             if (change.isReplaced()) {
                 return change;
             }
+            System.out.println(change);
             if (change.isDeleted()) {
                 if (change.getAnchor() == 3 || change.getAnchor() == 6) {
                     change.setRange(change.getRangeStart() - 1, change.getControlText().length());
                 }
                 return change;
             }
-            if (change.isAdded() && change.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) {
-                return change;
-            } else if (change.getText().matches("[0-9]") && change.getControlText().length() < 8) {
-                switch (change.getAnchor()) {
-                    case 1: if (!(change.getControlText() + change.getText()).matches("[0-2]")) return null;
-                        break;
-                    case 2: if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3])")) return null;
-                        break;
-                    case 3: if (!(change.getControlText() + ":" + change.getText()).matches("([01][0-9]|2[0-3]):([0-5])")) return null;
-                        break;
-                    case 5: if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9])")) return null;
-                        break;
-                    case 6: if (!(change.getControlText() + ":" + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5])")) return null;
-                        break;
-                    case 8: if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) return null;
-                        break;
+            if (change.isAdded()) {
+                if (change.getText().length() + change.getControlText().length() > 8) return null;
+                if (change.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) return change;
+                if (change.getText().matches("[0-9]") && change.getControlText().length() < 8) {
+                    switch (change.getAnchor()) {
+                        case 1:
+                            if (!(change.getControlText() + change.getText()).matches("[0-2]")) return null;
+                            break;
+                        case 2:
+                            if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3])"))
+                                return null;
+                            break;
+                        case 3:
+                            if (!(change.getControlText() + ":" + change.getText()).matches("([01][0-9]|2[0-3]):([0-5])"))
+                                return null;
+                            break;
+                        case 5:
+                            if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9])"))
+                                return null;
+                            break;
+                        case 6:
+                            if (!(change.getControlText() + ":" + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5])"))
+                                return null;
+                            break;
+                        case 8:
+                            if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])"))
+                                return null;
+                            break;
+                    }
+                    if (change.getControlText().length() == 2 || change.getControlText().length() == 5) {
+                        change.setText(":" + change.getText());
+                        change.setAnchor(change.getAnchor() + 1);
+                        change.setCaretPosition(change.getCaretPosition() + 1);
+                    }
+                    return change;
                 }
-                if (change.getControlText().length() == 2 || change.getControlText().length() == 5) {
-                    change.setText(":" + change.getText());
-                    change.setAnchor(change.getAnchor() + 1);
-                    change.setCaretPosition(change.getCaretPosition() + 1);
-                }
-                return change;
             }
-            return null;
+            return change;
         }));
         endInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.isReplaced()) {
+                return change;
+            }
+            System.out.println(change);
             if (change.isDeleted()) {
                 if (change.getAnchor() == 3 || change.getAnchor() == 6) {
                     change.setRange(change.getRangeStart() - 1, change.getControlText().length());
                 }
                 return change;
             }
-            if (change.isAdded() && change.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) {
-                return change;
-            } else if (change.getText().matches("[0-9]") && change.getControlText().length() < 8) {
-                switch (change.getAnchor()) {
-                    case 1: if (!(change.getControlText() + change.getText()).matches("[0-2]")) return null;
-                        break;
-                    case 2: if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3])")) return null;
-                        break;
-                    case 3: if (!(change.getControlText() + ":" + change.getText()).matches("([01][0-9]|2[0-3]):([0-5])")) return null;
-                        break;
-                    case 5: if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9])")) return null;
-                        break;
-                    case 6: if (!(change.getControlText() + ":" + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5])")) return null;
-                        break;
-                    case 8: if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) return null;
-                        break;
+            if (change.isAdded()) {
+                if (change.getText().length() + change.getControlText().length() > 8) return null;
+                if (change.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) return change;
+                if (change.getText().matches("[0-9]") && change.getControlText().length() < 8) {
+                    switch (change.getAnchor()) {
+                        case 1:
+                            if (!(change.getControlText() + change.getText()).matches("[0-2]")) return null;
+                            break;
+                        case 2:
+                            if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3])"))
+                                return null;
+                            break;
+                        case 3:
+                            if (!(change.getControlText() + ":" + change.getText()).matches("([01][0-9]|2[0-3]):([0-5])"))
+                                return null;
+                            break;
+                        case 5:
+                            if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9])"))
+                                return null;
+                            break;
+                        case 6:
+                            if (!(change.getControlText() + ":" + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5])"))
+                                return null;
+                            break;
+                        case 8:
+                            if (!(change.getControlText() + change.getText()).matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])"))
+                                return null;
+                            break;
+                    }
+                    if (change.getControlText().length() == 2 || change.getControlText().length() == 5) {
+                        change.setText(":" + change.getText());
+                        change.setAnchor(change.getAnchor() + 1);
+                        change.setCaretPosition(change.getCaretPosition() + 1);
+                    }
+                    return change;
                 }
-                if (change.getControlText().length() == 2 || change.getControlText().length() == 5) {
-                    change.setText(":" + change.getText());
-                    change.setAnchor(change.getAnchor() + 1);
-                    change.setCaretPosition(change.getCaretPosition() + 1);
-                }
-                return change;
             }
-            return null;
+            return change;
         }));
     }
 
@@ -207,7 +238,7 @@ public class TTElementEditorController extends Controller {
     @FXML
     public void titleTyped() {
         if (titleInput.getText().trim().length() == 0) titleInput.getStyleClass().add("red");
-        else titleInput.getStyleClass().remove("red");
+        else titleInput.getStyleClass().removeAll("red");
     }
 
     @FXML
@@ -219,13 +250,13 @@ public class TTElementEditorController extends Controller {
     @FXML
     public void startTyped() {
         if (startInput.getText().length() == 0) startInput.getStyleClass().add("red");
-        else startInput.getStyleClass().remove("red");
+        else startInput.getStyleClass().removeAll("red");
     }
 
     @FXML
     public void endTyped() {
         if (endInput.getText().length() == 0) endInput.getStyleClass().add("red");
-        else endInput.getStyleClass().remove("red");
+        else endInput.getStyleClass().removeAll("red");
     }
 
     @FXML
