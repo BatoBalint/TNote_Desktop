@@ -45,7 +45,6 @@ public class TTElementEditorController extends Controller {
             if (change.isReplaced()) {
                 return change;
             }
-            System.out.println(change);
             if (change.isDeleted()) {
                 if (change.getAnchor() == 3 || change.getAnchor() == 6) {
                     change.setRange(change.getRangeStart() - 1, change.getControlText().length());
@@ -95,7 +94,6 @@ public class TTElementEditorController extends Controller {
             if (change.isReplaced()) {
                 return change;
             }
-            System.out.println(change);
             if (change.isDeleted()) {
                 if (change.getAnchor() == 3 || change.getAnchor() == 6) {
                     change.setRange(change.getRangeStart() - 1, change.getControlText().length());
