@@ -79,9 +79,9 @@ public class NoteEditorController extends Controller {
         });
         delete.getStyleClass().add("menuItemDelete");
 
-        MenuItem test = new MenuItem("Vissza");
+        MenuItem back = new MenuItem("Vissza");
 
-        test.setOnAction(actionEvent -> {
+        back.setOnAction(actionEvent -> {
             try {
                 menuBtn.hide();
                 windowManager.changeToNoteList();
@@ -91,8 +91,13 @@ public class NoteEditorController extends Controller {
         });
 
 
-        if (note.getId() != -1) menuBtn.getItems().add(delete);
-        if (menuBtn.getItems().size() == 0) menuBtn.getItems().add(test);
+        if (menuBtn.getItems().size() == 0) menuBtn.getItems().add(back);
+        if (note.getId() != -1) menuBtn.getItems().add(delete);     //corrects the menu button popup position
+        menuBtn.setOnShown(v -> {
+            menuBtn.hide();
+            menuBtn.setOnShown(v2 -> {});
+            menuBtn.show();
+        });
     }
 
     public void passData(Note note) {

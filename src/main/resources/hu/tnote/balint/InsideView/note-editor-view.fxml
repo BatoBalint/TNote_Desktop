@@ -23,7 +23,7 @@
             </HBox.margin>
             <HBox alignment="CENTER_RIGHT">
                 <Button onAction="#saveBtnClick" styleClass="saveBtn" text="Mentés" />
-                <MenuButton fx:id="menuBtn" nodeOrientation="RIGHT_TO_LEFT" styleClass="moreBtn" text="...">
+                <MenuButton fx:id="menuBtn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" nodeOrientation="RIGHT_TO_LEFT" styleClass="moreBtn" text="..." textAlignment="RIGHT">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin></MenuButton>
